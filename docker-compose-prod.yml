@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  database:
+    image: mariadb
+    restart: always
+    container_name: bd
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AMA
+      MYSQL_USER: ama
+      MYSQL_PASSWORD: ama
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - my-network
+
+  backend:
+    image: gfabianmm/ama:backend-latest
+    container_name: back
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    ports:
+      - '7130:7130'
+    depends_on:
+      - database
+    networks:
+      - my-network
+ 
+  frontend:
+    image: gfabianmm/ama:frontend-latest
+    container_name: front
+    restart: always
+    ports:
+      - '80:80'
+    depends_on:
+      - backend  
+    networks:
+      - my-network  
+    #volumes:
+    #  - front:/etc/nginx/conf.d
+
+networks:
+  my-network:
+
+volumes:
+  mariadb_data:
+  #front:

@@ -1,0 +1,25 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-heading header-general">
+        <h3 class="panel-title">Voluntario</h3>
+        <div class="btn-group" role="group" aria-label="Icon Buttons">
+          <button
+            pButton
+            type="button"
+            icon="pi pi-user"
+            label="Ingresar Nuevo Voluntario"
+            (click)="callNavigateToCreate()"
+            class="btn btn-primary btn-sm"
+          ></button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="contenedor-filtro row pb-4"></div>
+        <div class="donor-list-container">
+          <app-voluntario-list></app-voluntario-list>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

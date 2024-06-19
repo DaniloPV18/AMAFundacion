@@ -1,0 +1,29 @@
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="panel panel-default">
+      <div class="panel-heading header-general">
+        <h3 class="panel-title">Donantes</h3>
+        <p-toast></p-toast>
+         <button
+        pButton
+        type="button"
+        icon="pi pi-user"
+        label="Ingresar Nuevo Donante"
+        (click)="callNavigateToCreate();"
+        class="btn btn-primary btn-sm"
+      ></button>
+        <div class="btn-group" role="group" aria-label="Icon Buttons">
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="contenedor-filtro row pb-4"></div>
+        <div class="donor-list-container">
+          <app-donor-list></app-donor-list>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+
+
+<p-dialog header="Ingresar Nuevo Voluntario" [(visible)]="visible" [modal]="true">
+    <ng-template pTemplate="content">
+      <div class="container bg-white p-4 rounded">
+        <form [formGroup]="voluntarioForm" (ngSubmit)="guardarVoluntario()" class="needs-validation" novalidate>
+  
+          <!-- Sección de Identificación -->
+          <div class="mb-3">
+            <label for="identificacion" class="form-label">Identificación</label>
+            <input type="text" class="form-control" id="identificacion" formControlName="identificacion" required />
+            <div class="invalid-feedback">Por favor, ingrese una identificación.</div>
+          </div>
+  
+          <!-- Sección de Nombres -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="name" class="form-label">Primer Nombre</label>
+                <input type="text" class="form-control" id="name" formControlName="name" required />
+                <div class="invalid-feedback">Por favor, ingrese un nombre.</div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="secondname" class="form-label">Segundo Nombre</label>
+                <input type="text" class="form-control" id="secondname" formControlName="secondname" required />
+                <div class="invalid-feedback">Por favor, ingrese el segundo nombre.</div>
+              </div>
+            </div>
+  
+            <!-- Sección de Apellidos -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="lastname" class="form-label">Primer Apellido</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="lastname"
+                      formControlName="lastname"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese el primer apellido.
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="secondlastname" class="form-label">Segundo Apellido</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="secondlastname"
+                      formControlName="secondlastname"
+                      required
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese el segundo apellido.
+                    </div>
+                  </div>
+            </div>
+          </div>
+  
+          <!-- Sección de Información de Contacto -->
+          <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Celular</label>
+                    <input
+                      type="tel"
+                      class="form-control"
+                      id="phone"
+                      formControlName="phone"
+                      pattern="\d{10}"
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese un número de celular válido (10 dígitos).
+                    </div>
+                  </div>
+            
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Correo Electrónico</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      formControlName="email"
+                    />
+                    <div class="invalid-feedback">
+                      Por favor, ingrese un correo electrónico válido.
+                    </div>
+                  </div>
+            </div>
+  
+            <!-- Sección de Información Adicional (Género, Dirección, etc.) -->
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label for="genero_voluntario" class="form-label">Género</label>
+                    <input type="text" class="form-control" id="genero_voluntario" formControlName="genero_voluntario" required />
+                    <div class="invalid-feedback">Por favor, ingrese el género.</div>
+                </div>
+    
+                <div class="mb-3">
+                    <label for="direccion_voluntario" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion_voluntario" formControlName="direccion_voluntario" required />
+                    <div class="invalid-feedback">Por favor, ingrese la dirección.</div>
+                </div>
+            </div>
+          </div>
+  
+          <!-- Sección de Disponibilidad y Botones -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="disponibilidad" formControlName="disponibilidad" />
+                <label class="form-check-label" for="disponibilidad">Disponibilidad</label>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Botones de Guardar y Cancelar -->
+          <div class="flex align-items-center gap-2">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" (click)="closeDialog()" class="btn btn-danger">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </ng-template>
+  </p-dialog>
+  

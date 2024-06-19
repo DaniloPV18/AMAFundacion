@@ -1,0 +1,79 @@
+<!-- <ng-container *ngIf="loading; else content">
+  <app-spinner [visible]="loading"></app-spinner>
+</ng-container> -->
+
+<!-- <ng-template #content> -->
+  <div class="modal-body">
+      <form [formGroup]="brigadeForm">
+          <div class="row">
+            <div class="mb-3 col-auto" *ngIf="update">
+              <label for="iddonation">N° Brigada</label>
+              <input type="text" id="Id" formControlName="id" class="form-control" readonly />
+            </div>
+
+            <div class="mb-3 col">
+              <P class="form-label" for="name">Nombre de la Brigada</P>
+              <input type="text" id="name" formControlName="name" class="form-control" [readonly]="view" />
+              <app-error-display [control]="brigadeForm.get('name')" [minLength]="3"
+                [maxLength]="10"></app-error-display>
+            </div>
+          </div>
+          <div class="row">
+            <div class="mb-3 col">
+              <p class="form-label" for="personId">Responsable</p>
+              <app-dropdown id="personId" title="Seleccione un responsable" id="idPersona" [dataToDialog]="lsPersona" [confProp]="personaConfig"
+                [itemsProp]="itemsPersona" (itemChanged)="onItemChanged($event)" [disabledProp]="view">
+              </app-dropdown>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="mb-3 col">
+              <p class="form-label" for="description">Descripción</p>
+              <textarea rows="3" pInputTextarea [autoResize]="true" id="description" formControlName="description"
+                class="form-control" [readonly]="view"></textarea>
+            </div>
+          </div>
+            <div class="row">
+            <div class="mb-3 col">
+              <div class="form-group">
+                <label for="start">Fecha Inicio</label>
+                <div class="calendar-container">
+                  <div class="calendar-container">
+                    <p-calendar *ngIf="!view" placeholder="Seleccione la fecha Inicial" id="start"
+                      formControlName="start" [showIcon]="true" class="modal-calendar p-input-size d-flex"></p-calendar>
+                  </div>
+                  <div *ngIf="view" class="calendar-container" style="height: 40px !important">
+                    <input type="text" pInputText id="start" [value]="valorDate('start')" [readonly]="view"
+                      [disabled]="view" class="p-input-date h-100" />
+                    <button pButton type="button" icon="pi pi-calendar" class="p-button-rounded h-100"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 col">
+              <div class="form-group">
+                <label for="end">Fecha Fin</label>
+                <div class="calendar-container" *ngIf="!view">
+                  <p-calendar placeholder="Seleccione la fecha Fin" id="end" formControlName="end" [showIcon]="true"
+                    class="modal-calendar p-input-date p-input-size d-flex"></p-calendar>
+                </div>
+                <div class="calendar-container" style="height: 40px !important" *ngIf="view">
+                  <input type="text" pInputText id="end" [value]="valorDate('end')" [readonly]="view" [disabled]="view"
+                    class="p-input-date h-100" />
+                  <button pButton type="button" icon="pi pi-calendar" class="p-button-rounded h-100"></button>
+                </div>
+              </div>
+            </div>
+            <div class="mb-3 row">
+              <div class="col">
+            <button type="submit" (click)="InputData()" class="btn btn-primary" [disabled]="!brigadeForm.valid" *ngIf="!view">
+              {{ label }}
+            </button>
+          </div>
+          </div>
+        </div>
+      </form>
+  </div>
+
+<!-- </ng-template> -->

@@ -1,0 +1,49 @@
+<p-panel header="Consulta de Personas" *ngIf="IsOpen">
+    <div>
+        <form [formGroup]="formFilterConsult">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        N° Persona
+                    </div>
+                    <p-inputNumber mode="decimal" class="p-input-size"></p-inputNumber>
+                </div>
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Nombre Persona
+                    </div>
+                    <p-inputNumber mode="decimal" class="p-input-size"></p-inputNumber>
+                </div>
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Indentificación
+                    </div>
+                    <p-inputNumber mode="decimal" class="p-input-size"></p-inputNumber>
+                </div>
+        
+            </div>
+
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="row d-flex action grap-1">
+            <button type="button" pButton (click)="Buscar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-search"></i> Buscar
+                </span>
+            </button>
+            <button type="button" pButton (click)="clearFiltersEvent();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-eraser"></i> Limpiar
+                </span>
+            </button>
+            <button type="button" pButton (click)="Buscar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-times"></i> cerrar
+                </span>
+            </button>
+
+        </div>
+
+    </ng-template>
+</p-panel>

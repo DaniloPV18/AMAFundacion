@@ -1,0 +1,46 @@
+<div class="login-box">
+  <div class="card">
+    <div class="card-body login-card-body">
+      <div class="login-logo">
+        <img src="assets/img/logo.png" class="img-fluid">
+      </div>
+      <p class="login-box-msg">Inicia sesión para continuar</p>
+      <div action="home" method="get">
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Identificación"  id="user" [(ngModel)]="authRequest.User" >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Contraseña"  id="password" [(ngModel)]="authRequest.Password">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-6">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+                Recuerdame
+              </label>
+            </div>
+          </div> -->
+          <div class="col mb-3">
+            <button (click)="onLoginButtonClick()" class="btn btn-primary btn-block">Iniciar Sesión</button>
+          </div>
+
+        </div>
+      </div>
+      <p class="mb-1">
+        <a href="auth/reset-password">Olvide mi contraseña</a>
+      </p>
+    </div>
+  </div>
+</div>
+

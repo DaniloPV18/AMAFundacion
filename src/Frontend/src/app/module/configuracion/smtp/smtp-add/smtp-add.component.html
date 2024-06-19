@@ -1,0 +1,88 @@
+<section class="content-header">
+  <div class="p-1">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-left">
+            <li class="breadcrumb-item"><a [routerLink]="['/']">Inicio</a></li>
+            <li class="breadcrumb-item ">Configuraciones</li>
+            <li class="breadcrumb-item active">Correo</li>
+          </ol>
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            &nbsp;&nbsp;
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+  <div class="container-fluid">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Configuracion de servidor SMTP</h3>
+      </div>
+      <div class="card-body">
+        <form>
+          <div class="card-body">
+            <div class="row">
+              <div class="col" style="display:none">
+                <label for="CompanyId">CompanyId:</label>
+                <input [(ngModel)]="CompanyId" type="text" class="form-control" id="CompanyId" name="CompanyId"
+                  placeholder="Ingrese el CompanyId" required>
+              </div>
+
+              <div class="col" style="display:none">
+                <label for="Id">Id:</label>
+                <input [(ngModel)]="Id" type="text" class="form-control" id="Id" name="Id" placeholder="Ingrese el Id"
+                  required>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col  col-md-6">
+                <label for="usuario">Nombre a mostrar:</label>
+                <input [(ngModel)]="DisplayName" type="text" class="form-control" id="displayName" name="displayName"
+                  placeholder="Fundación AMA" required>
+              </div>
+              <div class="col  col-md-6">
+                <label for="email">Correo:</label>
+                <input [(ngModel)]="Mail" type="mail" class="form-control" id="mail" name="mail"
+                  placeholder="info@ama.com" required>
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+
+              <div class="col col-md-6">
+                <label for="usuario">Contrase&ntilde;a:</label>
+                <input [(ngModel)]="Password" type="password" class="form-control" id="password" name="password"  required>
+              </div>
+
+              <div class="col">
+                <label for="host">Host:</label>
+                <input [(ngModel)]="Host" type="text" class="form-control" id="host" name="host"
+                  placeholder="ama.smtp.com" required>
+              </div>
+
+              <div class="col">
+                <label for="puerto">Puerto:</label>
+                <input [(ngModel)]="Port" name="port" type="number" class="form-control" id="port"
+                  placeholder="587" required>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button (click)="onAddSMTP()" class="btn btn-success mr-3">Actualizar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

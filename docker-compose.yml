@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  database:
+    container_name: database
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: AMA
+      MYSQL_USER: ama
+      MYSQL_PASSWORD: ama
+    ports:
+      - 3306:3306
+    networks:
+      - my-network
+
+  backend:
+    container_name: back
+    build:
+      context: .
+      dockerfile: src/Backend/src/FundacionAMA.API/Dockerfile
+    #image: gfabianmm/ama:backend-latest
+    environment:  
+      - ASPNETCORE_ENVIRONMENT=Development
+      # - ASPNETCORE_URLS=http://+:7130
+      # - DATABASE_HOST=database  # Asegúrate de usar este host en tu aplicación backend
+    ports:
+      - '7130:7130'
+    depends_on:
+      - database
+    networks:
+      - my-network
+ 
+  frontend:
+    container_name: front
+    build:
+      context: .
+      dockerfile: src/Frontend/Dockerfile.frontend
+    #image: gfabianmm/ama:frontend-latest
+    ports:
+      - '4200:80'
+    networks:
+      - my-network 
+
+networks:
+  my-network:

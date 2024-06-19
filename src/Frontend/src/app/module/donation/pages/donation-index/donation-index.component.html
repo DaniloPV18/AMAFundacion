@@ -1,0 +1,41 @@
+
+<section class="content-header">
+  <div class="p-1">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-left">
+            <li class="breadcrumb-item"><a [routerLink]="['/']">Inicio</a></li>
+            <li class="breadcrumb-item"> <a [routerLink]="['/brigate/index']">Brigadas</a> </li>
+            <li class="breadcrumb-item active">Listado de Donaciones</li>
+          </ol>
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            &nbsp;&nbsp;
+            <button pButton class="btn btn-secondary" type="button" icon="pi pi-filter-fill" iconPos="left"
+              (click)="openCloseFilter()">&nbsp;Filtros Consulta</button> &nbsp;&nbsp;
+            <button pButton class="btn btn-success" type="button" icon="fas fa-plus" iconPos="left"
+              (click)="NavigateToCreate()"> &nbsp;Crear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+  <div class="container-fluid">
+
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Donaciones</h3>
+      </div>
+      <div class="card-body">
+        <app-donation-filter [openContentReceiver] ="openFilterPanel"(queryEmitter) = "getPersonRequestFilter($event)"> </app-donation-filter>
+        <br/>
+        <app-donation-details [isUpdateListDetails]="isUpdateListDetails" [searchFilter]="cambios"> </app-donation-details>
+      </div>
+    </div>
+  </div>
+</div>

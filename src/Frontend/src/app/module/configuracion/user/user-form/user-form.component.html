@@ -1,0 +1,63 @@
+
+  <div class="content">
+    <div class="modal-body">
+      <form [formGroup]="userForm">
+      <div class="col-12">
+
+        <div class="mb-3 row" [hidden]="true">
+          <label  class="col-4 col-form-label">Id:</label>
+          <div class="col">
+            <input type="text" formControlName="id" id="id" >
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label  class="col-4 col-form-label">Identificación:</label>
+          <div class="col">
+            <input type="text" formControlName="identification" [readonly]="!isNewUser" [ngClass]="{'form-control-plaintext': !isNewUser, 'form-control': isNewUser}" >
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label  class="col-4 col-form-label">Nombre:</label>
+          <div class="col">
+            <input type="text" formControlName="name" formControlName="name" class="form-control" formControlName="name" >
+          </div>
+        </div>
+
+        <div class="mb-3 row">
+          <label  class="col-4 col-form-label">Email:</label>
+          <div class="col">
+            <input type="text" formControlName="email" class="form-control" id="email">
+          </div>
+        </div>
+        <div class="mb-3 row">
+          <label  class="col-4 col-form-label">Estado:</label>
+          <div class="col">
+            <select class="form-control" formControlName="status" id="status" >
+              <option value="A">Activo</option>
+              <option value="I">Eliminado</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <label  class="col-4 col-form-label">Contraseña *</label>
+          <div class="col">
+            <input type="password" formControlName="password"  class="form-control" id="password">
+          </div>
+        </div>
+        <div class="row" *ngIf="update">
+          <div class="col-12">
+            <strong><small><code>* La contraseña no se actualizará si deja vacia</code></small></strong>
+          </div>
+        </div>
+
+      </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" (click)="closeDialog()" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      &nbsp;&nbsp;
+      <button type="submit" (click)="Save()" class="btn btn-success" [disabled]="!userForm.valid">Guardar</button>
+    </div>
+  </div>

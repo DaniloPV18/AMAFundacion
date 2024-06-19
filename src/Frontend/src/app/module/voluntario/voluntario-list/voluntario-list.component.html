@@ -1,0 +1,110 @@
+<div class="content">
+  <div class="container-fluid">
+    <div class="row mt-3">
+      <div class="col-12">
+        <!-- Lista de voluntarios -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Lista de Voluntarios</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <p-table
+                [value]="voluntarioList"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} registros"
+                class="cell-border table table-striped table-bordered table-sm"
+              >
+                <ng-template pTemplate="header">
+                  <tr style="font-size: 14px">
+                    <th style="width: 5%" class="d-none d-md-table-cell">ID</th>
+                    <th>Nombre</th>
+                    <th>Genero</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>disponoibilidad</th>
+                    <th>Acciones</th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-voluntario>
+                  <tr style="font-size: 14px">
+                    <td>{{ voluntario.personId }}</td>
+                    <td>{{ voluntario.person.nameCompleted }}</td>
+                    <td>{{ voluntario.gender }}</td>
+                    <td>{{ voluntario.address }}</td>
+                    <td>{{ voluntario.status }}</td>
+                    <td>{{ voluntario.person?.email }}</td>
+                    <!-- Asegúrate de que person esté definido antes de acceder a email -->
+                    <td>{{ voluntario.availability ? "Sí" : "No" }}</td>
+
+                    <td>
+                      <div
+                        class="btn-group"
+                        style="display: flex; align-items: center"
+                      >
+                       
+                        <button
+                          (click)="verDetalles(voluntario)"
+                          class="p-element p-button-rounded p-button-success p-button p-component p-button-icon-only"
+                          style="
+                            margin-right: 5px;
+                            border-radius: 5px;
+                            height: 2.3rem;
+                            width: 2.4rem;
+                          "
+                        >
+                          <i class="pi pi-eye" style="font-size: 10px"></i>
+                        </button>
+
+                        <button
+                          (click)=" EditData(voluntario.person)"
+                          class="p-btn-action p-button p-button-rounded p-button-warning p-button-icon-only"
+                          style="
+                            margin-right: 5px;
+                            border-radius: 5px;
+                            height: 2.3rem;
+                            width: 2.4rem;
+                          "
+                        >
+                          <i class="pi pi-pencil" style="font-size: 10px"></i>
+                        </button>
+
+                        <p-button
+                          (click)="confirmacionEliminar($event, voluntario)"
+                          icon="pi pi-trash"
+                          styleClass="p-btn-action p-button-danger p-button-rounded p-button-icon-only"
+                          [style]="{
+                            'border-radius': '5px',
+                            'font-size': '10px',
+                             height: '2.3rem',
+                             width: '2.4rem'
+                          }"
+                        ></p-button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <tr *ngIf="voluntario.expandido">
+                    <td colspan="12">
+                      <p>Fecha de Inicio: {{ voluntario.startDate }}</p>
+                      <p>Fecha Final: {{ voluntario.endDate }}</p>
+                      <p>Actividad: {{ voluntario.ActividadV }}</p>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <p-toast></p-toast>
+              <p-confirmDialog></p-confirmDialog>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
