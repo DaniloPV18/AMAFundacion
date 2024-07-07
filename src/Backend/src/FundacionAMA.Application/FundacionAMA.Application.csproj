@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Report\ResetPasswordMail.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FundacionAMA.Domain\FundacionAMA.Domain.csproj" />
+		<ProjectReference Include="..\FundacionAMA.Infrastructure\FundacionAMA.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Report\ResetPasswordMail.html">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+</Project>

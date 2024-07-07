@@ -1,0 +1,51 @@
+
+<p-table [value]="lsBrigade" [paginator]="true" [lazy]="true" [rows]="10" (onLazyLoad)="loadBrigadeLazy($event)"
+  [totalRecords]="totalRows" [showCurrentPageReport]="true" scrollDirection="vertical"
+  currentPageReportTemplate="{last} de {totalRecords}" class="table"
+  selectionMode="single">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th pSortableColumn="id">
+        <div class="col-12 mb-1">
+          <div class="text-center flex justify-content-center align-items-center">
+            N° Brigada
+            <p-sortIcon field="code"></p-sortIcon>
+          </div>
+
+        </div>
+        <div class="col-12">
+          <p-columnFilter type="text" field="id" matchMode="contains" [showMenu]="false"
+            (paste)="onKeyDownLettersAndNumbers($event)" (keypress)="onKeyDownLettersAndNumbers($event)"
+            (input)="onInput($event)"></p-columnFilter>
+        </div>
+      </th>
+
+      <th pSortableColumn="name">
+        <div class="col-12 mb-1">
+          <div class="text-center flex justify-content-center align-items-center">
+            Nombre Brigada &nbsp; &nbsp;
+            <p-sortIcon field="code"></p-sortIcon>
+          </div>
+        </div>
+        <div class="col-12">
+          <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
+            (paste)="onKeyDownLettersAndNumbers($event)" (keypress)="onKeyDownLettersAndNumbers($event)"
+            (input)="onInput($event)"></p-columnFilter>
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-dataBrigade let-rowIndex="rowIndex">
+
+    <tr [pSelectableRow]="dataBrigade" (dblclick)="onRowDblClick($event, dataBrigade)">
+      <td class="text-center">{{dataBrigade.id}}</td>
+      <td>{{dataBrigade.name}}</td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="2">No existen registros.</td>
+    </tr>
+  </ng-template>
+</p-table>

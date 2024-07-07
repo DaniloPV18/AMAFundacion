@@ -1,0 +1,15 @@
+version:'3.1'
+
+services:
+	mariadb:
+		image: mariadb
+		container_name: maridan
+		environment:
+			MYSQL_ROOT_PASSWORD:root
+			MYSQL_DATABASE: AMA
+			MYSQL_USER: ama
+			MYSQL_PASSWORD: ama
+		ports:
+			- "3306:3306"
+		volumes:
+			-./maridan:/var/lib/mysql

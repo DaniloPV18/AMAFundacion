@@ -1,0 +1,50 @@
+<div *ngIf="IsOpen">
+  <form [formGroup]="formFilterConsult">
+    <div class="row">
+      <div class=" col-auto">
+        <p class="form-label">N° Donación</p>
+        <input pInputText formControlName="id" class="p-input-size" />
+      </div>
+      <!--
+        Filtro tipo de donación no es necesario
+        <div class=" col-auto">
+        <p for="donationTypeId">Tipo donacion</p>
+        <select id="donationTypeId" formControlName="donationTypeId" class="form-control">
+          <option value="" disabled selected>Seleccione una opción</option>
+          <option *ngFor="let option of idDonationType" [value]="option.id">{{ option.name }}</option>
+        </select>
+        <app-error-display [control]="formFilterConsult.get('donationTypeId')"></app-error-display>
+
+      </div> -->
+      <div class=" col-auto">
+        <p class="form-label">Nombre Donación</p>
+        <input pInputText formControlName="name" class="p-input-size" />
+      </div>
+      <div class="col-auto">
+        <p class="form-label">Dontante</p>
+        <app-dropdown id="personId" title="Seleccione un donante" [dataToDialog]="lsPersona" [confProp]="personaConfig"
+          [itemsProp]="itemsPersona" (itemChanged)="onItemChanged($event)">
+        </app-dropdown>
+      </div>
+      <div class="col-auto">
+        <br />
+        <button type="button" pButton (click)="Buscar()" class="mt-2 btn btn-primary">
+          <i class="pi pi-search"></i> Buscar
+        </button>
+      </div>
+      <div class="col-auto">
+        <br />
+        <button type="button" pButton (click)="clearFiltersEvent()" class="mt-2 btn btn-secondary">
+          <i class="pi pi-eraser"></i> Limpiar
+        </button>
+      </div>
+      <!-- <div class="col-auto">
+          <br/>
+          <button type="button" pButton (click)="closed()"
+            class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+            <span class="p-button-label"> <i class="pi pi-times"></i> cerrar </span>
+          </button>
+        </div> -->
+    </div>
+  </form>
+</div>

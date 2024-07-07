@@ -1,0 +1,1 @@
+﻿global using ControllerBase = FundacionAMA.API.Extension.ControllerBase;

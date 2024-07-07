@@ -1,0 +1,71 @@
+<p-panel header="Consulta de beneficiarios" *ngIf="IsOpen">
+  <div>
+    <form [formGroup]="formFilterConsult">
+      <div class="row">
+        <!-- <div class="col-md-3">
+          <div class="negrita-label-form">Id beneficiario</div>
+          <input pInputText formControlName="PersonId" class="p-input-size" />
+        </div> -->
+        <div class="col-md-3">
+          <div class="negrita-label-form">Identificación</div>
+          <input
+            type="text"
+            pInputText
+            formControlName="Identification"
+            class="p-input-size"
+          />
+        </div>
+        <div class="col-md-3">
+          <div class="negrita-label-form">Nombre</div>
+          <input
+            type="text"
+            pInputText
+            formControlName="Name"
+            class="p-input-size"
+          />
+        </div>
+        <div class="col-md-3">
+          <div class="negrita-label-form">Email</div>
+          <input
+            type="text"
+            pInputText
+            formControlName="Email"
+            class="p-input-size"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="row d-flex action grap-1">
+      <button
+        type="button"
+        pButton
+        (click)="Buscar()"
+        class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style"
+      >
+        <span class="p-button-label">
+          <i class="pi pi-search"></i> Buscar
+        </span>
+      </button>
+      <button
+        type="button"
+        pButton
+        (click)="clearFiltersEvent()"
+        class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style"
+      >
+        <span class="p-button-label">
+          <i class="pi pi-eraser"></i> Limpiar
+        </span>
+      </button>
+      <button
+        type="button"
+        pButton
+        (click)="closed()"
+        class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style"
+      >
+        <span class="p-button-label"> <i class="pi pi-times"></i> cerrar </span>
+      </button>
+    </div>
+  </ng-template>
+</p-panel>
