@@ -7,6 +7,7 @@ import { ConfSystemServiceService } from '../../../../data/conf-system-service.s
 import { ChangeItemDropdown, ConfigurationDropdownProp, DynamicDataToDialog, ItemDropdown } from '../../../../core/interfaces/ItemDropdown.models';
 import { TypeDonation } from '../../../../core/configSystem/type-donation';
 import { DonationForm } from '../../interfaces/donation-form';
+import { TextValidatorService } from '../../../../core/validators/text-validator.service';
 
 @Component({
   selector: 'app-donation-create-or-edit',
@@ -37,7 +38,8 @@ export class DonationCreateOrEditComponent implements OnInit {
     private formService: FormService,
     private donationService: DonationService,
     private configService: ConfSystemServiceService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private readonly textValidatorService: TextValidatorService
   ) { }
 
   ngOnInit(): void {
@@ -227,4 +229,12 @@ export class DonationCreateOrEditComponent implements OnInit {
       identificationTypeId: value // Actualiza el valor de identificationTypeId en el formulario
     });
   }
+
+  calculateTotal(): number {
+    const price = this.donationForm.get('price')?.value ?? 0;
+    const amount = this.donationForm.get('amount')?.value ?? 0;
+    return Math.abs(price * amount);
+  }
+
+  onInputNumberPositive = (event: any) => this.textValidatorService.preventNegativeNumbers(event);  
 }

@@ -160,4 +160,12 @@ export class TextValidatorService {
     return true;
   }
 
+  preventNegativeNumbers(event: any) {
+    const inputElement = event.target as HTMLInputElement;
+    let value = inputElement.value;
+    // Remove any character that is not a digit
+    value = value.replace(/[^0-9]/g, '');
+    inputElement.value = value;
+  }
+
 }
