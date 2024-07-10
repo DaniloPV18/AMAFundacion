@@ -1,12 +1,10 @@
-
 <ng-template #content class="mt-5">
   <div class="row">
     <div class="col-md-12 col-lg-12">
       <p-table class="table table-sm table-striped" [value]="listadonations" [paginator]="true"
         (onLazyLoad)="loadDataTableLazy($event)" [rows]="10" [totalRecords]="totalRows" [lazy]="true"
         [showCurrentPageReport]="true" scrollDirection="vertical"
-        currentPageReportTemplate="Mostrando {last} de {totalRecords}" selectionMode="single"
-        >
+        currentPageReportTemplate="Mostrando {last} de {totalRecords}" selectionMode="single">
         <ng-template pTemplate="header">
           <tr>
             <th>N° Donación</th>
@@ -33,6 +31,13 @@
             </td>
           </tr>
         </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="4">No existen registros.</td>
+          </tr>
+        </ng-template>        
+
       </p-table>
     </div>
   </div>
