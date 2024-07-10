@@ -85,13 +85,13 @@ export class DonationCreateOrEditComponent implements OnInit {
     this.formData = {
       name: '',
       amount: 0,
-      assignedAt: new Date(),
-
-      donationTypeId: 0,
+      donationTypeId: -1,
       price: 0,
       total: 0,
-      personId: 0,
-      brigadeId: 0
+      personId: -1,
+      brigadeId: -1,
+
+      assignedAt: new Date(),
     };
     this.donationForm = this.formService.createFormGroup<DonationForm>(this.formData);
     this.validator();
@@ -102,6 +102,8 @@ export class DonationCreateOrEditComponent implements OnInit {
     this.donationForm.get('donationTypeId')?.setValidators([Validators.required, Validators.min(0)]);
     this.donationForm.get('personId')?.setValidators([Validators.required, Validators.min(0)]);
     this.donationForm.get('brigadeId')?.setValidators([Validators.required, Validators.min(0)]);
+    this.donationForm.get('price')?.setValidators([Validators.required, Validators.min(1)]);
+    this.donationForm.get('amount')?.setValidators([Validators.required, Validators.min(1)]);
   }
 
   InitializerDataPerson() {
