@@ -15,5 +15,5 @@ public partial class Donor: BaseEntity
 
     public virtual ICollection<Donation> Donations { get; set; } = new List<Donation>();
 
-    public virtual Person? Person { get; set; }
+    public virtual Person Person { get; set; }
 }

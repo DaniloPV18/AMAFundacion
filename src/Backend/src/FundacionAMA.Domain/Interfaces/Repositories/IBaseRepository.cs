@@ -23,6 +23,9 @@ public interface IBaseRepository<T> : IDisposable where T : class
     Task InsertAsync(T entity);
 
     Task DeleteAsync(T brigada);
+
+    Task DeleteDonorPerson(T DonorPerson);
+
     void SaveChanges(IOperationRequest? request = null);
     Task SaveChangesAsync(IOperationRequest? request = null);
     Task UpdateAsync(T entity);
