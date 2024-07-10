@@ -54,7 +54,7 @@ export class DonorListComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    console.log("hola");
+
     this.Cargar_datos();
   }
   Cargar_datos(): void{
@@ -79,7 +79,6 @@ export class DonorListComponent implements OnInit, OnChanges {
     this.getPerson(); 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     for (let change in changes) {
       if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();
@@ -192,7 +191,6 @@ export class DonorListComponent implements OnInit, OnChanges {
 
   confirmacionEliminar(event: Event,donor: any) {
     this.numeroDeClicks++;
-    console.log("🚀 ~ TuComponente ~ confirmacionEliminar ~ numeroDeClicks:", this.numeroDeClicks);
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Desea eliminar este registro?',
@@ -203,9 +201,8 @@ export class DonorListComponent implements OnInit, OnChanges {
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
-        console.log("eliminado")
-        console.log(donor);
-        this.totalRows -= 1;
+
+       this.totalRows -= 1;
        this.eliminarDonante(donor.personId);
       },
       reject: () => {

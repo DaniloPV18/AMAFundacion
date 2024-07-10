@@ -37,11 +37,6 @@ namespace FundacionAMA.Domain.Services
         {
             throw new NotImplementedException();
         }
-
-        //public Task<IOperationResult> Delete(IOperationRequest<int> id)
-        //{
-        //    throw new NotImplementedException();
-        //}
       
         public async Task<IOperationResult> Delete(IOperationRequest<int> id)
         {
