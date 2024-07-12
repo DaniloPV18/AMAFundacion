@@ -53,7 +53,6 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
         });
       },
     });
-    this.GetDonation();
   }
   EditData(donationDto: any) {
     this.NavigateUpdate(donationDto);
@@ -171,8 +170,11 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
           detail: 'Registro eliminado',
           life: 3000,
         });
+        this.GetDonation();
       },
-      error: () => {},
+      error: () => {
+        this.GetDonation();
+      },
     });
   }
 }
