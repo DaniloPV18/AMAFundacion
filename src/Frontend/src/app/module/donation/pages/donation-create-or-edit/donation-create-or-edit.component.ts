@@ -100,7 +100,7 @@ export class DonationCreateOrEditComponent implements OnInit {
     };
 
     this.donationForm = this.fb.group({
-      name: [this.formData.name, [Validators.required]],
+      name: [this.formData.name, [Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern("^(?!\\s*$).+\n")]],
       assignedAt: [this.formData.assignedAt, [Validators.required]],
       amount: [this.formData.amount, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],
       donationTypeId: [this.formData.donationTypeId, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],

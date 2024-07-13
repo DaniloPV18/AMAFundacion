@@ -8,7 +8,7 @@
       <div class="col">
         <label for="name">Nombre Donación</label>
         <input type="text" [readonly]="view" id="name" formControlName="name" class="form-control"/>
-        <app-error-display [control]="donationForm.get('name')" [minLength]="3" [maxLength]="10"></app-error-display>
+        <app-error-display [control]="donationForm.get('name')" [minLength]="10" [maxLength]="30"></app-error-display>
       </div>
 
       <div class=" col-auto">
@@ -48,7 +48,7 @@
 
     <div class="row">
       <div class="mb-3 col">
-        <label for="donationTypeId">Tipo donacion</label>
+        <label for="donationTypeId">Tipo donación</label>
         <div *ngIf="view; else editTemplate">
           <input type="text" id="donationTypeId" class="form-control" [value]="getDonationTypeName()" readonly />
         </div>
