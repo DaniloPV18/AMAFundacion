@@ -27,19 +27,12 @@ import { TypeDonation } from '../../../../core/configSystem/type-donation';
   styleUrl: './donation-filter.component.sass',
 })
 export class DonationFilterComponent implements OnInit, OnChanges {
+  @Output() queryEmitter = new EventEmitter<DonationFilter>();
+  @Input() openContentReceiver: boolean = false;
   personaConfig!: ConfigurationDropdownProp;
   itemsPersona!: ItemDropdown[];
   lsPersona!: DynamicDataToDialog;
   idDonationType: TypeDonation[] = [];
-
-  onItemChanged(eventData: ChangeItemDropdown) {
-    if (eventData && eventData.conf.Id === 'idPersona') {
-      this.formFilterConsult.get('personId')?.setValue(eventData.data.code);
-    }
-  }
-
-  @Output() queryEmitter = new EventEmitter<DonationFilter>();
-  @Input() openContentReceiver: boolean = false;
 
   IsOpen: boolean = false;
   formFilterConsult!: FormGroup;
@@ -74,6 +67,12 @@ export class DonationFilterComponent implements OnInit, OnChanges {
       if (propName === 'openContentReceiver') {
         this.IsOpen = !this.IsOpen;
       }
+    }
+  }
+
+  onItemChanged(eventData: ChangeItemDropdown) {
+    if (eventData && eventData.conf.Id === 'idPersona') {
+      this.formFilterConsult.get('personId')?.setValue(eventData.data.code);
     }
   }
 

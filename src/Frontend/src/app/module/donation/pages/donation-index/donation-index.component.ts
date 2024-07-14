@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DonationCreateOrEditComponent } from '../donation-create-or-edit/donation-create-or-edit.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { DonationFilter } from '../../interfaces/donation-filter';
@@ -31,6 +30,7 @@ export class DonationIndexComponent {
   }
   openFilterPanel: boolean = true;
   entityFilterRequest: DonationFilter | undefined;
+
   constructor(
     private dialogService: DialogService,
     private donationService: DonationService
@@ -39,6 +39,7 @@ export class DonationIndexComponent {
   openCloseFilter() {
     this.openFilterPanel = !this.openFilterPanel;
   }
+
   getPersonRequestFilter(event: DonationFilter) {
     this.entityFilterRequest = event;
 

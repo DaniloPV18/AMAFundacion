@@ -15,74 +15,28 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-donation-details',
-
   templateUrl: './donation-details.component.html',
   styleUrl: './donation-details.component.sass',
 })
 export class DonationDetailsComponent implements OnInit, OnChanges {
   @Input() isUpdateListDetails: boolean = false;
   @Input() searchFilter: any = {};
-
-  DeleteData(donationDto: any, event: Event) {
-    this.confirmationService.confirm({
-      target: event.target as EventTarget,
-      message: '¿Estás seguro de realizar este proceso?',
-      header: 'Confirmación',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: 'p-button-danger p-button-text',
-      rejectButtonStyleClass: 'p-button-text p-button-text',
-      acceptIcon: 'none',
-      rejectIcon: 'none',
-      acceptLabel: 'Confirmar',
-      rejectLabel: 'Cancelar',
-      accept: () => {
-        donationDto = this.listaDonations.filter(
-          (item) => item.id === donationDto.id
-        )[0];
-        donationDto.status = 'E';
-        this.totalRows -= 1;
-        this.DeleteDonation(donationDto.id);
-      },
-      reject: () => {
-        this.messageService.add({
-          severity: 'warn',
-          summary: '',
-          detail: 'Registro no eliminado',
-          life: 3000,
-        });
-      },
-    });
-  }
-  EditData(donationDto: any) {
-    this.NavigateUpdate(donationDto);
-    this.GetDonation();
-  }
-  ViewData(donationDto: any) {
-    this.NavigateView(donationDto);
-  }
-  NavigateView(donationDto: any) {
-    this.dialogService.open(DonationCreateOrEditComponent, {
-      header: 'Ver Donación',
-      width: '75%',
-      height: '100%',
-      data: { update: true, donation: donationDto, view: true },
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
-      baseZIndex: 10000,
-    });
-  }
   loading: boolean = false;
   listaDonations: DonationDto[] = [];
   totalRows: number = 0;
   donationFiler!: DonationFilter;
+
   constructor(
     private dialogService: DialogService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private donationService: DonationService
   ) {}
+
   ngOnInit(): void {
     this.GetDonation();
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     for (let propName in changes) {
       if (propName === 'isUpdateListDetails' && this.isUpdateListDetails) {
@@ -115,6 +69,58 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       error: (error) => {},
     });
   }
+
+  DeleteData(donationDto: any, event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: '¿Estás seguro de realizar este proceso?',
+      header: 'Confirmación',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass: 'p-button-danger p-button-text',
+      rejectButtonStyleClass: 'p-button-text p-button-text',
+      acceptIcon: 'none',
+      rejectIcon: 'none',
+      acceptLabel: 'Confirmar',
+      rejectLabel: 'Cancelar',
+      accept: () => {
+        donationDto = this.listaDonations.filter(
+          (item) => item.id === donationDto.id
+        )[0];
+        donationDto.status = 'E';
+        this.totalRows -= 1;
+        this.DeleteDonation(donationDto.id);
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'warn',
+          summary: '',
+          detail: 'Registro no eliminado',
+          life: 3000,
+        });
+      },
+    });
+  }
+
+  EditData(donationDto: any) {
+    this.NavigateUpdate(donationDto);
+    this.GetDonation();
+  }
+
+  ViewData(donationDto: any) {
+    this.NavigateView(donationDto);
+  }
+
+  NavigateView(donationDto: any) {
+    this.dialogService.open(DonationCreateOrEditComponent, {
+      header: 'Ver Donación',
+      width: '75%',
+      height: '100%',
+      data: { update: true, donation: donationDto, view: true },
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+    });
+  }
+
   NavigateUpdate(donationDto: DonationDto) {
     this.dialogService
       .open(DonationCreateOrEditComponent, {
@@ -135,6 +141,7 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
         }
       });
   }
+
   loadDataTableLazy(event: any) {
     let sortCol = event.sortField;
     let sortColOrder = event.sortOrder;

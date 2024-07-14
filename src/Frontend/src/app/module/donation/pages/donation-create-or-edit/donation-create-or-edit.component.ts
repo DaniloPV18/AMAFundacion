@@ -153,6 +153,20 @@ export class DonationCreateOrEditComponent implements OnInit {
     this.donationForm
       .get('brigadeId')
       ?.setValidators([Validators.required, Validators.min(0)]);
+    this.donationForm
+      .get('price')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('^\\d+(\\.\\d{1,2})?$'),
+        Validators.min(0.1),
+      ]);
+    this.donationForm
+      .get('amount')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.min(1),
+      ]);
   }
 
   InitializerDataPerson() {
@@ -180,9 +194,7 @@ export class DonationCreateOrEditComponent implements OnInit {
     this.lsBrigade = { Params: [] };
     this.brigadeConfig = {
       Id: 'IdBrigade',
-
       Name: 'Brigade',
-      width: '40%',
       Tooltip: 'Search Brigade',
       Dataset: 'BrigadeDto',
       NameComponent: 'BrigadeDialogComponent',
@@ -298,6 +310,7 @@ export class DonationCreateOrEditComponent implements OnInit {
     const total = (price * amount).toFixed(2);
     this.donationForm.get('total')?.setValue(total);
   }
+
   getDonationTypeName(): string {
     const selectedId = this.donationForm.get('donationTypeId')?.value;
     const selectedType = this.idDonationType.find(
