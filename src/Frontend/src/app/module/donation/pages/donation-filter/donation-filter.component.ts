@@ -6,25 +6,25 @@ import {
   OnChanges,
   OnInit,
   Output,
-  SimpleChanges
+  SimpleChanges,
 } from '@angular/core';
-import {DonationFilter} from '../../interfaces/donation-filter';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FormService} from '../../../../shared/services/from.service';
+import { DonationFilter } from '../../interfaces/donation-filter';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormService } from '../../../../shared/services/from.service';
 import {
   ChangeItemDropdown,
   ConfigurationDropdownProp,
   DynamicDataToDialog,
-  ItemDropdown
+  ItemDropdown,
 } from '../../../../core/interfaces/ItemDropdown.models';
-import {ConfSystemServiceService} from '../../../../data/conf-system-service.service';
-import {TypeDonation} from '../../../../core/configSystem/type-donation';
+import { ConfSystemServiceService } from '../../../../data/conf-system-service.service';
+import { TypeDonation } from '../../../../core/configSystem/type-donation';
 
 @Component({
   selector: 'app-donation-filter',
 
   templateUrl: './donation-filter.component.html',
-  styleUrl: './donation-filter.component.sass'
+  styleUrl: './donation-filter.component.sass',
 })
 export class DonationFilterComponent implements OnInit, OnChanges {
   personaConfig!: ConfigurationDropdownProp;
@@ -34,10 +34,8 @@ export class DonationFilterComponent implements OnInit, OnChanges {
 
   onItemChanged(eventData: ChangeItemDropdown) {
     if (eventData && eventData.conf.Id === 'idPersona') {
-
       this.formFilterConsult.get('personId')?.setValue(eventData.data.code);
     }
-
   }
 
   @Output() queryEmitter = new EventEmitter<DonationFilter>();
@@ -45,26 +43,23 @@ export class DonationFilterComponent implements OnInit, OnChanges {
 
   IsOpen: boolean = false;
   formFilterConsult!: FormGroup;
-  fomrDonationFilter!: DonationFilter;
+  formDonationFilter!: DonationFilter;
 
-  constructor(private formService: FormService,
-              private configService: ConfSystemServiceService,
-              private cdr: ChangeDetectorRef,
-              private fb: FormBuilder
-  ) {
-
-  }
+  constructor(
+    private formService: FormService,
+    private configService: ConfSystemServiceService,
+    private cdr: ChangeDetectorRef,
+    private fb: FormBuilder
+  ) {}
 
   GetetTypeDonation() {
-    this.configService.getTypeDonation().subscribe(
-      (result) => {
+    this.configService.getTypeDonation().subscribe({
+      next: (result) => {
         this.idDonationType = result;
         this.cdr.detectChanges();
       },
-      (error) => {
-
-      }
-    );
+      error: (error) => {},
+    });
   }
 
   ngOnInit(): void {
@@ -98,27 +93,25 @@ export class DonationFilterComponent implements OnInit, OnChanges {
     this.itemsPersona = [];
   }
 
-
   closed() {
     this.clearFiltersEvent();
     this.IsOpen = !this.IsOpen;
   }
 
   InitializerData() {
-    this.lsPersona = {Params: [], dataFilter: {donor: true}};
+    this.lsPersona = { Params: [], dataFilter: { donor: true } };
     this.personaConfig = {
       Id: 'idPersona',
       Name: 'Persona',
       Tooltip: 'Search Persona',
       Dataset: 'Persona',
-      NameComponent: 'PersonDialogComponet'
+      NameComponent: 'PersonDialogComponet',
     };
     this.itemsPersona = [];
-
   }
 
   buildForm() {
-    this.fomrDonationFilter = {
+    this.formDonationFilter = {
       id: undefined,
       name: undefined,
       donationTypeId: undefined,
@@ -127,13 +120,15 @@ export class DonationFilterComponent implements OnInit, OnChanges {
       offset: 0,
       take: 10,
       sort: '',
-
     };
 
     this.formFilterConsult = this.fb.group({
-      id: [this.fomrDonationFilter.id, [Validators.pattern('[0-9]*')]],
-      name: [this.fomrDonationFilter.name],
-      personId: [this.fomrDonationFilter.personId, [Validators.pattern('[0-9]*')]]
+      id: [this.formDonationFilter.id, [Validators.pattern('[0-9]*')]],
+      name: [this.formDonationFilter.name],
+      personId: [
+        this.formDonationFilter.personId,
+        [Validators.pattern('[0-9]*')],
+      ],
     });
   }
 

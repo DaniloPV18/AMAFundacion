@@ -12,7 +12,7 @@ import { Console } from 'console';
   styleUrls: ['./donor-create.component.sass'],
 })
 export class DonorCreateComponent implements OnInit {
-  visible: boolean =true;
+  visible: boolean = true;
   donorForm: FormGroup;
   donante: any;
 
@@ -21,44 +21,40 @@ export class DonorCreateComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private donorService: DonorService,
-    private messageService: MessageService, 
+    private messageService: MessageService,
     @Inject(MAT_DIALOG_DATA) private data: any
   ) {
     this.donante = data ? data.donante : null;
-    
+
     this.donorForm = this.fb.group({
       identificacion: ['', Validators.required],
       firstName: ['', Validators.required],
       secondName: ['', Validators.required],
       firstLastName: ['', Validators.required],
       secondLastName: ['', Validators.required],
-     // nombreCompleto:['', Validators.required],
+      // nombreCompleto:['', Validators.required],
       phone: ['', Validators.pattern(/^\d{10}$/)],
-      email:  ['', Validators.required],
+      email: ['', Validators.required],
       status: [false],
     });
-  
 
     if (this.donante) {
-      
       this.donorForm.patchValue({
         identificacion: this.donante.identificacion,
         firstName: this.donante.firstName,
         secondName: this.donante.secondName,
         firstLastName: this.donante.firstLastName,
         secondLastName: this.donante.secondLastName,
-       // nombreCompleto:this.donante.nombreCompleto,
+        // nombreCompleto:this.donante.nombreCompleto,
         phone: this.donante.phone,
         email: this.donante.email,
         status: this.donante.status,
-
       });
     }
   }
-  
 
   ngOnInit(): void {}
-/*
+  /*
   guardarDonante() {
 
 
@@ -97,37 +93,50 @@ export class DonorCreateComponent implements OnInit {
       }
     }
   }*/
- 
+
   guardarDonante() {
     if (this.donorForm.valid) {
-      
       const formData = this.donorForm.value;
       if (this.donante) {
-
-        this.donorService.updateDonor(this.donante.id_donante, formData).subscribe(
-          (response) => {
-
-            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Donante actualizado con éxito' });     
-            this.dialogRef.close();
-          },
-          (error) => {
-
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al actualizar el donante' });
-            console.error('Error al actualizar el donante:', error);
-          }
-        );
+        this.donorService
+          .updateDonor(this.donante.id_donante, formData)
+          .subscribe({
+            next: (response) => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Éxito',
+                detail: 'Donante actualizado con éxito',
+              });
+              this.dialogRef.close();
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: 'Error al actualizar el donante',
+              });
+              console.error('Error al actualizar el donante:', error);
+            },
+          });
       } else {
-        this.donorService.postDonor(formData).subscribe(
-
-          (response) => {
-            this.messageService.add({ severity: 'success', summary: 'Éxito', detail: 'Donante guardado con éxito' });
+        this.donorService.postDonor(formData).subscribe({
+          next: (response) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Éxito',
+              detail: 'Donante guardado con éxito',
+            });
             this.dialogRef.close();
           },
-          (error) => {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al guardar el donante' });
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al guardar el donante',
+            });
             console.error('Error al guardar el donante:', error);
-          }
-        );
+          },
+        });
       }
     }
   }
@@ -141,4 +150,3 @@ export class DonorCreateComponent implements OnInit {
     this.dialogRef.close();
   }
 }
-

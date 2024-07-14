@@ -5,7 +5,6 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DonationCreateOrEditComponent } from '../donation-create-or-edit/donation-create-or-edit.component';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Sort } from '../../../../core/interfaces/sort';
@@ -37,7 +36,7 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       acceptLabel: 'Confirmar',
       rejectLabel: 'Cancelar',
       accept: () => {
-        donationDto = this.listadonations.filter(
+        donationDto = this.listaDonations.filter(
           (item) => item.id === donationDto.id
         )[0];
         donationDto.status = 'E';
@@ -72,7 +71,7 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
     });
   }
   loading: boolean = false;
-  listadonations: DonationDto[] = [];
+  listaDonations: DonationDto[] = [];
   totalRows: number = 0;
   donationFiler!: DonationFilter;
   constructor(
@@ -92,7 +91,7 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       if (propName === 'searchFilter') {
         if (changes[propName].currentValue) {
           console.log(changes[propName].currentValue);
-          this.listadonations =
+          this.listaDonations =
             changes[propName].currentValue.listabeneficiarios;
           this.totalRows = changes[propName].currentValue.totalRows;
           this.loading = changes[propName].currentValue.loading;
@@ -107,23 +106,27 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       sort: '',
     };
 
-    this.donationService.GetAlldonations(this.donationFiler).subscribe(
-      (result) => {
-        this.listadonations = result.result;
+    this.donationService.GetAlldonations(this.donationFiler).subscribe({
+      next: (result) => {
+        this.listaDonations = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
   NavigateUpdate(donationDto: DonationDto) {
     this.dialogService
       .open(DonationCreateOrEditComponent, {
         header: 'Actualizar Donación',
-        width: '75%',
-        height: '100%',
+        width: 'auto',
+        style: {
+          'max-height': '90%',
+          'max-width': '80%',
+          overflow: 'auto',
+        },
+        height: 'auto',
         data: { update: true, donation: donationDto },
-        contentStyle: { 'max-height': '80%', overflow: 'auto' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
@@ -151,14 +154,14 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
     this.donationFiler.sort = sortStr;
     this.donationFiler.take = take;
     this.donationFiler.offset = offset;
-    this.donationService.GetAlldonations(this.donationFiler).subscribe(
-      (result) => {
-        this.listadonations = result.result;
+    this.donationService.GetAlldonations(this.donationFiler).subscribe({
+      next: (result) => {
+        this.listaDonations = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
 
   private DeleteDonation(id: number) {

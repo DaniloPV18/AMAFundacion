@@ -28,7 +28,6 @@ import {
 export class DonorListComponent implements OnInit, OnChanges {
   @Input() isUpdateListDetails: boolean = false;
 
-  
   EditData(PersonDto: any) {
     this.NavigateUpdate(PersonDto);
   }
@@ -41,7 +40,7 @@ export class DonorListComponent implements OnInit, OnChanges {
   donorList: any[] = [];
   donorListFiltered: any[] = [];
   donanteSeleccionado: any;
-  
+
   numeroDeClicks = 0;
 
   constructor(
@@ -56,8 +55,8 @@ export class DonorListComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.getPerson();
 
-    this.donorService.getDonorList().subscribe(
-      (response) => {
+    this.donorService.getDonorList().subscribe({
+      next: (response) => {
         this.donorList = response.result;
         this.filterService.filtro$.subscribe((filtros) => {
           this.aplicarFiltros(filtros);
@@ -65,13 +64,13 @@ export class DonorListComponent implements OnInit, OnChanges {
 
         this.aplicarFiltros({ nombreFiltro: '', numeroFiltro: null });
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al obtener datos:', error);
-      }
-    );
+      },
+    });
   }
   handleUpdateListDetails() {
-    this.getPerson(); 
+    this.getPerson();
   }
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);
@@ -88,14 +87,14 @@ export class DonorListComponent implements OnInit, OnChanges {
       sort: '',
     };
 
-    this.personService.getAllPersons(this.personFiler).subscribe(
-      (result) => {
+    this.personService.getAllPersons(this.personFiler).subscribe({
+      next: (result) => {
         this.listaPersonas = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
   NavigateUpdate(personDto: PersonDto) {
     this.dialogService
@@ -132,14 +131,14 @@ export class DonorListComponent implements OnInit, OnChanges {
     this.personFiler.sort = sortStr;
     this.personFiler.take = take;
     this.personFiler.offset = offset;
-    this.personService.getAllPersons(this.personFiler).subscribe(
-      (result) => {
+    this.personService.getAllPersons(this.personFiler).subscribe({
+      next: (result) => {
         this.listaPersonas = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
 
   aplicarFiltros(filtros: any) {
@@ -165,8 +164,8 @@ export class DonorListComponent implements OnInit, OnChanges {
   }
 
   private eliminarDonante(id: number) {
-    this.donorService.deleteDonor(id).subscribe(
-      (result) => {
+    this.donorService.deleteDonor(id).subscribe({
+      next: (result) => {
         this.getPerson();
         this.messageService.add({
           severity: 'info',
@@ -174,43 +173,42 @@ export class DonorListComponent implements OnInit, OnChanges {
           detail: 'Donante eliminado exitosamente',
         });
       },
-      (error) => {
+      error: (error) => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
           detail: 'Error al eliminar el donante',
         });
-      }
-    );
+      },
+    });
   }
 
-  confirmacionEliminar(event: Event,donor: any) {
+  confirmacionEliminar(event: Event, donor: any) {
     this.numeroDeClicks++;
-    console.log("🚀 ~ TuComponente ~ confirmacionEliminar ~ numeroDeClicks:", this.numeroDeClicks);
+    console.log(
+      '🚀 ~ TuComponente ~ confirmacionEliminar ~ numeroDeClicks:',
+      this.numeroDeClicks
+    );
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Desea eliminar este registro?',
-      header: 'Confirmación de Eliminación', 
+      header: 'Confirmación de Eliminación',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
-        console.log("eliminado")
-       // this.eliminarDonante(donor.id);
+        console.log('eliminado');
+        // this.eliminarDonante(donor.id);
       },
       reject: () => {
-       
-
         this.messageService.add({
           severity: 'error',
           summary: 'Rechazado',
-          detail: 'Eliminacion Cancelada',
+          detail: 'Eliminación Cancelada',
         });
       },
     });
   }
-  
-
 }
