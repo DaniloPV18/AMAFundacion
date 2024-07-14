@@ -1,29 +1,65 @@
 <div class="modal-body">
   <form [formGroup]="donationForm" class="container-fluid">
     <div class="row">
-      <div class="col-sm-4 col-md-2 " *ngIf="update">
+      <div class="col-sm-4 col-md-2" *ngIf="update">
         <label for="id">N° donación</label>
-        <input type="text" id="id" formControlName="id" class="form-control" [attr.readonly]="update ? true : null"/>
+        <input
+          type="text"
+          id="id"
+          formControlName="id"
+          class="form-control"
+          [attr.readonly]="update ? true : null"
+        />
       </div>
       <div class="col">
         <label for="name">Nombre Donación</label>
-        <input type="text" [readonly]="view" id="name" formControlName="name" class="form-control"/>
-        <app-error-display [control]="donationForm.get('name')" [minLength]="10" [maxLength]="30"></app-error-display>
+        <input
+          type="text"
+          [readonly]="view"
+          id="name"
+          formControlName="name"
+          class="form-control"
+        />
+        <app-error-display
+          [control]="donationForm.get('name')"
+          [minLength]="10"
+          [maxLength]="30"
+        ></app-error-display>
       </div>
 
-      <div class=" col-auto">
+      <div class="col-auto">
         <div class="form-group">
           <label for="assignedAt">Fecha Inicio</label>
           <div class="calendar-container">
             <div class="calendar-container">
-              <p-calendar *ngIf="!view && !update" placeholder="Seleccione la fecha Inicial"
-                          formControlName="assignedAt" [showIcon]="true"
-                          class="modal-calendar p-input-size d-flex"></p-calendar>
+              <p-calendar
+                *ngIf="!view && !update"
+                placeholder="Seleccione la fecha Inicial"
+                formControlName="assignedAt"
+                [showIcon]="true"
+                class="modal-calendar p-input-size d-flex"
+              ></p-calendar>
             </div>
-            <div *ngIf="view || update" class="calendar-container d-flex" style="height: 40px !important">
-              <input type="text" pInputText id="assignedAt" [value]="valorDate('assignedAt')"
-                     [readonly]="view || update" [disabled]="view || update" class="p-input-date h-100 form-control"/>
-              <button pButton type="button" icon="pi pi-calendar" class="p-input-date h-100"></button>
+            <div
+              *ngIf="view || update"
+              class="calendar-container d-flex"
+              style="height: 40px !important"
+            >
+              <input
+                type="text"
+                pInputText
+                id="assignedAt"
+                [value]="valorDate('assignedAt')"
+                [readonly]="view || update"
+                [disabled]="view || update"
+                class="p-input-date h-100 form-control"
+              />
+              <button
+                pButton
+                type="button"
+                icon="pi pi-calendar"
+                class="p-input-date h-100"
+              ></button>
             </div>
           </div>
         </div>
@@ -32,16 +68,28 @@
     <div class="row">
       <div class="mb-3 col">
         <label for="idPersona">Donante</label>
-        <app-dropdown id="idPersona" title="Selecione un donante" [dataToDialog]="lsPersona" [disabledProp]="view"
-                      [confProp]="personaConfig"
-                      [itemsProp]="itemsPersona" (itemChanged)="onItemChanged($event)">
+        <app-dropdown
+          id="idPersona"
+          title="Seleccione un donante"
+          [dataToDialog]="lsPersona"
+          [disabledProp]="view"
+          [confProp]="personaConfig"
+          [itemsProp]="itemsPersona"
+          (itemChanged)="onItemChanged($event)"
+        >
         </app-dropdown>
       </div>
       <div class="mb-3 col">
         <label for="idBrigade">Brigada</label>
-        <app-dropdown id="idBrigade" title="Selecione una brigada" [dataToDialog]="lsBrigade" [confProp]="brigadeConfig"
-                      [itemsProp]="itemsBrigade"
-                      (itemChanged)="onItemChangedBrigade($event)" [disabledProp]="view || update">
+        <app-dropdown
+          id="idBrigade"
+          title="Seleccione una brigada"
+          [dataToDialog]="lsBrigade"
+          [confProp]="brigadeConfig"
+          [itemsProp]="itemsBrigade"
+          (itemChanged)="onItemChangedBrigade($event)"
+          [disabledProp]="view || update"
+        >
         </app-dropdown>
       </div>
     </div>
@@ -50,42 +98,89 @@
       <div class="mb-3 col">
         <label for="donationTypeId">Tipo donación</label>
         <div *ngIf="view; else editTemplate">
-          <input type="text" id="donationTypeId" class="form-control" [value]="getDonationTypeName()" readonly />
+          <input
+            type="text"
+            id="donationTypeId"
+            class="form-control"
+            [value]="getDonationTypeName()"
+            readonly
+          />
         </div>
         <ng-template #editTemplate>
-          <select id="donationTypeId" formControlName="donationTypeId" class="form-control">
+          <select
+            id="donationTypeId"
+            formControlName="donationTypeId"
+            class="form-control"
+          >
             <option value="" disabled selected>Seleccione una opción</option>
             <option *ngFor="let option of idDonationType" [value]="option.id">
               {{ option.name }}
             </option>
           </select>
-          <app-error-display [control]="donationForm.get('donationTypeId')"></app-error-display>
+          <app-error-display
+            [control]="donationForm.get('donationTypeId')"
+          ></app-error-display>
         </ng-template>
       </div>
 
       <div class="mb-3 col">
         <label for="amount">Cantidad</label>
-        <input type="text" id="amount" [readonly]="view" formControlName="amount" class="form-control" (input)="onInputChange($event)" (change)="updateTotal()"/>
-        <app-error-display [control]="donationForm.get('amount')" [pattern]="'numero o decimal'"></app-error-display>
+        <input
+          type="text"
+          id="amount"
+          [readonly]="view"
+          formControlName="amount"
+          class="form-control"
+          (input)="onInputChange($event)"
+          (change)="updateTotal()"
+        />
+        <app-error-display
+          [control]="donationForm.get('amount')"
+          [pattern]="'numero o decimal'"
+        ></app-error-display>
       </div>
     </div>
     <div class="row">
       <div class="mb-3 col">
         <label for="price">Precio</label>
-        <input type="text" [readonly]="view" id="price" formControlName="price" class="form-control" (change)="updateTotal()"/>
-        <app-error-display [control]="donationForm.get('price')" [pattern]="'numero o decimal'"></app-error-display>
+        <input
+          type="text"
+          [readonly]="view"
+          id="price"
+          formControlName="price"
+          class="form-control"
+          (change)="updateTotal()"
+        />
+        <app-error-display
+          [control]="donationForm.get('price')"
+          [pattern]="'numero o decimal'"
+        ></app-error-display>
       </div>
       <div class="mb-3 col">
         <label for="total">Total</label>
-        <input type="text" [readonly]="true" id="total" formControlName="total" class="form-control"/>
-        <app-error-display [control]="donationForm.get('total')" [pattern]="'numero o decimal'"></app-error-display>
+        <input
+          type="text"
+          [readonly]="true"
+          id="total"
+          formControlName="total"
+          class="form-control"
+        />
+        <app-error-display
+          [control]="donationForm.get('total')"
+          [pattern]="'numero o decimal'"
+        ></app-error-display>
       </div>
     </div>
 
-    <div class="mb-3 row">
+    <div class="row">
       <div class="col">
-        <button type="submit" (click)="InputData()" class="btn btn-primary" [disabled]="donationForm.invalid || disableSubmit"
-                *ngIf="!view">
+        <button
+          type="submit"
+          (click)="InputData()"
+          class="btn btn-primary"
+          [disabled]="donationForm.invalid || disableSubmit"
+          *ngIf="!view"
+        >
           {{ label }}
         </button>
       </div>

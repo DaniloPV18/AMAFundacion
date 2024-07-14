@@ -107,23 +107,27 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       sort: '',
     };
 
-    this.donationService.GetAlldonations(this.donationFiler).subscribe(
-      (result) => {
+    this.donationService.GetAlldonations(this.donationFiler).subscribe({
+      next: (result) => {
         this.listadonations = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
   NavigateUpdate(donationDto: DonationDto) {
     this.dialogService
       .open(DonationCreateOrEditComponent, {
         header: 'Actualizar Donación',
-        width: '75%',
-        height: '100%',
+        width: 'auto',
+        style: {
+          'max-height': '90%',
+          'max-width': '80%',
+          overflow: 'auto',
+        },
+        height: 'auto',
         data: { update: true, donation: donationDto },
-        contentStyle: { 'max-height': '80%', overflow: 'auto' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
@@ -151,14 +155,14 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
     this.donationFiler.sort = sortStr;
     this.donationFiler.take = take;
     this.donationFiler.offset = offset;
-    this.donationService.GetAlldonations(this.donationFiler).subscribe(
-      (result) => {
+    this.donationService.GetAlldonations(this.donationFiler).subscribe({
+      next: (result) => {
         this.listadonations = result.result;
         this.totalRows = result.length;
         this.loading = false;
       },
-      (error) => {}
-    );
+      error: (error) => {},
+    });
   }
 
   private DeleteDonation(id: number) {
