@@ -54,6 +54,10 @@ export class DonorListComponent implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
+
+    this.Cargar_datos();
+  }
+  Cargar_datos(): void{
     this.getPerson();
 
     this.donorService.getDonorList().subscribe(
@@ -69,12 +73,12 @@ export class DonorListComponent implements OnInit, OnChanges {
         console.error('Error al obtener datos:', error);
       }
     );
-  }
+  } 
+
   handleUpdateListDetails() {
     this.getPerson(); 
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     for (let change in changes) {
       if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();
@@ -167,7 +171,8 @@ export class DonorListComponent implements OnInit, OnChanges {
   private eliminarDonante(id: number) {
     this.donorService.deleteDonor(id).subscribe(
       (result) => {
-        this.getPerson();
+        //this.getPerson();
+        this.Cargar_datos();
         this.messageService.add({
           severity: 'info',
           summary: 'Confirmado',
@@ -186,7 +191,6 @@ export class DonorListComponent implements OnInit, OnChanges {
 
   confirmacionEliminar(event: Event,donor: any) {
     this.numeroDeClicks++;
-    console.log("🚀 ~ TuComponente ~ confirmacionEliminar ~ numeroDeClicks:", this.numeroDeClicks);
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Desea eliminar este registro?',
@@ -197,8 +201,9 @@ export class DonorListComponent implements OnInit, OnChanges {
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
-        console.log("eliminado")
-       // this.eliminarDonante(donor.id);
+
+       this.totalRows -= 1;
+       this.eliminarDonante(donor.personId);
       },
       reject: () => {
        
