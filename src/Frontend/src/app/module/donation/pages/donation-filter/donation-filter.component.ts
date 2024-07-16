@@ -1,11 +1,24 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DonationFilter } from '../../interfaces/donation-filter';
-import { FormGroup } from '@angular/forms';
-import { FormService } from '../../../../shared/services/from.service';
-import { ChangeItemDropdown, ConfigurationDropdownProp, DynamicDataToDialog, ItemDropdown } from '../../../../core/interfaces/ItemDropdown.models';
-import { ConfSystemServiceService } from '../../../../data/conf-system-service.service';
-import { TypeDonation } from '../../../../core/configSystem/type-donation';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
+import {DonationFilter} from '../../interfaces/donation-filter';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormService} from '../../../../shared/services/from.service';
+import {
+  ChangeItemDropdown,
+  ConfigurationDropdownProp,
+  DynamicDataToDialog,
+  ItemDropdown
+} from '../../../../core/interfaces/ItemDropdown.models';
+import {ConfSystemServiceService} from '../../../../data/conf-system-service.service';
+import {TypeDonation} from '../../../../core/configSystem/type-donation';
 
 @Component({
   selector: 'app-donation-filter',
@@ -26,6 +39,7 @@ export class DonationFilterComponent implements OnInit, OnChanges {
     }
 
   }
+
   @Output() queryEmitter = new EventEmitter<DonationFilter>();
   @Input() openContentReceiver: boolean = false;
 
@@ -34,11 +48,10 @@ export class DonationFilterComponent implements OnInit, OnChanges {
   fomrDonationFilter!: DonationFilter;
 
   constructor(private formService: FormService,
-    private configService: ConfSystemServiceService,
-    private cdr: ChangeDetectorRef
-
-
-    ) {
+              private configService: ConfSystemServiceService,
+              private cdr: ChangeDetectorRef,
+              private fb: FormBuilder
+  ) {
 
   }
 
@@ -69,7 +82,7 @@ export class DonationFilterComponent implements OnInit, OnChanges {
     }
   }
 
-  Buscar() {
+  search() {
     this.queryEmitter.emit(this.formFilterConsult.value);
   }
 
@@ -90,8 +103,9 @@ export class DonationFilterComponent implements OnInit, OnChanges {
     this.clearFiltersEvent();
     this.IsOpen = !this.IsOpen;
   }
+
   InitializerData() {
-    this.lsPersona = { Params: [],dataFilter:{donor: true } };
+    this.lsPersona = {Params: [], dataFilter: {donor: true}};
     this.personaConfig = {
       Id: 'idPersona',
       Name: 'Persona',
@@ -115,8 +129,17 @@ export class DonationFilterComponent implements OnInit, OnChanges {
       sort: '',
 
     };
-    this.formFilterConsult = this.formService.createFormGroup<DonationFilter>(
-      this.fomrDonationFilter
-    );
+
+    this.formFilterConsult = this.fb.group({
+      id: [this.fomrDonationFilter.id, [Validators.pattern('[0-9]*')]],
+      name: [this.fomrDonationFilter.name],
+      personId: [this.fomrDonationFilter.personId, [Validators.pattern('[0-9]*')]]
+    });
+  }
+
+  onInputChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[^0-9]/g, '');
+    this.formFilterConsult.get('id')?.setValue(input.value);
   }
 }
