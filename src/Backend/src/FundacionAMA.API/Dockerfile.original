@@ -1,0 +1,29 @@
+# Etapa de compilación
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+EXPOSE 5000
+# Copia y restaura las dependencias del proyecto FundacionAMA.API
+COPY ./FundacionAMA/src/Backend/src ./
+RUN dotnet restore ./FundacionAMA.API/FundacionAMA.API.csproj
+
+
+RUN dotnet publish ./FundacionAMA.API/FundacionAMA.API.csproj -c Release -o out
+
+ 
+
+# Etapa de publicación
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS runtime
+WORKDIR /app
+
+# Copia los archivos publicados desde la etapa de compilación
+COPY --from=build /app/out .
+
+# Establece las variables de entorno necesarias para .NET en Alpine, si aplica
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false \
+    LC_ALL=en_US.UTF-8 \
+    LANG=en_US.UTF-8
+
+# Ejecuta la aplicación
+CMD ["dotnet", "FundacionAMA.API.dll"]

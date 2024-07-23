@@ -1,0 +1,99 @@
+<!-- <p-panel header="Consulta de Personas" *ngIf="IsOpen">
+    <div>
+        <form [formGroup]="formFilterConsult">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        N° Persona
+                    </div>
+                    <input type="number"  class="p-input-size">
+                </div>
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Nombre Persona
+                    </div>
+                    
+                    <input type="text" class="p-input-size">
+                </div>
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Indentificación
+                    </div>
+                    <input type="number"  class="p-input-size">
+                </div>
+        
+            </div>
+
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="row d-flex action grap-1">
+            <button type="button" pButton (click)="Buscar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-search"></i> Buscar
+                </span>
+            </button>
+            <button type="button" pButton (click)="clearFiltersEvent();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-eraser"></i> Limpiar
+                </span>
+            </button>
+            <button type="button" pButton (click)="cerrar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-times"></i> cerrar
+                </span>
+            </button>
+
+        </div>
+
+    </ng-template>
+</p-panel>  -->
+
+<p-panel header="Consulta de Personas" *ngIf="IsOpen">
+    <div>
+        <form [formGroup]="formFilterConsult">
+            <div class="row">
+                <!-- <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        N° Persona
+                    </div>
+                    <input type="number" formControlName="numeroPersona" class="p-input-size">
+                </div> -->
+                
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Identificación
+                    </div>
+                    <input type="number" formControlName="identification" class="p-input-size">
+                </div>
+
+                <div class="col-md-4">
+                    <div class="negrita-label-form">
+                        Nombre Persona
+                    </div>
+                    <input type="text" formControlName="nombrePersona"  appOnlyLetters class="p-input-size">
+                </div>
+                
+            </div>
+        </form>
+    </div>
+    <ng-template pTemplate="footer">
+        <div class="row d-flex action grap-1">
+            <button type="button" pButton (click)="Buscar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-search"></i> Buscar
+                </span>
+            </button>
+            <button type="button" pButton (click)="clearFiltersEvent();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-eraser"></i> Limpiar
+                </span>
+            </button>
+            <button type="button" pButton (click)="cerrar();" class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+                <span class="p-button-label">
+                    <i class="pi pi-times"></i> Cerrar
+                </span>
+            </button>
+        </div>
+    </ng-template>
+</p-panel>

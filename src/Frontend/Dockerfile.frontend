@@ -1,0 +1,35 @@
+# Etapa de construcción: Instalación de dependencias y creación del paquete de producción
+FROM node:20 as node
+
+WORKDIR /app
+
+# Copia los archivos package.json y package-lock.json
+COPY ./src/Frontend ./
+
+#ENV NODE_ENV=production
+
+
+# Instala las dependencias
+RUN npm install --legacy-peer-deps
+
+# Construye la aplicación
+RUN npm run build --configuration=production
+
+# Etapa de producción: Servidor Nginx con la aplicación compilada
+FROM nginx:stable-alpine-slim
+
+# Configuración personalizada de Nginx directamente en el Dockerfile
+RUN echo 'server { \
+    listen 80; \
+    listen [::]:80 default_server; \
+    server_name ama.code.ec; \
+    location / { \
+        root /usr/share/nginx/html; \
+        index index.html; \
+        try_files $uri $uri/ /index.html; \
+    } \
+    # Agrega cualquier otra configuración necesaria aquí \
+}' > /etc/nginx/conf.d/default.conf
+
+# Copia los archivos compilados de la aplicación
+COPY --from=node /app/dist /usr/share/nginx/html

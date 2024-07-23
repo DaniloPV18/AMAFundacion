@@ -1,0 +1,26 @@
+<!-- donor-filter.component.html -->
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="mb-0">Filtros</h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="filtroForm">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="nombreFiltro">Filtrar por Nombre:</label>
+            <input type="text" id="nombreFiltro" formControlName="nombreFiltro" class="form-control form-control-sm" />
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="numeroFiltro">Filtrar por Numero de Identificacion:</label>
+            <input type="text" id="numeroFiltro" formControlName="numeroFiltro" class="form-control form-control-sm" maxlength="10" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<section class="content-header">
+  <div class="p-1">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-left">
+            <li class="breadcrumb-item"><a href="javascript:void();">Inicio</a></li>
+            <li class="breadcrumb-item active">Configuraciones</li>
+            <li class="breadcrumb-item active">Usuarios</li>
+          </ol>
+        </div>
+        <div class="col-sm-6">
+          <div class="float-right">
+            <!-- <button pButton class="btn btn-secondary" (click)="openCloseFilter();"><i class="pi pi-filter-fill"></i>
+              Filtros
+              Consulta</button> -->
+            &nbsp;&nbsp;
+            <button class="btn btn-success" (click)="New()"><i class="fas fa-plus"></i> Agregar</button>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="content">
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Usuarios</h3>
+      </div>
+      <div class="card-body">
+        <div class="row" *ngIf="openFilterPanel">
+          <div class="mb-3 col-auto">
+            <p class="form-label">Identificación</p>
+            <input class="form-control" type="text" id="identification" [(ngModel)]="filter.identification" />
+          </div>
+          <div class="mb-3 col-auto">
+            <p class="form-label">Nombre</p>
+            <input class="form-control" type="text" id="status" [(ngModel)]="filter.status" />
+          </div>
+          <div class="mb-3 col-auto">
+            <br />
+            <button class="mt-1 btn btn-primary" (click)="applyFilter()"><i class="fas fa-search"></i> Buscar</button>
+          </div>
+        </div>
+        <app-user-list-detail [users]="users"> </app-user-list-detail>
+      </div>
+    </div>
+  </div>
+</div>

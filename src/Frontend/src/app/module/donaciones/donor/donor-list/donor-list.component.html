@@ -1,0 +1,100 @@
+
+
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <app-donor-filter
+          (filtroChanged)="aplicarFiltros($event)"
+        ></app-donor-filter>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <!-- Lista de Donantes -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Lista de Donantes</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <p-table
+                [value]="donorListFiltered"
+                dataKey="id"
+                [rows]="10"
+                [showCurrentPageReport]="true"
+                [rowsPerPageOptions]="[10, 25, 50]"
+                [paginator]="true"
+                currentPageReportTemplate="Mostrando {first} al {last} de {totalRecords} registros"
+                [globalFilterFields]="['identification', 'nameCompleted']"
+                class="table-responsivecell-border table table-striped table-bordered table-sm"
+              >
+                <ng-template pTemplate="header">
+                  <tr style="font-size: 14px">
+                    <th style="width: 5%">ID</th>
+                    <th>Identificacion</th>
+                    <th>Nombre</th>
+                    <th>Celular</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Acciones</th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-donor>
+                  <tr style="font-size: 14px">
+                    <td>{{ donor.person.id }}</td>
+                    <td>{{ donor.person.identification }}</td>
+                    <td>{{ donor.person.nameCompleted }}</td>
+                    <td>{{ donor.person.phone }}</td>
+                    <td>{{ donor.person.email }}</td>
+                    <td>{{ donor.status ? "A" : "I" }}</td>
+                    <td>
+                      <div
+                        class="btn-group"
+                        style="
+                          display: flex;
+                          align-items: center;
+                          font-size: 10px;
+                        "
+                      >
+
+
+                        <button
+                          (click)="EditData(donor.person)"
+                          class="p-button p-button-rounded p-button-warning p-button-icon-only"
+                          style="
+                            margin-right: 5px;
+                            border-radius: 5px;
+                            height: 2.3rem;
+                            width: 2.4rem;
+                          "
+                        >
+                          <i class="pi pi-pencil" style="font-size: 10px"></i>
+                        </button>
+
+                        <p-button
+                          (click)="confirmacionEliminar($event, donor)"
+                          icon="pi pi-trash"
+                          styleClass="p-button-danger p-button-rounded p-button-icon-only"
+                          [style]="{
+                            'border-radius': '5px',
+                            'font-size': '10px',
+                            height: '2.3rem',
+                            width: '2.4rem'
+                          }"
+                        ></p-button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <p-toast></p-toast>
+              <p-confirmDialog></p-confirmDialog>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

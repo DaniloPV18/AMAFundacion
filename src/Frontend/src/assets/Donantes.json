@@ -1,0 +1,28 @@
+[
+  {
+    "personId": 1,
+    "firstName":"Danny",
+    "SecondName":"Steven",
+    "firstLastName":"Cevallos",
+    "secondLastName":"Cando",
+    "identificacion":"0944985624",
+    "nombreCompleto": "Danny Steven Cevallos Cando",
+    "phone": "123456789",
+    "email":"example@gmail.com",
+    "status": true
+  },
+  {
+    "personId": 2,
+    "firstName":"Maria",
+    "SecondName":" Jose",
+    "firstLastName":"Gomez",
+    "secondLastName":"Ortiz",
+    "identificacion":"0944988624",
+    "nombreCompleto": "María Jose  Gómez Ortiz",
+    "phone": "0987654321",
+    "email":"example@gmail.com",
+    "status": false
+  }
+ 
+]
+

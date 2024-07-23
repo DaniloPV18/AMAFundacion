@@ -1,0 +1,18 @@
+
+<a [routerLink]="['/']" class="brand-link">
+  <img src="assets/img/logo.png" class="img-fluid w-auto">
+</a>
+<div class="sidebar">
+
+  <nav class="mt-2" style="overflow-y: hidden">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <app-menu-item *ngFor="let item of menu" [menuItem]="item"></app-menu-item>
+      <li class="nav-item" style="margin-top: 30px;">
+        <a class="nav-link" (click)="logout()">
+          <i class=" fas fa-sign-out-alt"></i>
+          <p> Cerrar Sesión </p>
+        </a>
+      </li>
+      </ul>
+  </nav>
+</div>

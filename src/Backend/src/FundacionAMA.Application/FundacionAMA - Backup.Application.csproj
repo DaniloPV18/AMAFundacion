@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\BeneficiariesApp\**" />
+    <EmbeddedResource Remove="Services\BeneficiariesApp\**" />
+    <None Remove="Services\BeneficiariesApp\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DTO\BeneficiariesDTO\BeneficiariesMapping.cs" />
+    <Compile Remove="DTO\BeneficiariesDTO\TypeBeneficiariesMapping.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Report\ResetPasswordMail.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FundacionAMA.Domain\FundacionAMA.Domain.csproj" />
+    <ProjectReference Include="..\FundacionAMA.Infrastructure\FundacionAMA.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Report\ResetPasswordMail.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

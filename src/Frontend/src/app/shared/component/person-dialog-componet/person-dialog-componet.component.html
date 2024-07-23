@@ -1,0 +1,80 @@
+<!-- <p-panel header="Seleccione un Titular haciendo doble click"> -->
+<p-table [value]="lsPersona" [paginator]="true" [lazy]="true" [rows]="10" (onLazyLoad)="loadPersonaLazy($event)"
+  [totalRecords]="totalRows" [showCurrentPageReport]="true" scrollDirection="vertical"
+  currentPageReportTemplate="{last} de {totalRecords}" class="table"
+  [(selection)]="selectionPerson" dataKey="id" selectionMode="single">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th [hidden]="true">
+        Id
+      </th>
+      <th  pSortableColumn="DocumentoIdentidad">
+
+          <div class="col-12 mb-1">
+            <div class="text-center flex justify-content-center align-items-center">
+              Identificación&nbsp; &nbsp;
+              <p-sortIcon field="code">
+              </p-sortIcon>
+            </div>
+          </div>
+          <div class="col-12">
+            <p-columnFilter type="text" field="DocumentoIdentidad" matchMode="contains" [showMenu]="false"
+              (paste)="onKeyDownLettersAndNumbers($event)" (keypress)="onKeyDownLettersAndNumbers($event)"
+              (input)="onInput($event)">
+            </p-columnFilter>
+          </div>
+      </th>
+      <th pSortableColumn="Nombre">
+
+          <div class="col-12 mb-1">
+            <div class="text-center flex justify-content-center align-items-center">
+              Nombre&nbsp; &nbsp;
+              <p-sortIcon field="code"></p-sortIcon>
+            </div>
+          </div>
+          <div class="col-12">
+            <p-columnFilter type="text" field="Nombre" matchMode="contains" [showMenu]="false"
+              (paste)="onKeyDownLetters($event)" (keypress)="onKeyDownLetters($event)"
+              (input)="onInput($event)"></p-columnFilter>
+          </div>
+
+      </th>
+      <th pSortableColumn="Apellido">
+
+          <div class="col-12 mb-1">
+            <div class="text-center flex justify-content-center align-items-center">
+              Apellido<p-sortIcon field="code"></p-sortIcon>
+            </div>
+            <div class="col-12">
+              <p-columnFilter type="text" field="Apellido" matchMode="contains" [showMenu]="false"
+                (paste)="onKeyDownLetters($event)" (keypress)="onKeyDownLetters($event)"
+                (input)="onInput($event)"></p-columnFilter>
+            </div>
+          </div>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-dataPersona let-rowIndex="rowIndex">
+
+    <tr [pSelectableRow]="dataPersona" (dblclick)="onRowDblClick($event, dataPersona)">
+      <td [hidden]="true">
+        {{dataPersona.Id}}
+      </td>
+      <td >
+        {{dataPersona.identification}}
+      </td>
+      <td >
+        {{dataPersona.firstName | uppercase}} {{dataPersona.secondName | uppercase}}
+      </td>
+      <td >
+        {{dataPersona.lastName | uppercase}} {{dataPersona.lastName | uppercase}}
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="3">No existen registros.</td>
+    </tr>
+  </ng-template>
+</p-table>
+<!-- </p-panel> -->

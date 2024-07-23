@@ -1,0 +1,53 @@
+
+<div *ngIf="IsOpen">
+  <form [formGroup]="formFilterConsult">
+    <div class="row">
+      <div class=" col-auto">
+        <p class="form-label">N° Brigada</p>
+        <input  pInputText formControlName="id" class="p-input-size" />
+      </div>
+      <div class="mb-3 col-auto">
+        <p class="form-label">Nombre Brigada</p>
+        <input  pInputText formControlName="name" class="p-input-size" />
+      </div>
+
+      <div class=" col-auto">
+        <p class="form-label">Responsable</p>
+        <app-dropdown id="personId" title="Selecione un responsable" [dataToDialog]="lsPersona"
+          [confProp]="personaConfig" [itemsProp]="itemsPersona" (itemChanged)="onItemChanged($event)">
+        </app-dropdown>
+      </div>
+      <div class="col-auto">
+        <br />
+        <button type="button" pButton (click)="Buscar()" class="mt-2 btn btn-primary">
+          <i class="pi pi-search"></i> Buscar
+        </button>
+      </div>
+      <div class="col-auto">
+        <br />
+      <button type="button" pButton (click)="clearFiltersEvent()" class="mt-2 btn btn-secondary">
+        <i class="pi pi-eraser"></i> Limpiar
+      </button>
+    </div>
+  </div>
+</form>
+  <!-- <div class="row d-flex action grap-1">
+    <button type="button" pButton (click)="Buscar()"
+      class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+      <span class="p-button-label">
+        <i class="pi pi-search"></i> Buscar
+      </span>
+    </button>
+    <button type="button" pButton (click)="clearFiltersEvent()"
+      class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+      <span class="p-button-label">
+        <i class="pi pi-eraser"></i> Limpiar
+      </span>
+    </button>
+    <button type="button" pButton (click)="closed()"
+      class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style">
+      <span class="p-button-label"> <i class="pi pi-times"></i> cerrar </span>
+    </button>
+  </div> -->
+
+</div>

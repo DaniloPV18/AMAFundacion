@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Report\ResetPasswordMail.html" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.14" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.14">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\FundacionAMA.Domain\FundacionAMA.Domain.csproj" />
+		<ProjectReference Include="..\FundacionAMA.Infrastructure\FundacionAMA.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Report\ResetPasswordMail.html">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Resource>
+	</ItemGroup>
+
+</Project>

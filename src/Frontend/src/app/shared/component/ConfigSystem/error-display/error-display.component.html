@@ -1,0 +1,6 @@
+<div *ngIf="control && control.invalid && (control.dirty || control.touched)" class="text-danger">
+  <ng-container *ngFor="let error of getErrors() | keyvalue">
+    <small  *ngIf="control.hasError(error.key)">{{ error.value }}</small>
+    <br>
+  </ng-container>
+</div>

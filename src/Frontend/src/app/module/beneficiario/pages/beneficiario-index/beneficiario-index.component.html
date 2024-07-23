@@ -1,0 +1,40 @@
+<p-panel
+  class="header-general"
+  header="beneficiarios"
+  [style]="{ padding: '15px' }"
+>
+  <ng-template pTemplate="icons">
+    <button
+      pButton
+      class="p-button-outlined btn-fund-ama p-btn-style"
+      label="Filtros Consulta"
+      type="button"
+      icon="pi pi-filter-fill"
+      iconPos="left"
+      (click)="openCloseFilter()"
+    ></button>
+    <button
+      pButton
+      class="p-button-outlined btn-fund-ama ml-1 p-btn-style"
+      label="Crear"
+      type="button"
+      icon="pi pi-plus"
+      iconPos="left"
+      (click)="NavigateToCreate()"
+    ></button>
+  </ng-template>
+  <div class="contenedor-filtro row pb-4">
+    <app-beneficiario-filer
+      [openContentReceiver]="openFilterPanel"
+      (queryEmitter)="getbeneficiarioRequestFilter($event)"
+      (changeFilter)="changedFilter($event)"
+    >
+    </app-beneficiario-filer>
+  </div>
+  <div class="contenedor-filtro row pb-4">
+    <app-beneficiario-details
+      [isUpdateListDetails]="isUpdateListDetails"
+      [searchFilter]="cambios"
+    ></app-beneficiario-details>
+  </div>
+</p-panel>
