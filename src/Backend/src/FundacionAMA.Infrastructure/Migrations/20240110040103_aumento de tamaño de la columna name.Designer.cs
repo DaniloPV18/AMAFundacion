@@ -3,6 +3,7 @@ using System;
 using FundacionAMA.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundacionAMA.Infrastructure.Migrations
 {
     [DbContext(typeof(AMADbContext))]
-    partial class AMADbContextModelSnapshot : ModelSnapshot
+    [Migration("20240110040103_aumento de tamaño de la columna name")]
+    partial class aumentodetamañodelacolumnaname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,8 +41,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(60)
-                        .HasColumnType("char(60)")
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
@@ -57,17 +60,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 561, DateTimeKind.Local).AddTicks(6950),
-                            CreatedBy = 0,
-                            Name = "PRUEBA DE ACTIVIDAD",
-                            Status = "A"
-                        });
                 });
 
             modelBuilder.Entity("FundacionAMA.Domain.Entities.Beneficiary", b =>
@@ -409,9 +401,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("AssignedAt")
                         .HasColumnType("datetime");
 
@@ -485,8 +474,8 @@ namespace FundacionAMA.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("char(30)")
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
@@ -504,71 +493,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DonationType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8749),
-                            CreatedBy = 0,
-                            Name = "viveres",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8765),
-                            CreatedBy = 0,
-                            Name = "medicina",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8766),
-                            CreatedBy = 0,
-                            Name = "vestimenta",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8770),
-                            CreatedBy = 0,
-                            Name = "monetario",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8771),
-                            CreatedBy = 0,
-                            Name = "tecnologia",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8772),
-                            CreatedBy = 0,
-                            Name = "suministros",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 565, DateTimeKind.Local).AddTicks(8776),
-                            CreatedBy = 0,
-                            Name = "varios",
-                            Status = "A"
-                        });
                 });
 
             modelBuilder.Entity("FundacionAMA.Domain.Entities.Donor", b =>
@@ -657,7 +581,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Id = (short)1,
                             Active = true,
                             Code = "CC",
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 566, DateTimeKind.Local).AddTicks(7033),
+                            CreatedAt = new DateTime(2024, 1, 9, 23, 1, 3, 298, DateTimeKind.Local).AddTicks(8972),
                             CreatedBy = 0,
                             Description = "Cédula de ciudadanía",
                             Status = "A"
@@ -682,7 +606,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Donor")
+                    b.Property<bool?>("Donor")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Email")
@@ -735,7 +659,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Volunteer")
+                    b.Property<bool?>("Volunteer")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id")
@@ -947,6 +871,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<string>("TempCode")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<DateTime?>("TempCodeCreateAt")
@@ -967,7 +892,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 1,
                             Active = false,
-                            CreatedAt = new DateTime(2024, 1, 16, 20, 47, 13, 568, DateTimeKind.Local).AddTicks(3425),
+                            CreatedAt = new DateTime(2024, 1, 9, 23, 1, 3, 303, DateTimeKind.Local).AddTicks(626),
                             CreatedBy = 0,
                             Email = "system@email.com",
                             Identification = "9999999999999",
@@ -975,7 +900,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Password = "hx7w741jRKptsZJYyBjLQfz4agjKMGEJoK0kVwbbthI=",
                             Salt = "UhfyKxRscxd78Aoj0WOzigBOnis+fUNtHEc8kfQkOCg=",
                             Status = "A",
-                            TempCode = "f4d97b19-451b-4c1f-9254-9cb4d1cbc0cf"
+                            TempCode = "129209f3-c16f-497a-b651-92d7cee5d12d"
                         });
                 });
 

@@ -3,6 +3,7 @@ using System;
 using FundacionAMA.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundacionAMA.Infrastructure.Migrations
 {
     [DbContext(typeof(AMADbContext))]
-    partial class AMADbContextModelSnapshot : ModelSnapshot
+    [Migration("20240117014713_actividades seeder")]
+    partial class actividadesseeder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
