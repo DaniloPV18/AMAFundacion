@@ -116,8 +116,12 @@ namespace FundacionAMA.Domain.Services
                     return new OperationResult(System.Net.HttpStatusCode.NotFound, "No se encontro la brigada");
                 }
 
-                Brigade request = entity.Data.MapTo<Brigade>(brigara);
-                await _brigadeRepository.UpdateAsync(request);
+                //Brigade request = entity.Data.MapTo<Brigade>(brigara);
+                //await _brigadeRepository.UpdateAsync(request);
+                brigara = brigara.MapTo<Brigade>(entity.Data);
+                await _brigadeRepository.UpdateAsync(brigara);
+                await _brigadeRepository.SaveChangesAsync();
+
                 _logger.LogInformation("Brigada actualizada con exito");
                 return new OperationResult(System.Net.HttpStatusCode.NoContent, "La brigada fue actualizada con exito");
             }
