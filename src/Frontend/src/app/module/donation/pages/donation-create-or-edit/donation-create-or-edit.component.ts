@@ -1,12 +1,17 @@
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, Validators } from '@angular/forms';
-import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { FormService } from '../../../../shared/services/from.service';
-import { DonationService } from '../../services/donation.service';
-import { ConfSystemServiceService } from '../../../../data/conf-system-service.service';
-import { ChangeItemDropdown, ConfigurationDropdownProp, DynamicDataToDialog, ItemDropdown } from '../../../../core/interfaces/ItemDropdown.models';
-import { TypeDonation } from '../../../../core/configSystem/type-donation';
-import { DonationForm } from '../../interfaces/donation-form';
+import {ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DynamicDialogConfig, DynamicDialogRef} from 'primeng/dynamicdialog';
+import {FormService} from '../../../../shared/services/from.service';
+import {DonationService} from '../../services/donation.service';
+import {ConfSystemServiceService} from '../../../../data/conf-system-service.service';
+import {
+  ChangeItemDropdown,
+  ConfigurationDropdownProp,
+  DynamicDataToDialog,
+  ItemDropdown
+} from '../../../../core/interfaces/ItemDropdown.models';
+import {TypeDonation} from '../../../../core/configSystem/type-donation';
+import {DonationForm} from '../../interfaces/donation-form';
 
 @Component({
   selector: 'app-donation-create-or-edit',
@@ -30,6 +35,7 @@ export class DonationCreateOrEditComponent implements OnInit {
   idDonationType: TypeDonation[] = [];
   loading: boolean = false;
   view: boolean = false;
+  disableSubmit: boolean = false;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -37,8 +43,10 @@ export class DonationCreateOrEditComponent implements OnInit {
     private formService: FormService,
     private donationService: DonationService,
     private configService: ConfSystemServiceService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private cdr: ChangeDetectorRef,
+    private fb: FormBuilder
+  ) {
+  }
 
   ngOnInit(): void {
     this.InitializeData();
@@ -51,17 +59,17 @@ export class DonationCreateOrEditComponent implements OnInit {
 
     if (this.update) {
       this.label = 'Actualizar';
-      this.buildFormData();
+      this.buildFormUpdate();
     } else {
       this.label = 'Crear';
-      this.buildForm();
+      this.buildFormCreated();
     }
     this.GetetTypeDonation();
     this.InitializerDataPerson();
     this.InitializerDataBrigade();
   }
 
-  private buildFormData() {
+  private buildFormUpdate() {
     this.formData = {
       name: '',
       amount: 0,
@@ -79,21 +87,30 @@ export class DonationCreateOrEditComponent implements OnInit {
     this.validator();
   }
 
-  private buildForm() {
+  private buildFormCreated() {
     this.formData = {
       name: '',
       amount: 0,
       assignedAt: new Date(),
-
       donationTypeId: 0,
       price: 0,
       total: 0,
       personId: 0,
       brigadeId: 0
     };
-    this.donationForm = this.formService.createFormGroup<DonationForm>(this.formData);
-    this.validator();
+
+    this.donationForm = this.fb.group({
+      name: [this.formData.name, [Validators.required]],
+      assignedAt: [this.formData.assignedAt, [Validators.required]],
+      amount: [this.formData.amount, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],
+      donationTypeId: [this.formData.donationTypeId, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],
+      personId: [this.formData.personId, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],
+      brigadeId: [this.formData.brigadeId, [Validators.required, Validators.pattern('[0-9]*'), Validators.min(1)]],
+      price: [this.formData.price, [Validators.required, Validators.pattern('^\\d+(\\.\\d{1,2})?$'), Validators.min(0.1)]],
+      total: [this.formData.total, [Validators.required, Validators.pattern('^\\d+(\\.\\d{1,2})?$'), Validators.min(0.1)]]
+    });
   }
+
 
   private validator() {
     this.donationForm.get('name')?.setValidators([Validators.required]);
@@ -103,7 +120,7 @@ export class DonationCreateOrEditComponent implements OnInit {
   }
 
   InitializerDataPerson() {
-    this.lsPersona = { Params: [], dataFilter: { donor: true } };
+    this.lsPersona = {Params: [], dataFilter: {donor: true}};
     this.personaConfig = {
       Id: 'IdPersona',
       Name: 'Persona',
@@ -122,7 +139,7 @@ export class DonationCreateOrEditComponent implements OnInit {
   }
 
   InitializerDataBrigade() {
-    this.lsBrigade = { Params: [] };
+    this.lsBrigade = {Params: []};
     this.brigadeConfig = {
       Id: 'IdBrigade',
 
@@ -137,7 +154,7 @@ export class DonationCreateOrEditComponent implements OnInit {
       this.itemsBrigade.push({
         code: this.donationForm.get('brigadeId')?.value,
         description: String(
-          this.donationForm.get('brigadeId')?.value)
+            this.donationForm.get('brigadeId')?.value)
           + '-' +
           String(this.donationForm.get('nameBrigade')?.value)
       });
@@ -171,15 +188,19 @@ export class DonationCreateOrEditComponent implements OnInit {
   InputData() {
     if (this.update) {
       this.Updatedonation();
+      this.disableSubmit = true;
       setTimeout(() => {
         this.isUpdateListDetails.emit(true);
         this.ref.close(this.donationForm.value);
+        this.disableSubmit = false;
       }, 1000);
     } else {
       this.Createdonation();
+      this.disableSubmit = true;
       setTimeout(() => {
         this.isUpdateListDetails.emit(true);
         this.ref.close(this.donationForm.value);
+        this.disableSubmit = false;
       }, 1000);
 
     }
@@ -227,4 +248,24 @@ export class DonationCreateOrEditComponent implements OnInit {
       identificationTypeId: value // Actualiza el valor de identificationTypeId en el formulario
     });
   }
+
+
+  onInputChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.replace(/[^0-9]/g, '');
+    this.donationForm.get('amount')?.setValue(input.value);
+  }
+
+  updateTotal() {
+    const price = parseFloat(this.donationForm.get('price')?.value || 0);
+    const amount = parseInt(this.donationForm.get('amount')?.value || 0, 10);
+    const total = (price * amount).toFixed(2);
+    this.donationForm.get('total')?.setValue(total);
+  }
+  getDonationTypeName(): string {
+    const selectedId = this.donationForm.get('donationTypeId')?.value;
+    const selectedType = this.idDonationType.find(type => type.id === selectedId);
+    return selectedType ? selectedType.name : '';
+  }
+
 }
