@@ -4,6 +4,7 @@ using FundacionAMA.Domain.Shared.Extensions.Configurations;
 using FundacionAMA.Infrastructure.Persistence;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -14,7 +15,29 @@ using System.Text.Json.Serialization;
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.RegisterAllImplementations(Assembly.GetExecutingAssembly());
-builder.Services.AddCors();
+
+//builder.Services.AddCors();
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin",
+//        policy =>
+//        {
+//            policy.WithOrigins("https://fundacionama.net") // Añade aquí los orígenes permitidos
+//                  .AllowAnyHeader()
+//                  .AllowAnyMethod();
+//        });
+//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("https://fundacionama.net", "https://www.fundacionama.net")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -129,11 +152,14 @@ app.UseSwaggerUI(c =>
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Tu API V1");
 });
 
-app.UseCors(a =>
-    a.AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader()
-);
+app.UseCors("AllowSpecificOrigins");
+
+//app.UseCors(a =>
+//    a
+//    .AllowAnyOrigin()
+//    .AllowAnyMethod()
+//    .AllowAnyHeader()
+//);
 
 app.UseResponseCaching();
 
