@@ -52,6 +52,17 @@ namespace FundacionAMA.API.Controllers.Beneficiary
             Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Beneficiary.Dto.BeneficiaryDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+
+        // esto lo cambio yo 
+        [HttpGet("{identification}")]
+
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Beneficiary.Dto.BeneficiaryDto> result = await _service.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
+
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, BeneficiaryRequest entity)
         {

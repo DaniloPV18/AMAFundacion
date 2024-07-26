@@ -13,6 +13,8 @@ public partial class DonationType: BaseEntity<int>
 
     public int? CompanyId { get; set; }
 
+    public string? Identification { get; set; }
+    
     public string Name { get; set; }
 
     public string Status { get; set; }

@@ -3,7 +3,6 @@ using System;
 using FundacionAMA.Infrastructure.Persistence.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FundacionAMA.Infrastructure.Migrations
 {
     [DbContext(typeof(AMADbContext))]
-    [Migration("20240623052138_mysql_to_sqlserver")]
-    partial class mysql_to_sqlserver
+    [Migration("20240109011700_cabio tipo nticacin")]
+    partial class cabiotiponticacin
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,9 +20,7 @@ namespace FundacionAMA.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.14")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("FundacionAMA.Domain.Entities.ActivityType", b =>
                 {
@@ -31,33 +28,31 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(60)
-                        .HasColumnType("nchar(60)")
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -65,17 +60,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ActivityType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 398, DateTimeKind.Local).AddTicks(550),
-                            CreatedBy = 0,
-                            Name = "PRUEBA DE ACTIVIDAD",
-                            Status = "A"
-                        });
                 });
 
             modelBuilder.Entity("FundacionAMA.Domain.Entities.Beneficiary", b =>
@@ -84,27 +68,27 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -120,30 +104,28 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -159,10 +141,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
@@ -196,7 +176,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -223,10 +203,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int")
                         .IsFixedLength();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("BeneficiaryId")
                         .HasColumnType("int");
@@ -238,24 +216,24 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -280,7 +258,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
@@ -291,7 +269,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -313,13 +291,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -327,22 +303,22 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Identificacion")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Nombre")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -361,16 +337,16 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -389,19 +365,17 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("consult");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Consult"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -424,13 +398,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("AssignedAt")
                         .HasColumnType("datetime");
@@ -439,7 +408,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -448,8 +417,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(60)
-                        .HasColumnType("nchar(60)")
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<int?>("PersonId")
@@ -461,14 +430,14 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<decimal?>("Total")
                         .HasColumnType("decimal(18, 0)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -491,34 +460,32 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nchar(30)")
+                        .HasMaxLength(10)
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -526,71 +493,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DonationType", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9490),
-                            CreatedBy = 0,
-                            Name = "viveres",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9505),
-                            CreatedBy = 0,
-                            Name = "medicina",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9507),
-                            CreatedBy = 0,
-                            Name = "vestimenta",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9509),
-                            CreatedBy = 0,
-                            Name = "monetario",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9510),
-                            CreatedBy = 0,
-                            Name = "tecnologia",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9511),
-                            CreatedBy = 0,
-                            Name = "suministros",
-                            Status = "A"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9512),
-                            CreatedBy = 0,
-                            Name = "varios",
-                            Status = "A"
-                        });
                 });
 
             modelBuilder.Entity("FundacionAMA.Domain.Entities.Donor", b =>
@@ -600,10 +502,10 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -611,11 +513,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -632,10 +534,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("smallint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<short>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -647,7 +547,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -661,11 +561,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -681,7 +581,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Id = (short)1,
                             Active = true,
                             Code = "CC",
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 402, DateTimeKind.Local).AddTicks(6654),
+                            CreatedAt = new DateTime(2024, 1, 8, 20, 16, 59, 856, DateTimeKind.Local).AddTicks(130),
                             CreatedBy = 0,
                             Description = "Cédula de ciudadanía",
                             Status = "A"
@@ -694,29 +594,27 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Donor")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("Donor")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Identification")
                         .IsRequired()
@@ -729,31 +627,31 @@ namespace FundacionAMA.Infrastructure.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NameCompleted")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(10)
-                        .HasColumnType("nchar(10)")
+                        .HasColumnType("char(10)")
                         .IsFixedLength();
 
                     b.Property<string>("SecondLastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("SecondName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -761,8 +659,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Volunteer")
-                        .HasColumnType("bit");
+                    b.Property<bool?>("Volunteer")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id")
                         .HasName("PK_PERSON_ID");
@@ -784,10 +682,8 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasColumnName("volunteer_id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VolunteerId"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Activity")
                         .HasMaxLength(50)
@@ -808,7 +704,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnName("availability");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -854,7 +750,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnName("telephone");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -871,39 +767,37 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<bool>("Authenticate")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int?>("CompanyId")
                         .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
 
                     b.Property<string>("DisplayName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Host")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Mail")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Port")
                         .HasColumnType("int");
@@ -914,11 +808,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -936,13 +830,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -950,42 +842,43 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("varchar(150)");
 
                     b.Property<string>("Identification")
                         .IsRequired()
                         .HasMaxLength(21)
-                        .HasColumnType("nvarchar(21)");
+                        .HasColumnType("varchar(21)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Salt")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<string>("TempCode")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("TempCodeCreateAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");
@@ -999,7 +892,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 1,
                             Active = false,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 404, DateTimeKind.Local).AddTicks(3513),
+                            CreatedAt = new DateTime(2024, 1, 8, 20, 16, 59, 860, DateTimeKind.Local).AddTicks(1489),
                             CreatedBy = 0,
                             Email = "system@email.com",
                             Identification = "9999999999999",
@@ -1007,7 +900,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Password = "hx7w741jRKptsZJYyBjLQfz4agjKMGEJoK0kVwbbthI=",
                             Salt = "UhfyKxRscxd78Aoj0WOzigBOnis+fUNtHEc8kfQkOCg=",
                             Status = "A",
-                            TempCode = "809dd305-a6ff-4581-8d57-1739e00c0894"
+                            TempCode = "42d3d2e2-4351-4e61-ac9f-a99974993645"
                         });
                 });
 
@@ -1018,7 +911,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("Active")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("ActivityTypeId")
                         .HasColumnType("int");
@@ -1030,10 +923,10 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasColumnType("varchar(60)");
 
                     b.Property<bool>("Availability")
-                        .HasColumnType("bit");
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("CreatedBy")
                         .HasColumnType("int");
@@ -1053,11 +946,11 @@ namespace FundacionAMA.Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasDefaultValueSql("(N'')");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("int");

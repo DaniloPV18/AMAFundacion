@@ -68,7 +68,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 398, DateTimeKind.Local).AddTicks(550),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 192, DateTimeKind.Local).AddTicks(4221),
                             CreatedBy = 0,
                             Name = "PRUEBA DE ACTIVIDAD",
                             Status = "A"
@@ -206,6 +206,9 @@ namespace FundacionAMA.Infrastructure.Migrations
                         .HasName("PK_Brigade");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.HasIndex("PersonId");
 
@@ -529,7 +532,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 1,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9490),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5911),
                             CreatedBy = 0,
                             Name = "viveres",
                             Status = "A"
@@ -538,7 +541,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 2,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9505),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5922),
                             CreatedBy = 0,
                             Name = "medicina",
                             Status = "A"
@@ -547,7 +550,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 3,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9507),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5924),
                             CreatedBy = 0,
                             Name = "vestimenta",
                             Status = "A"
@@ -556,7 +559,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 4,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9509),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5925),
                             CreatedBy = 0,
                             Name = "monetario",
                             Status = "A"
@@ -565,7 +568,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 5,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9510),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5927),
                             CreatedBy = 0,
                             Name = "tecnologia",
                             Status = "A"
@@ -574,7 +577,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 6,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9511),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5928),
                             CreatedBy = 0,
                             Name = "suministros",
                             Status = "A"
@@ -583,7 +586,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 7,
                             Active = true,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9512),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 196, DateTimeKind.Local).AddTicks(5929),
                             CreatedBy = 0,
                             Name = "varios",
                             Status = "A"
@@ -678,7 +681,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Id = (short)1,
                             Active = true,
                             Code = "CC",
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 402, DateTimeKind.Local).AddTicks(6654),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 197, DateTimeKind.Local).AddTicks(3089),
                             CreatedBy = 0,
                             Description = "Cédula de ciudadanía",
                             Status = "A"
@@ -996,7 +999,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                         {
                             Id = 1,
                             Active = false,
-                            CreatedAt = new DateTime(2024, 6, 23, 0, 21, 38, 404, DateTimeKind.Local).AddTicks(3513),
+                            CreatedAt = new DateTime(2024, 7, 25, 1, 8, 44, 198, DateTimeKind.Local).AddTicks(6398),
                             CreatedBy = 0,
                             Email = "system@email.com",
                             Identification = "9999999999999",
@@ -1004,7 +1007,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                             Password = "hx7w741jRKptsZJYyBjLQfz4agjKMGEJoK0kVwbbthI=",
                             Salt = "UhfyKxRscxd78Aoj0WOzigBOnis+fUNtHEc8kfQkOCg=",
                             Status = "A",
-                            TempCode = "809dd305-a6ff-4581-8d57-1739e00c0894"
+                            TempCode = "75dfba88-fd1a-4b54-8729-c1de86865548"
                         });
                 });
 

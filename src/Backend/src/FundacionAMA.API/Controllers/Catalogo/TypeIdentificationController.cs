@@ -59,6 +59,19 @@ namespace FundacionAMA.API.Controllers.Catalogo
             Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Catalogo.Dto.TypeIdentificationDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+
+        // esto cambio yo 
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<TypeIdentificationDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Catalogo.Dto.TypeIdentificationDto> result = await _service.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
+
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IOperationResult), 204)]
         [ProducesResponseType(typeof(IOperationResult), 404)]

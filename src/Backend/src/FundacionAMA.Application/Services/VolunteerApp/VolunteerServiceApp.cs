@@ -37,6 +37,12 @@ namespace FundacionAMA.Application.Services.VolunteerApp
         {
             return _volunteerService.GetById(id);
         }
+        // aqui  modifico yo
+        public Task<IOperationResult<VolunteerDto>> GetByIdentification(string identification)
+        {
+            return _volunteerService.GetByIdentification(identification);
+        }
+        //
 
         public Task<IOperationResult> Update(int id, IOperationRequest<VolunteerRequest> entity)
         {

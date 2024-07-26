@@ -105,6 +105,29 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        //esto lo modifico
+        public async Task<IOperationResult<BrigadeDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+                _logger.LogInformation("Obteniendo brigada");
+                Brigade? brigada = await _brigadeRepository.GetByIdAsync(identification);
+                if (brigada == null)
+                {
+                    return new OperationResult<BrigadeDto>(System.Net.HttpStatusCode.NotFound, "No se encontro la brigada");
+                }
+
+                _logger.LogInformation("Brigada obtenida con exito");
+                return await brigada.ToResultAsync<Brigade, BrigadeDto>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al obtener brigada");
+                return await ex.ToResultAsync<BrigadeDto>();
+            }
+        }
+        //
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<BrigadeRequest> entity)
         {
             try

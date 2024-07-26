@@ -38,6 +38,27 @@ namespace FundacionAMA.API.Controllers.Donor
             IOperationResult<DonorDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+
+        // aqui modifico yo 
+        /// <summary>
+        /// obtener donante por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<DonorDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 204)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            IOperationResult<DonorDto> result = await _service.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
+
+
         /// <summary>
         /// obtener todos los donantes paginado
         /// </summary>

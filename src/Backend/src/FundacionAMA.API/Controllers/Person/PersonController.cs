@@ -38,6 +38,25 @@ namespace FundacionAMA.API.Controllers.Person
             IOperationResult<PersonDto> result = await _personAppService.GetById(id);
             return StatusCode(result);
         }
+        ///esto modifico
+
+        /// <summary>
+        /// obtener persona por identificacion
+        /// </summary>
+        /// <param name="Identification"></param>
+        /// <returns></returns>
+        [HttpGet("{Identification}")]
+        [ProducesResponseType(typeof(IOperationResult<PersonDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 204)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string  Identification)
+        {
+            IOperationResult<PersonDto> result = await _personAppService.GetByIdentification(Identification);
+            return StatusCode(result);
+        }
+        // hasta aqui modifique
+
         /// <summary>
         /// Obtener todas las personas paginado
         /// </summary>

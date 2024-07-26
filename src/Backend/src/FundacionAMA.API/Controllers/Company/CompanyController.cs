@@ -68,6 +68,19 @@ namespace FundacionAMA.API.Controllers.Company
             return StatusCode(Result);
         }
 
+        // esto cambio yo 
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<CompanyDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 204)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            var Result = await _companyAppService.GetByIdentification(identification);
+            return StatusCode(Result);
+        }
+
+        //
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(IOperationResult), 204)]
         [ProducesResponseType(typeof(IOperationResult), 404)]

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 namespace FundacionAMA.Domain.Entities;
 
+[Index(nameof(Name), IsUnique = true)]
+
 public partial class Brigade: BaseEntity<int>
 {
  

@@ -31,6 +31,12 @@ public partial class Donation: BaseEntity<int>
     /// persona que dona
     /// </summary>
     public int? PersonId { get; set; }
+    //modifico yo
+    /// <summary>
+    /// persona que dona
+    /// </summary>
+    public string? Identification { get; set; }
+    //
     /// <summary>
     /// brigada que recibe la donacion
     /// </summary>
