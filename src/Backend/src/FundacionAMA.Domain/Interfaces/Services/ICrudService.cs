@@ -3,6 +3,7 @@
     public interface ICrudServiceBase<TInput, TOutput, TFiler, TId> where TInput : class where TOutput : class where TFiler : class where TId : struct
     {
         Task<TOutput> GetById(TId id);
+        Task<TOutput> GetByIdentification(string identificacion);
 
         Task<List<TOutput>> GetAll(TFiler filter);
 
@@ -16,6 +17,8 @@
     public interface ICrudService<TInput, TOutput, TFiler, TId> where TInput : class where TOutput : class where TFiler : class where TId : struct
     {
         Task<IOperationResult<TOutput>> GetById(TId id);
+
+        Task<IOperationResult<TOutput>> GetByIdentification(string identificacion);
 
         Task<IOperationResultList<TOutput>> GetAll(TFiler filter);
 

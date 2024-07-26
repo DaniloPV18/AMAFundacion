@@ -35,6 +35,11 @@ namespace FundacionAMA.Application.Services.BeneficaryApp
             return await _beneficiaryervice.GetById(id);
         }
 
+        public async Task<IOperationResult<BeneficiaryDto>> GetByIdentification(string identification)
+        {
+            return await _beneficiaryervice.GetByIdentification(identification);
+        }
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<BeneficiaryRequest> entity)
         {
             return await _beneficiaryervice.Update(id, entity);

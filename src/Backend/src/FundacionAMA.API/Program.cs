@@ -22,7 +22,7 @@ builder.Services.RegisterAllImplementations(Assembly.GetExecutingAssembly());
 //    options.AddPolicy("AllowSpecificOrigin",
 //        policy =>
 //        {
-//            policy.WithOrigins("https://fundacionama.net") // Añade aquí los orígenes permitidos
+//            policy.WithOrigins("https://fundacionama.net") // Aï¿½ade aquï¿½ los orï¿½genes permitidos
 //                  .AllowAnyHeader()
 //                  .AllowAnyMethod();
 //        });

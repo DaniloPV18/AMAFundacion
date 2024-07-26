@@ -90,7 +90,26 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<ActivityTypeDto>();
             }
         }
+        // aqui va el cambio 
+        public async Task<IOperationResult<ActivityTypeDto>> GetByIdentification(string identification)
+        {
+            try
+            {
 
+                var brigada = await _repository.GetByIdAsync(identification);
+                if (brigada == null)
+                    return new OperationResult<ActivityTypeDto>(System.Net.HttpStatusCode.NotFound, "No se encontro la persona");
+
+                return await brigada.ToResultAsync<ActivityType, ActivityTypeDto>();
+
+            }
+            catch (Exception ex)
+            {
+
+                return await ex.ToResultAsync<ActivityTypeDto>();
+            }
+        }
+        //
         public async Task<IOperationResult> Update(int id, IOperationRequest<ActivityTypeRequest> entity)
         {
             try

@@ -33,6 +33,19 @@ namespace FundacionAMA.API.Controllers.ActivityType
             return StatusCode(result);
         }
 
+        //esto lo pongo yo
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<ActivityTypeDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 204)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            IOperationResult<ActivityTypeDto> result = (IOperationResult<ActivityTypeDto>)await _activityTypeServiceApp.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
+
 
         [HttpGet]
         [ProducesResponseType(typeof(IOperationResult<ActivityTypeDto>), 200)]

@@ -124,6 +124,29 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        // esto modififico 
+        public async Task<IOperationResult<BeneficiaryDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+                Beneficiary? entidad = await _beneficiaryRepository.All
+                    .Include(e => e.Person)
+                    .Where(e => e.Active && e.Person.Identification == identification && e.Person.Active == e.Active)
+                    .FirstOrDefaultAsync();
+                if (entidad == null)
+                {
+                    return new OperationResult<BeneficiaryDto>(System.Net.HttpStatusCode.NotFound, "No se encontro el beneficiario");
+                }
+                return await entidad.ToResultAsync<Beneficiary, BeneficiaryDto>();
+
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultAsync<BeneficiaryDto>();
+            }
+        }
+        //
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<BeneficiaryRequest> entity)
         {
             try

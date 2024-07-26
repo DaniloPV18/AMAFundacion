@@ -95,6 +95,25 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        public async Task<IOperationResult<CompanyDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+
+                var brigada = await _repository.GetByIdAsync(identification);
+                if (brigada == null)
+                    return new OperationResult<CompanyDto>(System.Net.HttpStatusCode.NotFound, "No se encontro la brigada");
+
+                return await brigada.ToResultAsync<Company, CompanyDto>();
+
+            }
+            catch (Exception ex)
+            {
+
+                return await ex.ToResultAsync<CompanyDto>();
+            }
+        }
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<CompanyRequest> entity)
         {
             try

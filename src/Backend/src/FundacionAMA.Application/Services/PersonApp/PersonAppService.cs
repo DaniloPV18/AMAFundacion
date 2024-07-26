@@ -10,6 +10,7 @@ using FundacionAMA.Domain.Shared.Interfaces.Operations;
 using Microsoft.EntityFrameworkCore;
 
 using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Application.Services.PersonApp
 {
@@ -26,7 +27,9 @@ namespace FundacionAMA.Application.Services.PersonApp
             _volunteerRepository = volunteerRepository;
         }
 
-        public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
+        
+
+    public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
         {
             try
             {
@@ -93,14 +96,25 @@ namespace FundacionAMA.Application.Services.PersonApp
             }
         }
 
-        public Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
+        public async Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
         {
-            Task<IOperationResultList<PersonDto>> persona = _personRepository.All
-                .Where(GetFilters(filter))
+            var query = _personRepository.All.Where(GetFilters(filter));
+            var totalRecords = await query.CountAsync();
+            var items = await query
+                .Skip(filter.Offset)
+                .Take(filter.Take)
+                .Select(p => new PersonDto
+                {
+                    // Map the necessary fields from Person to PersonDto
+                    Id = p.Id,
+                    FirstName = p.FirstName,
+                    LastName = p.LastName,
+                    Identification = p.Identification,
+                    // Add more fields as necessary
+                })
+                .ToListAsync();
 
-                .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
-
-            return persona;
+            return new OperationResultList<PersonDto>(HttpStatusCode.OK, null, items, filter.Offset, filter.Take, totalRecords);
         }
 
         private static Expression<Func<Person, bool>> GetFilters(PersonFilter filter)
@@ -115,7 +129,6 @@ namespace FundacionAMA.Application.Services.PersonApp
                 (string.IsNullOrEmpty(filter.Name) || e.FirstName.Contains(filter.Name) || e.SecondName.Contains(filter.Name) || e.LastName.Contains(filter.Name) || e.SecondLastName.Contains(filter.Name)) &&
                 (string.IsNullOrEmpty(filter.Email) || e.Email.Contains(filter.Email));
         }
-
         public async Task<IOperationResult<PersonDto>> GetById(int id)
         {
             Person? persona = await _personRepository.All.Where(e => e.Active && e.Id == id).FirstOrDefaultAsync();
@@ -123,6 +136,57 @@ namespace FundacionAMA.Application.Services.PersonApp
                 ? new OperationResult<PersonDto>(System.Net.HttpStatusCode.NotFound, $"la person con id {id} no existe")
                 : await persona.ToResultAsync<Person, PersonDto>();
         }
+
+        //public async Task<IOperationResult<PersonDto>> GetByIdentification(string identification)
+        //{
+        //    var persona = await _personRepository.All
+        //        .Where(e => e.Active && e.Identification == identification)
+        //        .Select(e => new PersonDto
+        //        {
+        //            NameCompleted = e.NameCompleted,
+        //            Email = e.Email
+        //        })
+        //        .FirstOrDefaultAsync();
+
+        //    return persona == null
+        //        ? new OperationResult<PersonDto>(System.Net.HttpStatusCode.NotFound, $"La persona con identificación {identification} no existe")
+                 
+        //        : new OperationResult<PersonDto>(System.Net.HttpStatusCode.OK, persona);
+        //}
+
+        public async Task<IOperationResult<PersonDto>> GetByIdentification(string identification)
+        {
+            var persona = await _personRepository.All
+                .Where(e => e.Active && e.Identification == identification)
+                .Select(e => new PersonDto
+                {
+                    NameCompleted = e.NameCompleted,
+                    Email = e.Email
+                })
+                .FirstOrDefaultAsync();
+
+            return persona == null
+                ? new OperationResult<PersonDto>(
+                    HttpStatusCode.NotFound,
+                    $"La persona con identificación {identification} no existe"
+                )
+                : new OperationResult<PersonDto>(HttpStatusCode.OK, result: persona);
+        }
+
+
+
+
+        //esta parte modifico 
+        // public async Task<IOperationResult<PersonDto>> GetByIdentification(string Identification)
+        //{
+        //Person? persona = await _personRepository.All.Where(e => e.Active && e.Identification == Identification).FirstOrDefaultAsync();
+        //return persona == null
+        // ? new OperationResult<PersonDto>(System.Net.HttpStatusCode.NotFound, $"la person con cedula {Identification} no existe")
+        // : await persona.ToResultAsync<Person, PersonDto>();
+        // }
+        //
+        //
+
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<PersonRequest> entity)
         {

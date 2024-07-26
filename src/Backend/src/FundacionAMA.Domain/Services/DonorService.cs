@@ -94,6 +94,22 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        public async Task<IOperationResult<DonorDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+                Donor? entidad = await _repository.All.FirstOrDefaultAsync(e => e.Active && e.PersonIdentification == identification);
+                return entidad == null
+                    ? new OperationResult<DonorDto>(System.Net.HttpStatusCode.NotFound, "Donante no encontrado")
+                    : await entidad.ToResultAsync<Donor, DonorDto>();
+
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultAsync<DonorDto>();
+            }
+        }
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<DonorResquest> entity)
         {
             try

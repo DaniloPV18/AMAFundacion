@@ -26,7 +26,6 @@ export class ResetPasswordComponent {
 
     this.authService.SendCodeToResetPassword(sendCodeRequest).subscribe({
       next: (response) => {
-        debugger;
         this.router.navigate(['/auth/confirmation-password']);
 
       },

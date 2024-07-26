@@ -11,6 +11,8 @@ public partial class Volunteer: BaseEntity
 
     public int PersonId { get; set; }
 
+    public string PersonIdentification { get; set; }// esto puse yo
+
     public string Gender { get; set; }
 
     public string Address { get; set; }

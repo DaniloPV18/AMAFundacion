@@ -79,6 +79,23 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<TypeIdentificationDto>();
             }
         }
+        //esto modifique yo
+        public async Task<IOperationResult<TypeIdentificationDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+                IdentificationType? result = await _repository.GetByIdAsync(identification);
+                return result == null
+                    ? new OperationResult<TypeIdentificationDto>(System.Net.HttpStatusCode.NotFound, "tipo de identificación no encontrado")
+                    : await result.ToResultAsync<IdentificationType, TypeIdentificationDto>();
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultAsync<TypeIdentificationDto>();
+            }
+        }
+        //
+
 
         public async Task<IOperationResult> Update(short id, IOperationRequest<TypeIdentificationRequest> entity)
         {
