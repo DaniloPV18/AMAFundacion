@@ -110,6 +110,7 @@ namespace FundacionAMA.Application.Services.PersonApp
                     FirstName = p.FirstName,
                     LastName = p.LastName,
                     Identification = p.Identification,
+                    NameCompleted = p.NameCompleted,
                     // Add more fields as necessary
                 })
                 .ToListAsync();
