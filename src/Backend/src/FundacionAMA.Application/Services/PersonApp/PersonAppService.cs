@@ -126,10 +126,10 @@ namespace FundacionAMA.Application.Services.PersonApp
         {
             try
             {
-                IOperationResultList<PersonDto> entidad = await _personRepository
-                    .All.Where(e => e.Active)
-                    .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
-                return entidad;
+                    var query = _personRepository.All.Where(GetFilters(filter));
+                   var totalRecords = await query.CountAsync();
+                    return await query
+                        .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
             }
             catch (Exception ex)
             {
@@ -298,8 +298,6 @@ namespace FundacionAMA.Application.Services.PersonApp
                 if (persona.Beneficiary != null)
                 {
                     persona.Beneficiary.PersonId = persona.Id;
-
-
                 }
                 await _personRepository.UpdateAsync(persona);
                 await _personRepository.SaveChangesAsync(entity);

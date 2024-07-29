@@ -298,10 +298,10 @@ export class DonationCreateOrEditComponent implements OnInit {
     });
   }
 
-  onInputChange(event: Event) {
+  onInputChange(event: Event, form: string) {
     const input = event.target as HTMLInputElement;
     input.value = input.value.replace(/[^0-9]/g, '');
-    this.donationForm.get('amount')?.setValue(input.value);
+    this.donationForm.get(form)?.setValue(input.value);
   }
 
   updateTotal() {
