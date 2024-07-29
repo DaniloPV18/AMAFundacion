@@ -23,7 +23,7 @@
       <div class="form-group flex-fill col-6" *ngIf="update || view"></div>
 
       <div class="form-group flex-fill col-6">
-        <label for="identificationTypeId">Tipo Indentificación</label>
+        <label for="identificationTypeId">Tipo Identificación</label>
         <select
           id="identificationTypeId"
           formControlName="identificationTypeId"
@@ -49,14 +49,16 @@
           type="text"
           id="identification"
           formControlName="identification"
-          [maxLength]="10"
+          minLength="10"
+          maxLength="10"
           class="form-control"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('identification')"
-          [minLength]="3"
+          [minLength]="10"
           [maxLength]="10"
+          [pattern]="'números'"
         ></app-error-display>
       </div>
 
@@ -67,13 +69,15 @@
           id="firstName"
           formControlName="firstName"
           class="form-control"
+          maxlength="10"
           [attr.readonly]="view ? true : null"
           required="*"
         />
         <app-error-display
           [control]="beneficiarioForm.get('firstName')"
-          [minLength]="3"
+          [minLength]="1"
           [maxLength]="10"
+          [pattern]="'caracteres'"
         ></app-error-display>
       </div>
 
@@ -84,12 +88,14 @@
           id="secondName"
           formControlName="secondName"
           class="form-control"
+          maxlength="10"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('secondName')"
           [minLength]="3"
           [maxLength]="10"
+          [pattern]="'caracteres'"
         ></app-error-display>
       </div>
 
@@ -100,12 +106,14 @@
           id="lastName"
           formControlName="lastName"
           class="form-control"
+          maxlength="10"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('lastName')"
           [minLength]="3"
           [maxLength]="10"
+          [pattern]="'caracteres'"
         ></app-error-display>
       </div>
 
@@ -116,12 +124,14 @@
           id="secondLastName"
           formControlName="secondLastName"
           class="form-control"
+          maxlength="10"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('secondLastName')"
           [minLength]="3"
           [maxLength]="10"
+          [pattern]="'caracteres'"
         ></app-error-display>
       </div>
 
@@ -136,8 +146,7 @@
         />
         <app-error-display
           [control]="beneficiarioForm.get('email')"
-          [minLength]="3"
-          [maxLength]="10"
+          [pattern]="'un email'"
         ></app-error-display>
       </div>
 
@@ -153,7 +162,7 @@
         />
         <app-error-display
           [control]="beneficiarioForm.get('phone')"
-          [minLength]="9"
+          [minLength]="10"
           [pattern]="'números'"
           [maxLength]="10"
         ></app-error-display>
@@ -166,12 +175,12 @@
           id="description"
           formControlName="description"
           class="form-control"
+          maxlength="10"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('description')"
-          [minLength]="9"
-          [pattern]="'números'"
+          [pattern]="'caracteres y numeros'"
           [maxLength]="10"
         ></app-error-display>
       </div>
