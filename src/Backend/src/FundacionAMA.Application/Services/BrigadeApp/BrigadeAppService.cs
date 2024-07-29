@@ -34,6 +34,11 @@ namespace FundacionAMA.Application.Services.BrigadeApp
         {
             return await _brigadeService.GetAll(filter);
         }
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            return await _brigadeService.GetCount();
+        }
+        
 
         public async Task<IOperationResult<BrigadeDto>> GetById(int id)
         {

@@ -36,4 +36,7 @@ export class BrigadeService {
   deleteBrigade(id: number): Observable<Result> {
     return this.http.delete<Result>(`${this.apiUrl}/${id}`);
   }
+  getBrigadeCount(): Observable<Result> {
+    return this.http.get<Result>(`${this.apiUrl}/count`);
+  }
 }

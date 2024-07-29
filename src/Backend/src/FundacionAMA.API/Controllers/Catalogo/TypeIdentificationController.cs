@@ -59,6 +59,7 @@ namespace FundacionAMA.API.Controllers.Catalogo
             Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Catalogo.Dto.TypeIdentificationDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+/// <inheritdoc/>
 
         // esto cambio yo 
         [HttpGet("{identification}")]

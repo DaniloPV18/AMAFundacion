@@ -4,6 +4,7 @@ using FundacionAMA.Domain.DTO.Donor.Request;
 using FundacionAMA.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -107,6 +108,20 @@ namespace FundacionAMA.Domain.Services
             catch (Exception ex)
             {
                 return await ex.ToResultAsync<DonorDto>();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
 

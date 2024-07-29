@@ -34,10 +34,16 @@ namespace FundacionAMA.Application.Services.DonorApp
         {
             return _donorService.GetById(id);
         }
+/// <inheritdoc/>
 
         public Task<IOperationResult<DonorDto>> GetByIdentification(string identification)
         {
             return _donorService.GetByIdentification(identification);
+        }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _donorService.GetCount();
         }
 
         public Task<IOperationResult> Update(int id, IOperationRequest<DonorResquest> entity)

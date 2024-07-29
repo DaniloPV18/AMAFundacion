@@ -308,5 +308,10 @@ namespace FundacionAMA.Application.Services.PersonApp
                 return await ex.ToResultAsync();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _personRepository.GetCount();
+        }
     }
 }

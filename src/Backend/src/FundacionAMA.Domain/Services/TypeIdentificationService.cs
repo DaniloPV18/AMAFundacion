@@ -1,6 +1,7 @@
 ﻿using FundacionAMA.Domain.DTO.Catalogo.Dto;
 using FundacionAMA.Domain.DTO.Catalogo.Filter;
 using FundacionAMA.Domain.DTO.Catalogo.Request;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -94,6 +95,21 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<TypeIdentificationDto>();
             }
         }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
+            }
+        }
+
         //
 
 
