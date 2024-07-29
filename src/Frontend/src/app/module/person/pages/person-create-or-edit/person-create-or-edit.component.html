@@ -1,102 +1,113 @@
 <ng-container *ngIf="loading; else content">
-    <app-spinner [visible]="loading"></app-spinner>
-</ng-container> 
+  <app-spinner [visible]="loading"></app-spinner>
+</ng-container>
 <ng-template #content>
-<form [formGroup]="personForm" class="container-fluid">
+  <form [formGroup]="personForm" class="container-fluid">
     <div class="d-flex flex-wrap">
-    
-        <div class="form-group flex-fill col-6" *ngIf="update">
-            <label for="idPerson">N° Persona</label>
-            <input type="number" id="Id" formControlName="Id" class="form-control"
-                [attr.readonly]="update ? true : null">
-        </div>
-        <div class="form-group flex-fill col-6">
-            <label for="identificationTypeId">Tipo Indentificación</label>
-            <select id="identificationTypeId" 
-                      formControlName="identificationTypeId" 
-                        class="form-control"
-                 
-                      >
-                <option value="" disabled selected>Seleccione una opción</option>
-                <option *ngFor="let option of identificationTypes" [value]="option.id">{{ option.description }}</option>
-            </select>
-            <app-error-display [control]="personForm.get('identificationTypeId')"></app-error-display>
-        </div>
-        <div class="form-group flex-fill col-6">
-            <label for="identification">Identificación</label>
-            <input type="text" id="identification" formControlName="identification" class="form-control">
-            <app-error-display [control]="personForm.get('identification')"
-            [minLength]="3"
-            [maxLength]="10"></app-error-display>    
-        </div>
-        
-        <div class="form-group flex-fill col-6">
-            <label for="firstName">Primer Nombre</label>
-            
-            <input type="text" id="firstName" formControlName="firstName" class="form-control"required="*" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
-            <app-error-display [control]="personForm.get('firstName')"
-            [minLength]="3"
-            [maxLength]="10"></app-error-display>
-        </div>
-   
-        <div class="form-group flex-fill col-6">
-            <label for="secondName">Segundo Nombre</label>
-            <input type="text" id="secondName" formControlName="secondName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
-            <app-error-display [control]="personForm.get('secondName')"
-            [minLength]="3"
-            [maxLength]="10"></app-error-display>
-        </div>
-        <div class="form-group flex-fill col-6">
-            <label for="lastName">Primer Apellido</label>
-            <input type="text" id="lastName" formControlName="lastName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
-            <app-error-display [control]="personForm.get('lastName')"
-            [minLength]="3"
-            [maxLength]="10"></app-error-display>
-        </div>
-        <div class="form-group flex-fill col-6">
-            <label for="secondLastName">Segundo Apellido</label>
-            <input type="text" id="secondLastName" formControlName="secondLastName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
-            <app-error-display 
-            [control]="personForm.get('secondLastName')"
-            [minLength]="3"
-            [maxLength]="10"></app-error-display>
-        </div>
- 
-        <div class="form-group flex-fill col-6">
-            <label for="email">Correo electónico</label>
-            <input type="email" id="email" formControlName="email" class="form-control">
-            <app-error-display [control]="personForm.get('email')"
-            [minLength]="3"
-            [maxLength]="10"
-    
-            ></app-error-display>
-        </div>
 
-   
-        <div class="form-group flex-fill col-6">
-            <label for="phone">Teléfono</label>
-            <input type="text" id="phone" formControlName="phone" class="form-control">
-            <app-error-display 
-            [control]="personForm.get('phone')"
-            [minLength]="9"
-            [pattern]="'números'"
-            [maxLength]="10"></app-error-display>
+      <div class="form-group flex-fill col-6" *ngIf="update">
+        <label for="idPerson">N° Persona</label>
+        <input type="number" id="Id" formControlName="Id" class="form-control"
+               [attr.readonly]="update ? true : null">
+      </div>
+
+      <div class="form-group flex-fill col-6">
+        <label for="identificationTypeId">Tipo Indentificación</label>
+        <div *ngIf="view; else editTemplate">
+          <input type="text" id="identificationTypeId" class="form-control" [value]="getTypeIdentificationInput()"
+                 readonly/>
         </div>
-        <div class="form-group flex-fill col-6">
-            <div class="form-check">
-                <p-checkbox name="groupname" [binary]="true" label="Donante" formControlName="donor"></p-checkbox>
-            </div>
-            <div class="form-check">
-        
-                <p-checkbox name="groupname" [binary]="true" label="Voluntario" formControlName="volunteer"></p-checkbox>
-            </div>
+        <ng-template #editTemplate>
+          <select id="identificationTypeId"
+                  formControlName="identificationTypeId"
+                  class="form-control"
+          >
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option *ngFor="let option of identificationTypes" [value]="option.id">{{ option.description }}</option>
+          </select>
+          <app-error-display [control]="personForm.get('identificationTypeId')"></app-error-display>
+        </ng-template>
+      </div>
+
+      <div class="form-group flex-fill col-6">
+        <label for="identification">Identificación</label>
+        <input type="text" id="identification" formControlName="identification" class="form-control" [readOnly]="view">
+        <app-error-display [control]="personForm.get('identification')"
+                           [minLength]="3"
+                           [maxLength]="10"></app-error-display>
+      </div>
+
+      <div class="form-group flex-fill col-6">
+        <label for="firstName">Primer Nombre</label>
+
+        <input type="text" id="firstName" [readOnly]="view" formControlName="firstName" class="form-control"
+               required="*" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
+        <app-error-display [control]="personForm.get('firstName')"
+                           [minLength]="3"
+                           [maxLength]="10"></app-error-display>
+      </div>
+
+      <div class="form-group flex-fill col-6">
+        <label for="secondName">Segundo Nombre</label>
+        <input type="text" id="secondName" [readOnly]="view" formControlName="secondName" class="form-control"
+               pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
+        <app-error-display [control]="personForm.get('secondName')"
+                           [minLength]="3"
+                           [maxLength]="10"></app-error-display>
+      </div>
+      <div class="form-group flex-fill col-6">
+        <label for="lastName">Primer Apellido</label>
+        <input type="text" id="lastName" [readOnly]="view" formControlName="lastName" class="form-control"
+               pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
+        <app-error-display [control]="personForm.get('lastName')"
+                           [minLength]="3"
+                           [maxLength]="10"></app-error-display>
+      </div>
+      <div class="form-group flex-fill col-6">
+        <label for="secondLastName">Segundo Apellido</label>
+        <input type="text" id="secondLastName" [readOnly]="view" formControlName="secondLastName" class="form-control"
+               pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
+        <app-error-display
+          [control]="personForm.get('secondLastName')"
+          [minLength]="3"
+          [maxLength]="10"></app-error-display>
+      </div>
+
+      <div class="form-group flex-fill col-6">
+        <label for="email">Correo electónico</label>
+        <input type="email" id="email" [readOnly]="view" formControlName="email" class="form-control">
+        <app-error-display [control]="personForm.get('email')"
+                           [minLength]="3"
+                           [maxLength]="10"
+
+        ></app-error-display>
+      </div>
+
+
+      <div class="form-group flex-fill col-6">
+        <label for="phone">Teléfono</label>
+        <input type="text" id="phone" [readOnly]="view" formControlName="phone" class="form-control">
+        <app-error-display
+          [control]="personForm.get('phone')"
+          [minLength]="9"
+          [pattern]="'números'"
+          [maxLength]="10"></app-error-display>
+      </div>
+      <div class="form-group flex-fill col-6">
+        <div class="form-check">
+          <p-checkbox name="groupname" [binary]="true" label="Donante" formControlName="donor"></p-checkbox>
         </div>
+        <div class="form-check">
+
+          <p-checkbox name="groupname" [binary]="true" label="Voluntario" formControlName="volunteer"></p-checkbox>
+        </div>
+      </div>
     </div>
     <div class="col-md-12">
-        <hr>
-        <button type="submit" (click)="InputData()" class="btn btn-primary" 
-        [disabled]="!personForm.valid"
-        >{{ label }}</button>
+      <hr>
+      <button type="submit" (click)="InputData()" class="btn btn-primary" *ngIf="!view"
+              [disabled]="personForm.invalid || disableSubmit"
+      >{{ label }}</button>
     </div>
-</form>
+  </form>
 </ng-template>

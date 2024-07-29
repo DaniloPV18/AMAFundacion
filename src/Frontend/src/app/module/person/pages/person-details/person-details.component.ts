@@ -43,10 +43,10 @@ ViewData(PersonDto: any) {
       }
     }
   }
-  
+
   NavigateUpdate(personDto: PersonDto) {
     this.dialogService.open(PersonCreateOrEditComponent, {
-      header: 'Crear Persona',
+      header: 'Actualizar Persona',
       width: '75%',
       height: '85%',
       data: {update: true, person:personDto },
@@ -92,7 +92,7 @@ ViewData(PersonDto: any) {
   }
 
 
-  loadDetailsLazy(event:any) {    
+  loadDetailsLazy(event:any) {
     let sortCol = event.sortField;
     let sortColOrder = event.sortOrder;
     let offset = event.first;
