@@ -96,26 +96,45 @@ namespace FundacionAMA.Application.Services.PersonApp
             }
         }
 
+        //public async Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
+        //{
+        //    var query = _personRepository.All.Where(GetFilters(filter));
+        //    var totalRecords = await query.CountAsync();
+        //    var items = await query
+        //        .Skip(filter.Offset)
+        //        .Take(filter.Take)
+        //        .Select(p => new PersonDto
+        //        {
+        //            // Map the necessary fields from Person to PersonDto
+        //            IdentificationTypeId = p.IdentificationTypeId,
+        //            Id = p.Id,
+        //            FirstName = p.FirstName,
+        //            SecondName = p.SecondName,
+        //            LastName = p.LastName,
+        //            SecondLastName = p.SecondLastName,
+        //            Identification = p.Identification,
+        //            NameCompleted = p.NameCompleted,
+        //            Email = p.Email,
+        //            Phone = p.Phone,
+        //        })
+        //        .ToListAsync();
+
+        //    return new OperationResultList<PersonDto>(HttpStatusCode.OK, null, items, filter.Offset, filter.Take, totalRecords);
+        //}
+
         public async Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
         {
-            var query = _personRepository.All.Where(GetFilters(filter));
-            var totalRecords = await query.CountAsync();
-            var items = await query
-                .Skip(filter.Offset)
-                .Take(filter.Take)
-                .Select(p => new PersonDto
-                {
-                    // Map the necessary fields from Person to PersonDto
-                    Id = p.Id,
-                    FirstName = p.FirstName,
-                    LastName = p.LastName,
-                    Identification = p.Identification,
-                    NameCompleted = p.NameCompleted,
-                    // Add more fields as necessary
-                })
-                .ToListAsync();
-
-            return new OperationResultList<PersonDto>(HttpStatusCode.OK, null, items, filter.Offset, filter.Take, totalRecords);
+            try
+            {
+                IOperationResultList<PersonDto> entidad = await _personRepository
+                    .All.Where(e => e.Active)
+                    .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
+                return entidad;
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultListAsync<PersonDto>();
+            }
         }
 
         private static Expression<Func<Person, bool>> GetFilters(PersonFilter filter)

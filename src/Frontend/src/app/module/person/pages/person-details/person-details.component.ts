@@ -19,7 +19,7 @@ EditData(PersonDto: any) {
 this.NavigateUpdate(PersonDto);
 }
 ViewData(PersonDto: any) {
-throw new Error('Method not implemented.');
+  this.NavigateView(PersonDto);
 }
   loading:boolean=false
   listaPersonas: PersonDto[]=[];
@@ -43,6 +43,38 @@ throw new Error('Method not implemented.');
       }
     }
   }
+  
+  NavigateUpdate(personDto: PersonDto) {
+    this.dialogService.open(PersonCreateOrEditComponent, {
+      header: 'Crear Persona',
+      width: '75%',
+      height: '85%',
+      data: {update: true, person:personDto },
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+    })
+    .onClose.subscribe((result) => {
+      if (result) {
+       this.getPerson();
+      }
+    });
+  }
+
+  NavigateView(personDto: PersonDto) {
+    this.dialogService.open(PersonCreateOrEditComponent, {
+      header: 'Ver Persona',
+      width: '75%',
+      height: '85%',
+      data: { view: true, person: personDto},
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+    }) .onClose.subscribe((result) => {
+      if (result) {
+        this.getPerson();
+      }
+    });
+  }
+
   private getPerson() {
     this.personFiler= {
       offset: 0,
@@ -58,25 +90,9 @@ throw new Error('Method not implemented.');
 
     });
   }
-  NavigateUpdate(personDto: PersonDto) {
-    this.dialogService.open(PersonCreateOrEditComponent, {
-      header: 'Crear Persona',
-      width: '75%',
-      height: '85%',
-      data: {update: true, person:personDto },
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
-      baseZIndex: 10000,
-    })
-    .onClose.subscribe((result) => {
-
-      if (result) {
-       this.getPerson();
-      }
-    });
-  }
-  loadDetailsLazy(event:any) {
 
 
+  loadDetailsLazy(event:any) {    
     let sortCol = event.sortField;
     let sortColOrder = event.sortOrder;
     let offset = event.first;
