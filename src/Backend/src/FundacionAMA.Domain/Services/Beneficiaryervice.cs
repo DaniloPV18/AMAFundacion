@@ -1,7 +1,6 @@
 ﻿using FundacionAMA.Domain.DTO.Beneficiary.Dto;
 using FundacionAMA.Domain.DTO.Beneficiary.FilterDto;
 using FundacionAMA.Domain.DTO.Beneficiary.Request;
-
 using System.Linq.Expressions;
 
 namespace FundacionAMA.Domain.Services
@@ -182,6 +181,11 @@ namespace FundacionAMA.Domain.Services
             {
                 return await ex.ToResultAsync();
             }
+        }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _personRepository.GetCount();
         }
     }
 }

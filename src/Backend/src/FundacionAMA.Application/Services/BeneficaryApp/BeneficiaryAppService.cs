@@ -40,6 +40,11 @@ namespace FundacionAMA.Application.Services.BeneficaryApp
             return await _beneficiaryervice.GetByIdentification(identification);
         }
 
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _beneficiaryervice.GetCount();
+        }
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<BeneficiaryRequest> entity)
         {
             return await _beneficiaryervice.Update(id, entity);

@@ -110,6 +110,11 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        public Task<IOperationResult<int>> GetCount()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IOperationResult> Update(int id, IOperationRequest<DonorResquest> entity)
         {
             try

@@ -4,6 +4,7 @@ using FundacionAMA.Domain.DTO.ActivityType.Request;
 using FundacionAMA.Domain.DTO.ActivityType.Dto;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using Microsoft.EntityFrameworkCore;
+using FundacionAMA.Domain.Interfaces.Services;
 
 
 namespace FundacionAMA.Domain.Services
@@ -109,6 +110,12 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<ActivityTypeDto>();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _repository.GetCount();
+        }
+
         //
         public async Task<IOperationResult> Update(int id, IOperationRequest<ActivityTypeRequest> entity)
         {

@@ -94,6 +94,12 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<TypeIdentificationDto>();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            throw new NotImplementedException();
+        }
+
         //
 
 

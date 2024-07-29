@@ -27,4 +27,8 @@
     <ProjectReference Include="..\FundacionAMA.Infrastructure\FundacionAMA.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>

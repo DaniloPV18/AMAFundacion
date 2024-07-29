@@ -87,6 +87,23 @@ namespace FundacionAMA.API.Controllers.Brigada
             return StatusCode(Result);
         }
 
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var count = await _brigadeAppService.GetCount();
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
         // esto modifico 
         /// <summary>
         /// obtener brigada por id

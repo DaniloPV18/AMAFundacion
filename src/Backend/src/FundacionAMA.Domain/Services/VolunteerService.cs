@@ -98,6 +98,12 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<VolunteerDto>();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            throw new NotImplementedException();
+        }
+
         //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<VolunteerRequest> entity)

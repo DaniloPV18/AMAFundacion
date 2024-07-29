@@ -110,6 +110,12 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<DonationDto>();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            throw new NotImplementedException();//return _repository.GetCount();
+        }
+
         //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<DonationRequest> entity)

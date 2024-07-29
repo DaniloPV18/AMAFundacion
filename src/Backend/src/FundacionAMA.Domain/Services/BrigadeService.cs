@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -69,6 +70,26 @@ namespace FundacionAMA.Domain.Services
             {
                 _logger.LogError(ex, "Error al obtener brigadas");
                 return ex.ToResultListAsync<BrigadeDto>();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                _logger.LogInformation("Contando brigadas");
+                var count = await _brigadeRepository.All.CountAsync();
+                _logger.LogInformation("Contador de brigadas obtenido con éxito");
+
+                // Retorna un resultado exitoso con el conteo
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al contar brigadas");
+
+                // Retorna un resultado fallido con un mensaje de error
+                return new OperationResult<int>(HttpStatusCode.InternalServerError, message: "Error al contar brigadas");
             }
         }
 
