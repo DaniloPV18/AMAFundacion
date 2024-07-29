@@ -86,6 +86,24 @@ namespace FundacionAMA.API.Controllers.Catalogo
             Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Catalogo.Dto.DonationTypeDto> result = await _donationTypeServiceApp.GetById(id);
             return StatusCode(result);
         }
+
+        //esto cambio yo
+        /// <summary>
+        ///  obtener tipo de donacion por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<DonationTypeDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Catalogo.Dto.DonationTypeDto> result = await _donationTypeServiceApp.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
         /// <summary>
         /// actualizar tipo de donacion
         /// </summary>

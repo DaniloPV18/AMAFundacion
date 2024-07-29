@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FundacionAMA.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class mysql_to_sqlserver : Migration
+    public partial class SQLServer_migracion_unificada : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,6 +79,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
+                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nchar(30)", fixedLength: true, maxLength: 30, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -99,6 +100,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     Id = table.Column<short>(type: "smallint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CompanyId = table.Column<int>(type: "int", nullable: true),
+                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
                     Description = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
@@ -351,6 +353,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                 columns: table => new
                 {
                     PersonId = table.Column<int>(type: "int", nullable: false),
+                    PersonIdentification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
@@ -373,6 +376,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                 columns: table => new
                 {
                     PersonId = table.Column<int>(type: "int", nullable: false),
+                    PersonIdentification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "varchar(45)", unicode: false, maxLength: 45, nullable: false),
                     Address = table.Column<string>(type: "varchar(60)", unicode: false, maxLength: 60, nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
@@ -449,6 +453,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     Total = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     PersonId = table.Column<int>(type: "int", nullable: true),
+                    Identification = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BrigadeId = table.Column<int>(type: "int", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
@@ -510,31 +515,31 @@ namespace FundacionAMA.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "ActivityType",
                 columns: new[] { "Id", "Active", "CompanyId", "CreatedAt", "CreatedBy", "Name", "Status", "UpdatedAt", "UpdatedBy" },
-                values: new object[] { 1, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 398, DateTimeKind.Local).AddTicks(550), 0, "PRUEBA DE ACTIVIDAD", "A", null, null });
+                values: new object[] { 1, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 901, DateTimeKind.Local).AddTicks(6089), 0, "PRUEBA DE ACTIVIDAD", "A", null, null });
 
             migrationBuilder.InsertData(
                 table: "DonationType",
-                columns: new[] { "Id", "Active", "CompanyId", "CreatedAt", "CreatedBy", "Name", "Status", "UpdatedAt", "UpdatedBy" },
+                columns: new[] { "Id", "Active", "CompanyId", "CreatedAt", "CreatedBy", "Identification", "Name", "Status", "UpdatedAt", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { 1, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9490), 0, "viveres", "A", null, null },
-                    { 2, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9505), 0, "medicina", "A", null, null },
-                    { 3, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9507), 0, "vestimenta", "A", null, null },
-                    { 4, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9509), 0, "monetario", "A", null, null },
-                    { 5, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9510), 0, "tecnologia", "A", null, null },
-                    { 6, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9511), 0, "suministros", "A", null, null },
-                    { 7, true, null, new DateTime(2024, 6, 23, 0, 21, 38, 401, DateTimeKind.Local).AddTicks(9512), 0, "varios", "A", null, null }
+                    { 1, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2817), 0, null, "viveres", "A", null, null },
+                    { 2, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2833), 0, null, "medicina", "A", null, null },
+                    { 3, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2835), 0, null, "vestimenta", "A", null, null },
+                    { 4, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2836), 0, null, "monetario", "A", null, null },
+                    { 5, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2838), 0, null, "tecnologia", "A", null, null },
+                    { 6, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2840), 0, null, "suministros", "A", null, null },
+                    { 7, true, null, new DateTime(2024, 7, 26, 0, 5, 53, 906, DateTimeKind.Local).AddTicks(2841), 0, null, "varios", "A", null, null }
                 });
 
             migrationBuilder.InsertData(
                 table: "IdentificationType",
-                columns: new[] { "Id", "Active", "Code", "CompanyId", "CreatedAt", "CreatedBy", "Description", "Status", "UpdatedAt", "UpdatedBy" },
-                values: new object[] { (short)1, true, "CC", null, new DateTime(2024, 6, 23, 0, 21, 38, 402, DateTimeKind.Local).AddTicks(6654), 0, "Cédula de ciudadanía", "A", null, null });
+                columns: new[] { "Id", "Active", "Code", "CompanyId", "CreatedAt", "CreatedBy", "Description", "Identification", "Status", "UpdatedAt", "UpdatedBy" },
+                values: new object[] { (short)1, true, "CC", null, new DateTime(2024, 7, 26, 0, 5, 53, 907, DateTimeKind.Local).AddTicks(4319), 0, "Cédula de ciudadanía", null, "A", null, null });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Active", "CreatedAt", "CreatedBy", "Email", "Identification", "Name", "Password", "Salt", "Status", "TempCode", "TempCodeCreateAt", "UpdatedAt", "UpdatedBy" },
-                values: new object[] { 1, false, new DateTime(2024, 6, 23, 0, 21, 38, 404, DateTimeKind.Local).AddTicks(3513), 0, "system@email.com", "9999999999999", "System", "hx7w741jRKptsZJYyBjLQfz4agjKMGEJoK0kVwbbthI=", "UhfyKxRscxd78Aoj0WOzigBOnis+fUNtHEc8kfQkOCg=", "A", "809dd305-a6ff-4581-8d57-1739e00c0894", null, null, null });
+                values: new object[] { 1, false, new DateTime(2024, 7, 26, 0, 5, 53, 909, DateTimeKind.Local).AddTicks(7817), 0, "system@email.com", "9999999999999", "System", "hx7w741jRKptsZJYyBjLQfz4agjKMGEJoK0kVwbbthI=", "UhfyKxRscxd78Aoj0WOzigBOnis+fUNtHEc8kfQkOCg=", "A", "2028a12a-489b-46f1-8e0e-c889f3f83492", null, null, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_BrigadeBeneficiaries_BeneficiaryId",
@@ -555,6 +560,12 @@ namespace FundacionAMA.Infrastructure.Migrations
                 name: "IX_Brigades_CompanyId",
                 table: "Brigades",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Brigades_Name",
+                table: "Brigades",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Brigades_PersonId",

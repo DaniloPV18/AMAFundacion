@@ -83,6 +83,22 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<VolunteerDto>();
             }
         }
+        //esto modifico
+        public async Task<IOperationResult<VolunteerDto>> GetByIdentification(string identification)
+        {
+            try
+            {
+                Volunteer? entidad = await _repository.All.FirstOrDefaultAsync(e => e.Active && e.PersonIdentification == identification);
+                return entidad == null
+                    ? new OperationResult<VolunteerDto>(System.Net.HttpStatusCode.NotFound, "Voluntario no encontrado")
+                    : await entidad.ToResultAsync<Volunteer, VolunteerDto>();
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultAsync<VolunteerDto>();
+            }
+        }
+        //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<VolunteerRequest> entity)
         {

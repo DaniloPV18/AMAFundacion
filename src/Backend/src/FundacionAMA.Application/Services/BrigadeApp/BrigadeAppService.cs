@@ -39,6 +39,12 @@ namespace FundacionAMA.Application.Services.BrigadeApp
         {
             return await _brigadeService.GetById(id);
         }
+        // esto modifico 
+        public async Task<IOperationResult<BrigadeDto>> GetByIdentification(string identification)
+        {
+            return await _brigadeService.GetByIdentification(identification);
+        }
+        //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<BrigadeRequest> entity)
         {

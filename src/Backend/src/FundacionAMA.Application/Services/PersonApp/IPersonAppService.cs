@@ -8,6 +8,6 @@ namespace FundacionAMA.Application.Services.PersonApp
 {
     public interface IPersonAppService : ICrudService<IOperationRequest<PersonRequest>, PersonDto, PersonFilter, int>
     {
-
+      Task<IOperationResult<PersonDto>> GetByIdentification(string identification);
     }
 }

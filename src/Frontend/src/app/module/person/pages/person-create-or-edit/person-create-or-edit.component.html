@@ -7,7 +7,7 @@
     
         <div class="form-group flex-fill col-6" *ngIf="update">
             <label for="idPerson">N° Persona</label>
-            <input type="text" id="Id" formControlName="Id" class="form-control"
+            <input type="number" id="Id" formControlName="Id" class="form-control"
                 [attr.readonly]="update ? true : null">
         </div>
         <div class="form-group flex-fill col-6">
@@ -27,13 +27,13 @@
             <input type="text" id="identification" formControlName="identification" class="form-control">
             <app-error-display [control]="personForm.get('identification')"
             [minLength]="3"
-            [maxLength]="10"></app-error-display>
+            [maxLength]="10"></app-error-display>    
         </div>
         
         <div class="form-group flex-fill col-6">
             <label for="firstName">Primer Nombre</label>
             
-            <input type="text" id="firstName" formControlName="firstName" class="form-control"required="*" >
+            <input type="text" id="firstName" formControlName="firstName" class="form-control"required="*" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
             <app-error-display [control]="personForm.get('firstName')"
             [minLength]="3"
             [maxLength]="10"></app-error-display>
@@ -41,21 +41,21 @@
    
         <div class="form-group flex-fill col-6">
             <label for="secondName">Segundo Nombre</label>
-            <input type="text" id="secondName" formControlName="secondName" class="form-control">
+            <input type="text" id="secondName" formControlName="secondName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
             <app-error-display [control]="personForm.get('secondName')"
             [minLength]="3"
             [maxLength]="10"></app-error-display>
         </div>
         <div class="form-group flex-fill col-6">
             <label for="lastName">Primer Apellido</label>
-            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+            <input type="text" id="lastName" formControlName="lastName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
             <app-error-display [control]="personForm.get('lastName')"
             [minLength]="3"
             [maxLength]="10"></app-error-display>
         </div>
         <div class="form-group flex-fill col-6">
             <label for="secondLastName">Segundo Apellido</label>
-            <input type="text" id="secondLastName" formControlName="secondLastName" class="form-control">
+            <input type="text" id="secondLastName" formControlName="secondLastName" class="form-control" pattern="[A-Za-z\s]+" title="Por favor ingresa solo texto, sin números ni signos">
             <app-error-display 
             [control]="personForm.get('secondLastName')"
             [minLength]="3"

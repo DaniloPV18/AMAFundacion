@@ -86,6 +86,23 @@ namespace FundacionAMA.API.Controllers.Brigada
             IOperationResult<BrigadeDto> Result = await _brigadeAppService.GetById(id);
             return StatusCode(Result);
         }
+
+        // esto modifico 
+        /// <summary>
+        /// obtener brigada por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<BrigadeDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            IOperationResult<BrigadeDto> Result = await _brigadeAppService.GetByIdentification(identification);
+            return StatusCode(Result);
+        }
+        //
         /// <summary>
         /// Modificar brigada por Id
         /// </summary>

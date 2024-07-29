@@ -42,6 +42,23 @@ namespace FundacionAMA.API.Controllers.Volunteer
             IOperationResult<VolunteerDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+        //esto lo cambio
+        /// <summary>
+        /// obtener donacion por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("{identification}")]
+        [ProducesResponseType(typeof(IOperationResult<VolunteerDto>), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 204)]
+        [ProducesResponseType(typeof(IOperationResult), 404)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetByIdentification(string identification)
+        {
+            IOperationResult<VolunteerDto> result = await _service.GetByIdentification(identification);
+            return StatusCode(result);
+        }
+        //
         /// <summary>
         /// Obtener todas las donaciones paginado
         /// </summary>

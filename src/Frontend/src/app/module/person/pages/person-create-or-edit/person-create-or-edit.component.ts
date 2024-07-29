@@ -23,6 +23,7 @@ export class PersonCreateOrEditComponent  {
   formData!: PersonForm;
   volunteer: boolean = false;
   update: boolean = false;
+  view: boolean = false;
   label: any = 'Crear';
   identificationTypes: TypeIdentification[] = [];
   loading: boolean = false;
@@ -67,9 +68,14 @@ export class PersonCreateOrEditComponent  {
   }
   InitializeData() {
     this.update = this.config.data.update;
+    this.view = this.config.data.view;
+
     this.getTypeIdentification();
     if (this.update) {
       this.label = 'Actualizar';
+      this.buildFormData();
+    } else if (this.view) {
+      this.label = 'View';
       this.buildFormData();
     } else {
       this.label = 'Crear';

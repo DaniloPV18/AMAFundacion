@@ -12,6 +12,8 @@ public partial class IdentificationType: BaseEntity<short>
  
     public int? CompanyId { get; set; }
 
+    public string? Identification { get; set; }
+
     public string Code { get; set; }
 
     public string Description { get; set; }

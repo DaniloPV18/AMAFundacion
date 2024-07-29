@@ -29,7 +29,11 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class, IEntity
         _ = _context.Entry(entity).SetProperty("Active", false);
         return UpdateAsync(entity);
     }
-
+    public Task DeleteDonorPerson(T entity)
+    {
+        _ = _context.Entry(entity).SetProperty("Donor", false);
+        return UpdateAsync(entity);
+    }
 
     public void Detach(T entity)
     {

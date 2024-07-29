@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverAma: 'https://www.apisfama.somee.com/',
+  serverAma: 'https://apis.fundacionama.net/',
   enName: 'PRODUCTION',
 };

@@ -35,6 +35,13 @@ namespace FundacionAMA.Application.Services.CatalogoApp
             return _typeIdentificationService.GetById(id);
         }
 
+        //modifque yo
+        public Task<IOperationResult<TypeIdentificationDto>> GetByIdentification(string identification)
+        {
+            return _typeIdentificationService.GetByIdentification(identification);
+        }
+        //
+
         public Task<IOperationResult> Update(short id, IOperationRequest<TypeIdentificationRequest> entity)
         {
             return _typeIdentificationService.Update(id, entity);

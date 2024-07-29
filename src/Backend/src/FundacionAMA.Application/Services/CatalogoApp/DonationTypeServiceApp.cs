@@ -34,6 +34,12 @@ namespace FundacionAMA.Application.Services.CatalogoApp
         {
             return _donationTypeService.GetById(id);
         }
+        // esto modifico 
+        public Task<IOperationResult<DonationTypeDto>> GetByIdentification(string identification)
+        {
+            return _donationTypeService.GetByIdentification(identification);
+        }
+        //
 
         public Task<IOperationResult> Update(int id, IOperationRequest<DonationTypeRequest> entity)
         {

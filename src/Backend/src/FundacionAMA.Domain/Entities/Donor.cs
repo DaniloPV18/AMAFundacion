@@ -10,6 +10,7 @@ namespace FundacionAMA.Domain.Entities;
 public partial class Donor: BaseEntity
 {
     public int PersonId { get; set; }
+    public string PersonIdentification { get; set; } // esto modifique 
 
     public string Status { get; set; } 
 
