@@ -36,4 +36,7 @@ export class beneficiarioService {
   deletebeneficiario(id: number): Observable<Result> {
     return this.http.delete<Result>(`${this.apiUrl}/?id=${id}`);
   }
+  getBeneficiarioCount(): Observable<Result> {
+    return this.http.get<Result>(`${this.apiUrl}/count`);
+  }
 }
