@@ -2,10 +2,10 @@
   <app-spinner [visible]="loading"></app-spinner>
 </ng-container> -->
 <!-- <ng-template #content> -->
-<div class="modal-body">
+<div class="modal-body w-max-600">
   <form [formGroup]="donationForm" class="container-fluid">
     <div class="row">
-      <div class="col-sm-4 col-md-2" *ngIf="update">
+      <div class="col-sm-4 col-md-2" *ngIf="!update">
         <label for="iddonation">N° donación</label>
         <input
           type="text"
@@ -15,7 +15,7 @@
           [attr.readonly]="update ? true : null"
         />
       </div>
-      <div class="col">
+      <div class="col-sm-8 col-md-5">
         <label for="name">Nombre Donación</label>
         <input
           type="text"
@@ -31,7 +31,7 @@
         ></app-error-display>
       </div>
 
-      <div class="col-auto">
+      <div class="col-sm-12 col-md-5">
         <div class="form-group">
           <label for="assignedAt">Fecha Inicio</label>
           <div class="calendar-container">
@@ -75,7 +75,7 @@
         <label for="iddonation">Donante</label>
         <app-dropdown
           id="idPersona"
-          title="Selecione un donante"
+          title="Seleccione un donante"
           [dataToDialog]="lsPersona"
           [disabledProp]="view"
           [confProp]="personaConfig"
@@ -88,7 +88,7 @@
         <label for="iddonation">Brigada</label>
         <app-dropdown
           id="idBrigade"
-          title="Selecione una brigada"
+          title="Seleccione una brigada"
           [dataToDialog]="lsBrigade"
           [confProp]="brigadeConfig"
           [itemsProp]="itemsBrigade"
@@ -100,8 +100,8 @@
     </div>
 
     <div class="row">
-      <div class="mb-3 col">
-        <label for="donationTypeId">Tipo donacion</label>
+      <div class="mb-3 col-sm-12 col-md-6">
+        <label for="donationTypeId">Tipo donación</label>
         <select
           id="donationTypeId"
           formControlName="donationTypeId"
@@ -117,7 +117,7 @@
         ></app-error-display>
       </div>
 
-      <div class="mb-3 col">
+      <div class="mb-3 col-sm-12 col-md-6">
         <label for="amount">Cantidad</label>
         <input
           type="number"
@@ -133,7 +133,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="mb-3 col">
+      <div class="mb-3 col-sm-12 col-md-6">
         <label for="price">Precio</label>
         <input
           type="number"
@@ -147,7 +147,7 @@
           [pattern]="'numero o decimal'"
         ></app-error-display>
       </div>
-      <div class="mb-3 col">
+      <div class="mb-3 col-sm-12 col-md-6">
         <label for="total">Total</label>
         <input
           type="number"

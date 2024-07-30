@@ -234,40 +234,38 @@ export class DonationCreateOrEditComponent implements OnInit {
   }
 
   InputData() {
+    this.disableSubmit = true;
     if (this.update) {
-      this.Updatedonation();
-      this.disableSubmit = true;
-      setTimeout(() => {
-        this.isUpdateListDetails.emit(true);
-        this.ref.close(this.donationForm.value);
-        this.disableSubmit = false;
-      }, 1000);
+      this.updateDonation();
     } else {
-      this.Createdonation();
-      this.disableSubmit = true;
-      setTimeout(() => {
-        this.isUpdateListDetails.emit(true);
-        this.ref.close(this.donationForm.value);
-        this.disableSubmit = false;
-      }, 1000);
+      this.createDonation();
     }
   }
 
-  async Createdonation() {
+  async createDonation() {
     try {
-      await this.donationService
-        .createdonation(this.donationForm.value)
-        .toPromise();
+      this.donationService.createdonation(this.donationForm.value).subscribe({
+        next: () => {
+          this.isUpdateListDetails.emit(true);
+          this.ref.close(this.donationForm.value);
+          this.disableSubmit = false;
+        },
+      });
     } catch (error) {
       // Handle the error
     }
   }
 
-  async Updatedonation() {
+  updateDonation() {
     try {
-      await this.donationService
-        .updatedonation(this.donationForm.value)
-        .toPromise();
+      this.donationService.updatedonation(this.donationForm.value).subscribe({
+        next: () => {
+          this.isUpdateListDetails.emit(true);
+          this.ref.close(this.donationForm.value);
+          this.disableSubmit = false;
+        },
+      });
+
       // The HTTP request has completed
     } catch (error) {
       // Handle the error

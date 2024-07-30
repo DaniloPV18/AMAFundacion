@@ -16,10 +16,9 @@ export class DonationIndexComponent {
     this.dialogService
       .open(DonationCreateOrEditComponent, {
         header: 'Crear Donación',
-        width: 'auto',
-        height: 'auto',
+        width: '95',
+        height: '85%',
         data: { update: false },
-        contentStyle: { 'min-width': '500px' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
