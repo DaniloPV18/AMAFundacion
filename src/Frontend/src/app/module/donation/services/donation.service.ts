@@ -48,4 +48,7 @@ export class DonationService {
   deletedonation(id: number): Observable<Result> {
     return this.http.delete<Result>(`${this.apiUrl}/${id}`);
   }
+  getDonationCount(): Observable<Result> {
+    return this.http.get<Result>(`${this.apiUrl}/count`);
+  }
 }

@@ -7,10 +7,10 @@ import { PersonDto } from '../../interfaces/person-dto';
 import { ResultPaged } from '../../../../core/interfaces/result';
 import { PersonService } from '../../services/person.service'; // Asegúrate de que esta ruta sea correcta
 import { HttpErrorResponse } from '@angular/common/http';
- 
+
 
 @Component({
- selector: 'app-person-filer', 
+ selector: 'app-person-filer',
   templateUrl: './person-filer.component.html',
   styleUrl: './person-filer.component.sass'
 })
@@ -24,7 +24,7 @@ export class PersonFilerComponent implements OnInit {
   nombrePersona: string = '';
   identification: number = 0;
 
-  constructor(private formService: FormService, private fb: FormBuilder, private personService: PersonService) {
+  constructor(private formService: FormService, private fb: FormBuilder) {
     this.buildForm();
   }
 
@@ -42,12 +42,14 @@ export class PersonFilerComponent implements OnInit {
   }
 
   clearFiltersEvent() {
-    this.formFilterConsult.reset({
-      numeroPersona: null,
-      nombrePersona: '',
-      identification: null
-    });
-    this.queryEmitter.emit(this.formFilterConsult.value);
+    if(this.formFilterConsult){
+      this.formFilterConsult.reset();
+      this.queryEmitter.emit({
+        ...this.formFilterConsult.value,
+        offset: 0,
+        take: 10,
+      })
+    }
   }
 
   buildForm() {
@@ -63,25 +65,8 @@ export class PersonFilerComponent implements OnInit {
     });
   }
 
-  Buscar() {
-    const formValues = this.formFilterConsult.value;
-
-    const filter: PersonFilter = {
-      ...this.formBrigadeFilter,
-      // numeroPersona: formValues.numeroPersona,
-      nombrePersona: formValues.nombrePersona,
-      identification: formValues.identification
-    };
-
-    this.personService.getAllPersons(filter).subscribe(
-      (result: ResultPaged<PersonDto>) => {
-        console.log('Result:', result);
-        // Implementar lógica adicional con los resultados recibidos
-      },
-      (error: HttpErrorResponse) => { // Especificar el tipo 'HttpErrorResponse' para el parámetro 'error'
-        console.error('Error:', error);
-      }
-    );
+  search() {
+    this.queryEmitter.emit(this.formFilterConsult.value);
   }
 
   cerrar() {

@@ -40,6 +40,12 @@ namespace FundacionAMA.Application.Services.CatalogoApp
         {
             return _typeIdentificationService.GetByIdentification(identification);
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _typeIdentificationService.GetCount();
+        }
+
         //
 
         public Task<IOperationResult> Update(short id, IOperationRequest<TypeIdentificationRequest> entity)

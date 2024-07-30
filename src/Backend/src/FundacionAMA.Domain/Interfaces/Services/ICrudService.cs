@@ -1,4 +1,6 @@
-﻿namespace FundacionAMA.Domain.Interfaces.Services
+﻿using FundacionAMA.Domain.Services;
+
+namespace FundacionAMA.Domain.Interfaces.Services
 {
     public interface ICrudServiceBase<TInput, TOutput, TFiler, TId> where TInput : class where TOutput : class where TFiler : class where TId : struct
     {
@@ -21,6 +23,7 @@
         Task<IOperationResult<TOutput>> GetByIdentification(string identificacion);
 
         Task<IOperationResultList<TOutput>> GetAll(TFiler filter);
+        Task<IOperationResult<int>> GetCount();
 
         Task<IOperationResult> Create(TInput entity);
 

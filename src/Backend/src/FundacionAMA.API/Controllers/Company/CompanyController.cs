@@ -67,6 +67,7 @@ namespace FundacionAMA.API.Controllers.Company
             var Result = await _companyAppService.GetById(id);
             return StatusCode(Result);
         }
+/// <inheritdoc/>
 
         // esto cambio yo 
         [HttpGet("{identification}")]

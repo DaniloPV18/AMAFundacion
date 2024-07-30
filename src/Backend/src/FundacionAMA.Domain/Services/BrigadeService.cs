@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -72,6 +73,26 @@ namespace FundacionAMA.Domain.Services
             }
         }
 
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                _logger.LogInformation("Contando brigadas");
+                var count = await _brigadeRepository.All.CountAsync();
+                _logger.LogInformation("Contador de brigadas obtenido con éxito");
+
+                // Retorna un resultado exitoso con el conteo
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al contar brigadas");
+
+                // Retorna un resultado fallido con un mensaje de error
+                return new OperationResult<int>(HttpStatusCode.InternalServerError, message: "Error al contar brigadas");
+            }
+        }
+
         private static Expression<Func<Brigade, bool>> GetFilterBrigade(BrigadeFilter filter)
         {
             return e => e.Active && (
@@ -139,8 +160,12 @@ namespace FundacionAMA.Domain.Services
                     return new OperationResult(System.Net.HttpStatusCode.NotFound, "No se encontro la brigada");
                 }
 
-                Brigade request = entity.Data.MapTo<Brigade>(brigara);
-                await _brigadeRepository.UpdateAsync(request);
+                //Brigade request = entity.Data.MapTo<Brigade>(brigara);
+                //await _brigadeRepository.UpdateAsync(request);
+                brigara = brigara.MapTo<Brigade>(entity.Data);
+                await _brigadeRepository.UpdateAsync(brigara);
+                await _brigadeRepository.SaveChangesAsync();
+
                 _logger.LogInformation("Brigada actualizada con exito");
                 return new OperationResult(System.Net.HttpStatusCode.NoContent, "La brigada fue actualizada con exito");
             }

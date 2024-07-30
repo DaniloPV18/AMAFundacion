@@ -1,4 +1,5 @@
-﻿using FundacionAMA.Application.Services.VolunteeerApp;
+﻿using FundacionAMA.Application.Services.BrigadeApp;
+using FundacionAMA.Application.Services.VolunteeerApp;
 using FundacionAMA.Domain.DTO.Volunteer.Dto;
 using FundacionAMA.Domain.DTO.Volunteer.Filter;
 using FundacionAMA.Domain.DTO.Volunteer.Request;
@@ -119,6 +120,22 @@ namespace FundacionAMA.API.Controllers.Volunteer
         {
             IOperationResult result = await _service.Delete(id.ToRequest(this));
             return StatusCode(result);
+        }
+
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var count = await _service.GetCount();
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
     }
 

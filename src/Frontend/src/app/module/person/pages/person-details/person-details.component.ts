@@ -12,6 +12,7 @@ import { Sort } from '../../../../core/interfaces/sort';
 })
 export class PersonDetailsComponent implements OnInit, OnChanges {
 @Input() isUpdateListDetails:boolean = false;
+@Input() searchFilter: any = {};
 DeleteData(PersonDto: any) {
   this.deletePerson(PersonDto.id);
 }
@@ -40,6 +41,15 @@ ViewData(PersonDto: any) {
     for(let change in changes){
       if(change==='isUpdateListDetails'){
         this.handleUpdateListDetails();
+      }
+      if (change === 'searchFilter') {
+        if (changes[change].currentValue) {
+          console.log(changes[change].currentValue);
+          this.listaPersonas =
+            changes[change].currentValue.listaPersona;
+          this.totalRows = changes[change].currentValue.totalRows;
+          this.loading = changes[change].currentValue.loading;
+        }
       }
     }
   }

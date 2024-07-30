@@ -1,8 +1,8 @@
 ﻿using FundacionAMA.Domain.DTO.Beneficiary.Dto;
 using FundacionAMA.Domain.DTO.Beneficiary.FilterDto;
 using FundacionAMA.Domain.DTO.Beneficiary.Request;
-
 using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -181,6 +181,20 @@ namespace FundacionAMA.Domain.Services
             catch (Exception ex)
             {
                 return await ex.ToResultAsync();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _personRepository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
     }

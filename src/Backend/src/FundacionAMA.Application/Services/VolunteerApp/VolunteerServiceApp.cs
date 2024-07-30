@@ -42,6 +42,12 @@ namespace FundacionAMA.Application.Services.VolunteerApp
         {
             return _volunteerService.GetByIdentification(identification);
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _volunteerService.GetCount();
+        }
+
         //
 
         public Task<IOperationResult> Update(int id, IOperationRequest<VolunteerRequest> entity)

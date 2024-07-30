@@ -1,4 +1,5 @@
-﻿using FundacionAMA.Application.Services.PersonApp;
+﻿using FundacionAMA.Application.Services.BrigadeApp;
+using FundacionAMA.Application.Services.PersonApp;
 using FundacionAMA.Domain.DTO.Person;
 using FundacionAMA.Domain.DTO.Person.FilterDto;
 using FundacionAMA.Domain.DTO.Person.Request;
@@ -116,6 +117,22 @@ namespace FundacionAMA.API.Controllers.Person
         {
             IOperationResult result = await _personAppService.Delete(id.ToRequest(this));
             return StatusCode(result);
+        }
+
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var count = await _personAppService.GetCount();
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
     }
 }

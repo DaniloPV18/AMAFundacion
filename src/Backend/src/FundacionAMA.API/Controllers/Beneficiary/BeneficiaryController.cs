@@ -1,4 +1,5 @@
 ﻿using FundacionAMA.Application.Services.BeneficaryApp;
+using FundacionAMA.Application.Services.BrigadeApp;
 using FundacionAMA.Domain.DTO.Beneficiary.FilterDto;
 using FundacionAMA.Domain.DTO.Beneficiary.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Beneficiary;
@@ -52,6 +53,7 @@ namespace FundacionAMA.API.Controllers.Beneficiary
             Domain.Shared.Interfaces.Operations.IOperationResult<Domain.DTO.Beneficiary.Dto.BeneficiaryDto> result = await _service.GetById(id);
             return StatusCode(result);
         }
+/// <inheritdoc/>
 
         // esto lo cambio yo 
         [HttpGet("{identification}")]
@@ -68,6 +70,20 @@ namespace FundacionAMA.API.Controllers.Beneficiary
         {
             Domain.Shared.Interfaces.Operations.IOperationResult result = await _service.Update(id, entity.ToRequest(this));
             return StatusCode(result);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var count = await _service.GetCount();
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
     }
 }
