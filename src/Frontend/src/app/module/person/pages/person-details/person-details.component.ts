@@ -57,8 +57,8 @@ ViewData(PersonDto: any) {
   NavigateUpdate(personDto: PersonDto) {
     this.dialogService.open(PersonCreateOrEditComponent, {
       header: 'Actualizar Persona',
-      width: '75%',
-      height: '85%',
+      width: '85%',
+      height: 'auto',
       data: {update: true, person:personDto },
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
@@ -73,8 +73,8 @@ ViewData(PersonDto: any) {
   NavigateView(personDto: PersonDto) {
     this.dialogService.open(PersonCreateOrEditComponent, {
       header: 'Ver Persona',
-      width: '75%',
-      height: '85%',
+      width: '85%',
+      height: 'auto',
       data: { view: true, person: personDto},
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,

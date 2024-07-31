@@ -103,8 +103,8 @@ export class DonorListComponent implements OnInit, OnChanges {
     this.dialogService
       .open(PersonCreateOrEditComponent, {
         header: 'Crear Donante',
-        width: '75%',
-        height: '85%',
+        width: '85%',
+        height: 'auto',
         data: { update: true, person: personDto },
         contentStyle: { 'max-height': '500px', overflow: 'auto' },
         baseZIndex: 10000,

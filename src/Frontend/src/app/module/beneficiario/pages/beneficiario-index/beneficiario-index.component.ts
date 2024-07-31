@@ -25,10 +25,9 @@ export class beneficiarioIndexComponent {
     this.dialogService
       .open(beneficiarioCreateOrEditComponent, {
         header: 'Crear beneficiario',
-        width: '50%',
-        height: '90%',
+        width: '85%',
+        height: 'auto',
         data: { update: false },
-        contentStyle: { 'max-height': '550px', overflow: 'auto' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
