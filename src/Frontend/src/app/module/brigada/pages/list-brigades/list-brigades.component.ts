@@ -61,10 +61,9 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
   NavigateView(brigade: any) {
     this.dialogService.open(CreateOrEditBrigadesComponent, {
       header: 'Ver Brigada',
-      width: 'auto',
+      width: '85%',
       height: 'auto',
       data: { update: true, brigade: brigade, view: true },
-      contentStyle: { 'min-height': '500px', 'min-width': '500px' },
       baseZIndex: 10000,
     });
   }
@@ -122,10 +121,9 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
     this.dialogService
       .open(CreateOrEditBrigadesComponent, {
         header: 'Actualizar Brigada',
-        width: 'auto',
+        width: '85%',
         height: 'auto',
         data: { update: true, brigade: brigade },
-        contentStyle: { 'min-height': '500px', 'min-width': '500px' },
         baseZIndex: 10000,
       })
 

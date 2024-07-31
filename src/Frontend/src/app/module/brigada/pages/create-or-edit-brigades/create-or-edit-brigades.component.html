@@ -6,7 +6,7 @@
   <div class="modal-body">
       <form [formGroup]="brigadeForm">
           <div class="row">
-            <div class="mb-3 col-auto" *ngIf="update">
+            <div class="mb-3 col-sm-12 col-md-auto" *ngIf="update">
               <label for="iddonation">N° Brigada</label>
               <input type="text" id="Id" formControlName="id" class="form-control" readonly />
             </div>
@@ -35,8 +35,8 @@
             </div>
           </div>
             <div class="row">
-            <div class="mb-3 col">
-              <div id="form-calendario" class="form-group">
+            <div class="mb-3 col-sm-12 col-md-6">
+              <div id="form-calendario" class="form-group me-md-5">
                 <label for="start">Fecha Inicio</label>
                 <div class="calendar-container">
                   <div class="calendar-container">
@@ -51,8 +51,8 @@
                 </div>
               </div>
             </div>
-            <div class="mb-3 col">
-              <div id="form-calendario" class="form-group">
+            <div class="mb-3 col-sm-12 col-md-6">
+              <div id="form-calendario" class="form-group ms-md-5">
                 <label for="end">Fecha Fin</label>
                 <div class="calendar-container" *ngIf="!view">
                   <p-calendar placeholder="Seleccione la fecha Fin" id="end" formControlName="end" [showIcon]="true"

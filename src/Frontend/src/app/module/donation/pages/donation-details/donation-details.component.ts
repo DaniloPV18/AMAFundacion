@@ -112,10 +112,9 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
   NavigateView(donationDto: any) {
     this.dialogService.open(DonationCreateOrEditComponent, {
       header: 'Ver Donación',
-      width: '75%',
-      height: '100%',
+      width: '85%',
+      height: 'auto',
       data: { update: true, donation: donationDto, view: true },
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
     });
   }

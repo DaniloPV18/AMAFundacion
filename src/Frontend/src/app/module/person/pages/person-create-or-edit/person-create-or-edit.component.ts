@@ -42,6 +42,7 @@ export class PersonCreateOrEditComponent {
   }
 
   private buildFormData() {
+    console.log({formData:this.formData}),
     this.formData = {
       Id: this.config.data.person.id,
       firstName: '',
@@ -61,12 +62,17 @@ export class PersonCreateOrEditComponent {
 
 
     }
+    //this.formData.volunteer=true;
     this.personForm = this.formService.createFormGroup<PersonForm>(this.formData);
     this.validator();
   }
 
   ngOnInit(): void {
     this.InitializeData();
+    this.personForm.valueChanges.subscribe({
+      next: (res) => {
+        console.log({form: this.personForm})
+      }})
   }
 
   InitializeData() {
@@ -120,6 +126,7 @@ export class PersonCreateOrEditComponent {
 
 
   async CreatePerson() {
+    console.log('creando');
     try {
       await this.personService.createPerson(this.personForm.value).toPromise();
       this.isUpdateListDetails.emit(true);
@@ -129,6 +136,7 @@ export class PersonCreateOrEditComponent {
   }
 
   async UpdatePerson() {
+    console.log('actualizando');
     try {
       await this.personService.updatePerson(this.personForm.value).toPromise();
       // The HTTP request has completed

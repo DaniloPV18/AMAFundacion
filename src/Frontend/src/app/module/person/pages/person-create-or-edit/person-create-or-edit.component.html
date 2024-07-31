@@ -4,7 +4,7 @@
 <ng-template #content>
   <form [formGroup]="personForm" class="container-fluid">
     <div class="d-flex flex-wrap">
-      <div class="form-group flex-fill col-6" *ngIf="update">
+      <div class="form-group flex-fill col-sm-12 col-md-6" *ngIf="update">
         <label for="idPerson">N° Persona</label>
         <input
           type="number"
@@ -15,7 +15,7 @@
         />
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="identificationTypeId">Tipo Identificación</label>
         <div *ngIf="view; else editTemplate">
           <input
@@ -46,7 +46,7 @@
         </ng-template>
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="identification">Identificación</label>
         <input
           type="text"
@@ -62,7 +62,7 @@
         ></app-error-display>
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="firstName">Primer Nombre</label>
 
         <input
@@ -82,7 +82,7 @@
         ></app-error-display>
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="secondName">Segundo Nombre</label>
         <input
           type="text"
@@ -99,7 +99,7 @@
           [maxLength]="10"
         ></app-error-display>
       </div>
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="lastName">Primer Apellido</label>
         <input
           type="text"
@@ -116,7 +116,7 @@
           [maxLength]="10"
         ></app-error-display>
       </div>
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="secondLastName">Segundo Apellido</label>
         <input
           type="text"
@@ -134,7 +134,7 @@
         ></app-error-display>
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="email">Correo electrónico</label>
         <input
           type="email"
@@ -150,7 +150,7 @@
         ></app-error-display>
       </div>
 
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <label for="phone">Teléfono</label>
         <input
           type="text"
@@ -166,7 +166,7 @@
           [maxLength]="10"
         ></app-error-display>
       </div>
-      <div class="form-group flex-fill col-6">
+      <div class="form-group flex-fill col-sm-12 col-md-6">
         <div class="form-check">
           <p-checkbox
             name="groupname"

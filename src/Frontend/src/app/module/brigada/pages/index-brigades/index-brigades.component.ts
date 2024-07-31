@@ -36,10 +36,9 @@ export class IndexBrigadesComponent implements OnInit {
     const refdialog = this.dialogService
       .open(CreateOrEditBrigadesComponent, {
         header: 'Crear Brigada',
-        width: 'auto',
+        width: '85%',
         height: 'auto',
         data: {},
-        contentStyle: { 'min-height': '500px', 'min-width': '500px' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
