@@ -59,7 +59,7 @@ export class DonationCreateOrEditComponent implements OnInit {
       next: (price) => {
         const amount = this.donationForm.get('amount')?.value ?? 0;
         const total = (price ?? 0) * amount;
-        this.donationForm.get('total')?.setValue(total);
+        this.donationForm.get('total')?.setValue(total.toFixed(2));
       },
     });
 
@@ -67,7 +67,7 @@ export class DonationCreateOrEditComponent implements OnInit {
       next: (amount) => {
         const price = this.donationForm.get('price')?.value ?? 0;
         const total = (amount ?? 0) * price;
-        this.donationForm.get('total')?.setValue(total);
+        this.donationForm.get('total')?.setValue(total.toFixed(2));
       },
     });
   }
