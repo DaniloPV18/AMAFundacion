@@ -5,7 +5,7 @@
 <div class="modal-body w-max-600">
   <form [formGroup]="donationForm" class="container-fluid">
     <div class="row">
-      <div class="col-sm-4 col-md-2" *ngIf="!update">
+      <div class="col-sm-4 col-md-2" *ngIf="update">
         <label for="iddonation">N° donación</label>
         <input
           type="text"
@@ -15,7 +15,7 @@
           [attr.readonly]="update ? true : null"
         />
       </div>
-      <div class="col-sm-8 col-md-5">
+      <div class="{{ update ? 'col-sm-8 col-md-5' : 'col-sm-12 col-md-4' }}">
         <label for="name">Nombre Donación</label>
         <input
           type="text"
@@ -31,7 +31,7 @@
         ></app-error-display>
       </div>
 
-      <div class="col-sm-12 col-md-5">
+      <div class="col-sm-12 {{ update ? 'col-md-5' : 'col-md-8' }}">
         <div class="form-group">
           <label for="assignedAt">Fecha Inicio</label>
           <div class="calendar-container">
@@ -155,10 +155,6 @@
           id="total"
           formControlName="total"
           class="form-control"
-          [value]="
-            (donationForm.get('price')?.value ?? 0) *
-            (donationForm.get('amount')?.value ?? 0)
-          "
         />
         <app-error-display
           [control]="donationForm.get('total')"

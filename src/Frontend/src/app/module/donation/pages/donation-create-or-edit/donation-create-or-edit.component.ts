@@ -55,6 +55,21 @@ export class DonationCreateOrEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.InitializeData();
+    this.donationForm.get('price')?.valueChanges.subscribe({
+      next: (price) => {
+        const amount = this.donationForm.get('amount')?.value ?? 0;
+        const total = (price ?? 0) * amount;
+        this.donationForm.get('total')?.setValue(total);
+      },
+    });
+
+    this.donationForm.get('amount')?.valueChanges.subscribe({
+      next: (amount) => {
+        const price = this.donationForm.get('price')?.value ?? 0;
+        const total = (amount ?? 0) * price;
+        this.donationForm.get('total')?.setValue(total);
+      },
+    });
   }
 
   InitializeData() {

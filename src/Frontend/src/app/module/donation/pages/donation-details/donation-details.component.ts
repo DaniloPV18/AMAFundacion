@@ -44,7 +44,6 @@ export class DonationDetailsComponent implements OnInit, OnChanges {
       }
       if (propName === 'searchFilter') {
         if (changes[propName].currentValue) {
-          console.log(changes[propName].currentValue);
           this.listaDonations =
             changes[propName].currentValue.listabeneficiarios;
           this.totalRows = changes[propName].currentValue.totalRows;
