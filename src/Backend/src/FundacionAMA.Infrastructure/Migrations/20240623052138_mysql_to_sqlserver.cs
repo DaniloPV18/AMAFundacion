@@ -294,7 +294,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                 columns: table => new
                 {
                     PersonId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(200)", fixedLength: true, maxLength: 200, nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
