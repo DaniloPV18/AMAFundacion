@@ -69,14 +69,14 @@
           id="firstName"
           formControlName="firstName"
           class="form-control"
-          maxlength="10"
+          maxlength="20"
           [attr.readonly]="view ? true : null"
           required="*"
         />
         <app-error-display
           [control]="beneficiarioForm.get('firstName')"
           [minLength]="1"
-          [maxLength]="10"
+          [maxLength]="20"
           [pattern]="'caracteres'"
         ></app-error-display>
       </div>
@@ -88,13 +88,13 @@
           id="secondName"
           formControlName="secondName"
           class="form-control"
-          maxlength="10"
+          maxlength="20"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('secondName')"
           [minLength]="3"
-          [maxLength]="10"
+          [maxLength]="20"
           [pattern]="'caracteres'"
         ></app-error-display>
       </div>
@@ -106,13 +106,13 @@
           id="lastName"
           formControlName="lastName"
           class="form-control"
-          maxlength="10"
+          maxlength="20"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('lastName')"
           [minLength]="3"
-          [maxLength]="10"
+          [maxLength]="20"
           [pattern]="'caracteres'"
         ></app-error-display>
       </div>
@@ -124,13 +124,13 @@
           id="secondLastName"
           formControlName="secondLastName"
           class="form-control"
-          maxlength="10"
+          maxlength="20"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
           [control]="beneficiarioForm.get('secondLastName')"
           [minLength]="3"
-          [maxLength]="10"
+          [maxLength]="20"
           [pattern]="'caracteres'"
         ></app-error-display>
       </div>
@@ -175,7 +175,7 @@
           id="description"
           formControlName="description"
           class="form-control"
-          maxlength="10"
+          maxlength="200"
           [attr.readonly]="view ? true : null"
         />
         <app-error-display
