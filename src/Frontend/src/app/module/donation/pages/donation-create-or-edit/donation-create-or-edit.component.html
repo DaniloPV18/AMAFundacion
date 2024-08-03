@@ -2,7 +2,7 @@
   <app-spinner [visible]="loading"></app-spinner>
 </ng-container> -->
 <!-- <ng-template #content> -->
-<div class="modal-body w-max-600">
+<div class="modal-body">
   <form [formGroup]="donationForm" class="container-fluid">
     <div class="row">
       <div class="col-sm-4 col-md-2" *ngIf="update">
@@ -100,7 +100,7 @@
     </div>
 
     <div class="row">
-      <div class="mb-3 col-sm-12 col-md-6">
+      <div class="mb-3 col-sm-12 col-md-6 col-lg-3">
         <label for="donationTypeId">Tipo donación</label>
         <select
           id="donationTypeId"
@@ -117,7 +117,7 @@
         ></app-error-display>
       </div>
 
-      <div class="mb-3 col-sm-12 col-md-6">
+      <div class="mb-3 col-sm-12 col-md-6 col-lg-3">
         <label for="amount">Cantidad</label>
         <input
           type="number"
@@ -131,9 +131,7 @@
           [pattern]="'numero o decimal'"
         ></app-error-display>
       </div>
-    </div>
-    <div class="row">
-      <div class="mb-3 col-sm-12 col-md-6">
+      <div class="mb-3 col-sm-12 col-md-6 col-lg-3">
         <label for="price">Precio</label>
         <input
           type="number"
@@ -147,7 +145,7 @@
           [pattern]="'numero o decimal'"
         ></app-error-display>
       </div>
-      <div class="mb-3 col-sm-12 col-md-6">
+      <div class="mb-3 col-sm-12 col-md-6 col-lg-3">
         <label for="total">Total</label>
         <input
           type="number"

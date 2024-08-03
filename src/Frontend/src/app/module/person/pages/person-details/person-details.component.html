@@ -5,7 +5,7 @@
     <p-panel header="Listado de personas">
         <div class="row">
             <div class="col-md-12 col-lg-12">
-                <p-table [value]="listaPersonas" [paginator]="true" [paginator]="true"
+                <p-table class="table table-sm table-striped" [value]="listaPersonas" [paginator]="true" [paginator]="true"
                     (onLazyLoad)="loadDetailsLazy($event)" [rows]="5" [totalRecords]="totalRows" [lazy]="true"
                     [showCurrentPageReport]="true" scrollDirection="both"
                     currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros">

@@ -31,10 +31,9 @@ export class PersonIndexComponent implements OnInit {
   NavigateToCreate() {
     this.dialogService.open(PersonCreateOrEditComponent, {
       header: 'Crear Persona',
-      width: '75%',
-      height: '85%',
+      width: '85%',
+      height: 'auto',
       data: {update: false},
-      contentStyle: {'max-height': '500px', overflow: 'auto'},
       baseZIndex: 10000,
     }).onClose.subscribe((result) => {
 

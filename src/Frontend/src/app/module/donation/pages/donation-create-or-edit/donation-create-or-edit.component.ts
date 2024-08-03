@@ -223,6 +223,9 @@ export class DonationCreateOrEditComponent implements OnInit {
           '-' +
           String(this.donationForm.get('nameBrigade')?.value),
       });
+      if (this.view) {
+        this.donationForm.get('donationTypeId')?.disable();
+      }
     }
   }
 

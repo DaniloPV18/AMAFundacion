@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrigadeService } from '../../brigada/services/brigade.service';
 import { DonationService } from '../../donation/services/donation.service';
 import { VoluntarioService } from '../../voluntario/voluntario.service';
 import { beneficiarioService } from '../../beneficiario/services/beneficiario.service';
-import { Result } from '../../../core/interfaces/result';
 
 @Component({
   selector: 'app-index',
-  // standalone: true,
-  // imports: [CommonModule],
   templateUrl: './index.component.html',
-  styleUrl: './index.component.sass'
+  styleUrl: './index.component.sass',
 })
 export class IndexComponent {
   donacionesCount: number = 0;
@@ -23,76 +19,65 @@ export class IndexComponent {
     private voluntarioService: VoluntarioService,
     private brigadeService: BrigadeService,
     private beebeficiarioService: beneficiarioService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.loadBrigadeCount();
   }
 
   loadBrigadeCount(): void {
-    this.donationService.getDonationCount().subscribe(
-      (res:any) => {
+    this.donationService.getDonationCount().subscribe({
+      next: (res: any) => {
         if (res && res.result !== undefined) {
           this.donacionesCount = res.result;
         } else {
-          console.error('Unexpected response format:', res);
-          this.donacionesCount = 0; 
+          this.donacionesCount = 0;
         }
-        
       },
-      (error) => {
-        console.log("Errrrror");
+      error: (error) => {
         this.donacionesCount = 10;
         console.error('Error fetching brigade count', error);
-      }
-    );
-    this.voluntarioService.getVoluntarioCount().subscribe(
-      (res:any) => {
+      },
+    });
+    this.voluntarioService.getVoluntarioCount().subscribe({
+      next: (res: any) => {
         if (res && res.result !== undefined) {
           this.voluntariosCount = res.result;
         } else {
-          console.error('Unexpected response format:', res);
-          this.voluntariosCount = 0; 
+          this.voluntariosCount = 0;
         }
-        
       },
-      (error) => {
-        console.log("Errrrror");
+      error: (error) => {
         this.voluntariosCount = 10;
         console.error('Error fetching brigade count', error);
-      }
-    );
-    this.brigadeService.getBrigadeCount().subscribe(
-      (res:any) => {
+      },
+    });
+    this.brigadeService.getBrigadeCount().subscribe({
+      next: (res: any) => {
         if (res && res.result !== undefined) {
           this.brigadeCount = res.result;
         } else {
-          console.error('Unexpected response format:', res);
-          this.brigadeCount = 0; 
+          this.brigadeCount = 0;
         }
-        
       },
-      (error) => {
-        console.log("Errrrror");
+      error: (error) => {
         this.brigadeCount = 10;
         console.error('Error fetching brigade count', error);
-      }
-    );
-    this.beebeficiarioService.getBeneficiarioCount().subscribe(
-      (res:any) => {
+      },
+    });
+    this.beebeficiarioService.getBeneficiarioCount().subscribe({
+      next: (res: any) => {
         if (res && res.result !== undefined) {
           this.beneficiariosCount = res.result;
         } else {
           console.error('Unexpected response format:', res);
-          this.beneficiariosCount = 0; 
+          this.beneficiariosCount = 0;
         }
-        
       },
-      (error) => {
-        console.log("Errrrror");
+      error: (error) => {
         this.beneficiariosCount = 10;
         console.error('Error fetching brigade count', error);
-      }
-    );
+      },
+    });
   }
 }

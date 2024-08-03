@@ -42,19 +42,20 @@ export class beneficiarioCreateOrEditComponent {
     this.InitializeData();
   }
   private buildFormData() {
+    const cleanBeneficiaryData = {
+      ...this.config.data.beneficiario,
+      description: this.config.data.beneficiario.description?.trim(),
+    };
     this.formData = {
       id:
         this.config.data.beneficiario.id ||
         this.config.data.beneficiario.personId,
-      ...this.config.data.beneficiario,
+      ...cleanBeneficiaryData,
       ...this.config.data.beneficiario.person,
     };
-
     this.beneficiarioForm = this.formService.createFormGroup<beneficiarioForm>(
       this.formData
     );
-
-     console.log(this.beneficiarioForm.value);
 
     this.validator();
   }
@@ -66,8 +67,6 @@ export class beneficiarioCreateOrEditComponent {
     this.update = this.config.data.update;
     this.view = this.config.data.view;
 
-    // console.log(this.view);
-    // this.getTypeIdentification();
     if (this.update) {
       this.label = 'Actualizar';
       this.buildFormData();
@@ -110,7 +109,6 @@ export class beneficiarioCreateOrEditComponent {
 
   structureData() {
     let datos = { ...this.beneficiarioForm.value };
-    console.log("aqui",datos)
     for (const key in datos) {
       if (key !== 'person' && datos[key] !== undefined) {
         datos.person[key] = datos[key];
@@ -125,15 +123,12 @@ export class beneficiarioCreateOrEditComponent {
         nameCompleted: `${datos.person.lastName} ${datos.person.secondLastName} ${datos.person.firstName} ${datos.person.secondName}`,
       },
     };
-    console.log(datos);
     return datos;
   }
 
   async Createbeneficiario() {
     try {
-      
       let datos = this.structureData();
-      console.log(datos);
       this.loading = true;
 
       await this.beneficiarioService.createbeneficiario(datos).toPromise();
@@ -194,18 +189,50 @@ export class beneficiarioCreateOrEditComponent {
 
     this.beneficiarioForm =
       this.formService.createFormGroup<beneficiarioForm>(dataForm);
-    this.validator();  
+    this.validator();
   }
 
   private validator() {
-    this.beneficiarioForm.get('description')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z0-9 \\-_ñÑ]+$')]);
-    this.beneficiarioForm.get('firstName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm.get('secondName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm.get('lastName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm.get('secondLastName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm.get('email')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]);
-    this.beneficiarioForm.get('identificationTypeId')?.setValidators([Validators.required, Validators.pattern('[0-9]*')]);
-    this.beneficiarioForm.get('identification')?.setValidators([Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(10)]);
-    this.beneficiarioForm.get('phone')?.setValidators([Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(10)]);
+    this.beneficiarioForm
+      .get('description')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9 \\-_ñÑ]+$'),
+      ]);
+    this.beneficiarioForm
+      .get('firstName')
+      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
+    this.beneficiarioForm
+      .get('secondName')
+      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
+    this.beneficiarioForm
+      .get('lastName')
+      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
+    this.beneficiarioForm
+      .get('secondLastName')
+      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
+    this.beneficiarioForm
+      .get('email')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),
+      ]);
+    this.beneficiarioForm
+      .get('identificationTypeId')
+      ?.setValidators([Validators.required, Validators.pattern('[0-9]*')]);
+    this.beneficiarioForm
+      .get('identification')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.minLength(10),
+      ]);
+    this.beneficiarioForm
+      .get('phone')
+      ?.setValidators([
+        Validators.required,
+        Validators.pattern('[0-9]*'),
+        Validators.minLength(10),
+      ]);
   }
 }

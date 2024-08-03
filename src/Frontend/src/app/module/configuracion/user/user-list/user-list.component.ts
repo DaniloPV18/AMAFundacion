@@ -29,7 +29,6 @@ export class UserListComponent implements OnInit {
   getUsers(): void {
     this.userService.getUsers(this.filter).subscribe((res) => {
       this.users = res;
-      console.log(res)
       this.cdr.detectChanges();
     });
   }

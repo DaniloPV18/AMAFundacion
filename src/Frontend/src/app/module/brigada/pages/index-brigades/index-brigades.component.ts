@@ -30,16 +30,15 @@ export class IndexBrigadesComponent implements OnInit {
     private brigadeService: BrigadeService
   ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   NavigateToCreate() {
     const refdialog = this.dialogService
       .open(CreateOrEditBrigadesComponent, {
         header: 'Crear Brigada',
-        width: 'auto',
+        width: '85%',
         height: 'auto',
         data: {},
-        contentStyle: { 'min-height': '500px', 'min-width': '500px' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
@@ -64,22 +63,19 @@ export class IndexBrigadesComponent implements OnInit {
 
     if (Object.keys(beneficiarioFilter).length !== 0) {
       beneficiarioFilter = { ...beneficiarioFilter, offset: 0, take: 10 };
-
-      // console.log(beneficiarioFilter);
-
       this.brigadeService
         //@ts-ignore
         .getAllBrigades(beneficiarioFilter)
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: (result) => {
             this.cambios = {
               listabeneficiarios: result.result,
               totalRows: result.length,
               loading: false,
             };
           },
-          (error) => {}
-        );
+          error: () => {},
+        });
     }
   }
 }

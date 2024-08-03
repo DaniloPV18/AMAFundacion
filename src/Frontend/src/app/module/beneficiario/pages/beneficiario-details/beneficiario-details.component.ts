@@ -75,11 +75,10 @@ export class beneficiarioDetailsComponent implements OnInit, OnChanges {
   }
 
   handleUpdateListDetails() {
-    this.getbeneficiario(); // Llamada a la función que obtiene las beneficiarios
+    this.getbeneficiario();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
     for (let change in changes) {
       if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();
@@ -117,10 +116,9 @@ export class beneficiarioDetailsComponent implements OnInit, OnChanges {
     this.dialogService
       .open(beneficiarioCreateOrEditComponent, {
         header: 'Editar beneficiario',
-        width: '50%',
-        height: '90%',
+        width: '85%',
+        height: 'auto',
         data: { update: true, beneficiario: beneficiarioDto },
-        contentStyle: { 'max-height': '650px', overflow: 'auto' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {
@@ -134,10 +132,9 @@ export class beneficiarioDetailsComponent implements OnInit, OnChanges {
     this.dialogService
       .open(beneficiarioCreateOrEditComponent, {
         header: 'Detalles del beneficiario',
-        width: '50%',
-        height: '90%',
+        width: '85%',
+        height: 'auto',
         data: { view: true, beneficiario: beneficiarioDto },
-        contentStyle: { 'max-height': '550px', overflow: 'auto' },
         baseZIndex: 10000,
       })
       .onClose.subscribe((result) => {

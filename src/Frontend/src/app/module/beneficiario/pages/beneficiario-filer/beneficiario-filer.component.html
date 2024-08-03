@@ -11,9 +11,15 @@
           <input
             type="text"
             pInputText
+            maxlength="10"
             formControlName="Identification"
             class="p-input-size"
           />
+          <app-error-display
+            [control]="formFilterConsult.get('Identification')"
+            [pattern]="'números'"
+            [maxLength]="10"
+          ></app-error-display>
         </div>
         <div class="col-md-3">
           <div class="negrita-label-form">Nombre</div>
@@ -23,6 +29,10 @@
             formControlName="Name"
             class="p-input-size"
           />
+          <app-error-display
+            [control]="formFilterConsult.get('Name')"
+            [pattern]="'caracteres'"
+          ></app-error-display>
         </div>
         <div class="col-md-3">
           <div class="negrita-label-form">Email</div>
@@ -32,6 +42,10 @@
             formControlName="Email"
             class="p-input-size"
           />
+          <app-error-display
+            [control]="formFilterConsult.get('Email')"
+            [pattern]="' . _  %  +  -  @ caracteres y numeros'"
+          ></app-error-display>
         </div>
       </div>
     </form>
@@ -64,7 +78,7 @@
         (click)="closed()"
         class="p-button-outlined btn-fund-ama ml-2 p-button-sm btn-small w-auto p-btn-style"
       >
-        <span class="p-button-label"> <i class="pi pi-times"></i> cerrar </span>
+        <span class="p-button-label"> <i class="pi pi-times"></i> Cerrar </span>
       </button>
     </div>
   </ng-template>
