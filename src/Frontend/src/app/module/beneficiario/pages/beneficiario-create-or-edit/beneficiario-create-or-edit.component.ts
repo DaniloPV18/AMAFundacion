@@ -42,19 +42,23 @@ export class beneficiarioCreateOrEditComponent {
     this.InitializeData();
   }
   private buildFormData() {
+    const cleanBeneficiaryData = {
+      ...this.config.data.beneficiario,
+      description: this.config.data.beneficiario.description?.trim(),  
+    };
     this.formData = {
       id:
-        this.config.data.beneficiario.id ||
-        this.config.data.beneficiario.personId,
-      ...this.config.data.beneficiario,
-      ...this.config.data.beneficiario.person,
+      this.config.data.beneficiario.id ||
+      this.config.data.beneficiario.personId,
+    ...cleanBeneficiaryData,
+    ...this.config.data.beneficiario.person,
     };
-
+    console.log(this.config.data.beneficiario)
     this.beneficiarioForm = this.formService.createFormGroup<beneficiarioForm>(
       this.formData
     );
 
-     console.log(this.beneficiarioForm.value);
+     //console.log(this.beneficiarioForm.value);
 
     this.validator();
   }

@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { FormService } from '../../../../shared/services/from.service';
 import { beneficiarioFilter } from '../../interfaces/beneficiario-filter';
 
@@ -76,5 +76,11 @@ export class beneficiarioFilerComponent {
       this.formService.createFormGroup<beneficiarioFilter>(
         this.formBeneficiaryFilter
       );
+    this.validator();
+  }
+  private validator(){
+    this.formFilterConsult.get('Identification')?.setValidators([Validators.pattern('[0-9]*')]);
+    this.formFilterConsult.get('Name')?.setValidators([Validators.pattern('^[a-zA-Z]+$')]);
+    this.formFilterConsult.get('Email')?.setValidators([Validators.pattern('^[a-zA-Z0-9._%+-@]+$')]);    
   }
 }
