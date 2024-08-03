@@ -75,11 +75,10 @@ export class beneficiarioDetailsComponent implements OnInit, OnChanges {
   }
 
   handleUpdateListDetails() {
-    this.getbeneficiario(); // Llamada a la función que obtiene las beneficiarios
+    this.getbeneficiario();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
     for (let change in changes) {
       if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();

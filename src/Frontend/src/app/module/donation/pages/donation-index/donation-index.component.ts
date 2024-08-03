@@ -17,7 +17,7 @@ export class DonationIndexComponent {
       .open(DonationCreateOrEditComponent, {
         header: 'Crear Donación',
         width: '95',
-        height: '85%',
+        height: 'auto',
         data: { update: false },
         baseZIndex: 10000,
       })

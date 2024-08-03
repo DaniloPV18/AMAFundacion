@@ -53,21 +53,20 @@ export class VoluntarioListComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.getPerson();
-    this.voluntarioService.getVoluntarioList().subscribe(
-      (response: VoluntarioListResponse) => {
+    this.voluntarioService.getVoluntarioList().subscribe({
+      next: (response: VoluntarioListResponse) => {
         this.voluntarioList = response.result;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al obtener datos:', error);
-      }
-    );
+      },
+    });
   }
 
   handleUpdateListDetails() {
-    this.getPerson(); // Llamada a la función que obtiene las personas
+    this.getPerson();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     for (let change in changes) {
       if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();

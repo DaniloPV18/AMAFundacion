@@ -93,7 +93,6 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
       }
       if (change === 'searchFilter') {
         if (changes[change].currentValue) {
-          // console.log(changes[change].currentValue)
           this.listaBrigadeas = changes[change].currentValue.listabeneficiarios;
           this.totalRows = changes[change].currentValue.totalRows;
           this.loading = changes[change].currentValue.loading;

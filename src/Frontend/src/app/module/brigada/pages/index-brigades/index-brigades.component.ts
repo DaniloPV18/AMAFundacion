@@ -30,7 +30,7 @@ export class IndexBrigadesComponent implements OnInit {
     private brigadeService: BrigadeService
   ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   NavigateToCreate() {
     const refdialog = this.dialogService
@@ -63,22 +63,19 @@ export class IndexBrigadesComponent implements OnInit {
 
     if (Object.keys(beneficiarioFilter).length !== 0) {
       beneficiarioFilter = { ...beneficiarioFilter, offset: 0, take: 10 };
-
-      // console.log(beneficiarioFilter);
-
       this.brigadeService
         //@ts-ignore
         .getAllBrigades(beneficiarioFilter)
-        .subscribe(
-          (result) => {
+        .subscribe({
+          next: (result) => {
             this.cambios = {
               listabeneficiarios: result.result,
               totalRows: result.length,
               loading: false,
             };
           },
-          (error) => {}
-        );
+          error: () => {},
+        });
     }
   }
 }

@@ -9,7 +9,6 @@ import { DialogService } from 'primeng/dynamicdialog';
   templateUrl: './beneficiario-index.component.html',
   styleUrl: './beneficiario-index.component.sass',
 })
-
 export class beneficiarioIndexComponent {
   isUpdateListDetails: boolean = false;
   openFilterPanel: boolean = false;
@@ -56,9 +55,6 @@ export class beneficiarioIndexComponent {
 
     if (Object.keys(beneficiarioFilter).length !== 0) {
       beneficiarioFilter = { ...beneficiarioFilter, offset: 0, take: 10 };
-
-      // console.log(beneficiarioFilter);
-
       this.beneficiarioService
         //@ts-ignore
         .getAllbeneficiarios(beneficiarioFilter)
