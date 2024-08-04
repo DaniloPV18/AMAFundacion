@@ -1,46 +1,104 @@
-
-<p-table [value]="lsBrigade" [paginator]="true" [lazy]="true" [rows]="10" (onLazyLoad)="loadBrigadeLazy($event)"
-  [totalRecords]="totalRows" [showCurrentPageReport]="true" scrollDirection="vertical"
-  currentPageReportTemplate="{last} de {totalRecords}" class="table"
-  selectionMode="single">
+<p-table
+  [value]="lsBrigade"
+  [paginator]="true"
+  [lazy]="true"
+  [rows]="10"
+  (onLazyLoad)="loadBrigadeLazy($event)"
+  [totalRecords]="totalRows"
+  [showCurrentPageReport]="true"
+  scrollDirection="vertical"
+  currentPageReportTemplate="{last} de {totalRecords}"
+  class="table"
+  selectionMode="single"
+>
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th pSortableColumn="id">
-        <div class="col-12 mb-1">
-          <div class="text-center flex justify-content-center align-items-center">
+      <th>
+        <div class="col-12 mb-1 w-min-150">
+          <div
+            class="text-center flex justify-content-center align-items-center header"
+          >
             N° Brigada
             <p-sortIcon field="code"></p-sortIcon>
           </div>
-
         </div>
-        <div class="col-12">
-          <p-columnFilter type="text" field="id" matchMode="contains" [showMenu]="false"
-            (paste)="onKeyDownLettersAndNumbers($event)" (keypress)="onKeyDownLettersAndNumbers($event)"
-            (input)="onInput($event)"></p-columnFilter>
+        <div class="col-12 d-flex align-items-center" [formGroup]="filtersForm">
+          <p-columnFilter
+            type="text"
+            field="id"
+            matchMode="contains"
+            [showMenu]="false"
+            [showClearButton]="false"
+            [showButtons]="false"
+            [showAddButton]="false"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <input type="text" pInputText formControlName="id" />
+            </ng-template>
+          </p-columnFilter>
+          @if(filtersForm.get('id')?.value){
+          <button class="button-clean" (click)="clearFilter('id')">
+            <i
+              pTooltip="Limpiar Filtro"
+              tooltipPosition="top"
+              class="ps-2 pointer bi bi-funnel-fill"
+            ></i>
+          </button>
+          }
         </div>
       </th>
 
-      <th pSortableColumn="name">
+      <th class="w-min-150">
         <div class="col-12 mb-1">
-          <div class="text-center flex justify-content-center align-items-center">
+          <div
+            class="text-center flex justify-content-center align-items-center header"
+          >
             Nombre Brigada &nbsp; &nbsp;
             <p-sortIcon field="code"></p-sortIcon>
           </div>
         </div>
-        <div class="col-12">
-          <p-columnFilter type="text" field="name" matchMode="contains" [showMenu]="false"
-            (paste)="onKeyDownLettersAndNumbers($event)" (keypress)="onKeyDownLettersAndNumbers($event)"
-            (input)="onInput($event)"></p-columnFilter>
+        <div class="col-12 d-flex align-items-center" [formGroup]="filtersForm">
+          <p-columnFilter
+            type="text"
+            field="name"
+            matchMode="contains"
+            [showMenu]="false"
+            [showClearButton]="false"
+            [showButtons]="false"
+            [showAddButton]="false"
+          >
+            <ng-template
+              pTemplate="filter"
+              let-value
+              let-filter="filterCallback"
+            >
+              <input type="text" pInputText formControlName="name" />
+            </ng-template>
+          </p-columnFilter>
+          @if(filtersForm.get('name')?.value){
+          <button class="button-clean" (click)="clearFilter('name')">
+            <i
+              pTooltip="Limpiar Filtro"
+              tooltipPosition="top"
+              class="ps-2 pointer bi bi-funnel-fill"
+            ></i>
+          </button>
+          }
         </div>
       </th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-dataBrigade let-rowIndex="rowIndex">
-
-    <tr [pSelectableRow]="dataBrigade" (dblclick)="onRowDblClick($event, dataBrigade)">
-      <td class="text-center">{{dataBrigade.id}}</td>
-      <td>{{dataBrigade.name}}</td>
-
+    <tr
+      [pSelectableRow]="dataBrigade"
+      (dblclick)="onRowDblClick($event, dataBrigade)"
+    >
+      <td class="text-center">{{ dataBrigade.id }}</td>
+      <td>{{ dataBrigade.name }}</td>
     </tr>
   </ng-template>
   <ng-template pTemplate="emptymessage">
