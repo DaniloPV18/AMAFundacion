@@ -27,9 +27,9 @@ namespace FundacionAMA.Application.Services.PersonApp
             _volunteerRepository = volunteerRepository;
         }
 
-        
 
-    public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
+
+        public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
         {
             try
             {
@@ -50,15 +50,21 @@ namespace FundacionAMA.Application.Services.PersonApp
                 }
                 if (persona.Volunteer)
                 {
-                    if (entity.Data.volunaterRequest == null)
+                    //if (entity.Data.volunaterRequest == null)
+                    //{
+                    //    return new OperationResult(System.Net.HttpStatusCode.BadRequest,
+                    //        $"Se debe proporcionar datos si es voluntario");
+                    //}
+                    persona.VolunteerNavigation = new Volunteer()
                     {
-                        return new OperationResult(System.Net.HttpStatusCode.BadRequest,
-                            $"Se debe proporcionar datos si es voluntario");
-                    }
-                    entity.Data.volunaterRequest.MapTo<Volunteer>();
-                    persona.VolunteerNavigation = entity.Data.volunaterRequest.MapTo<Volunteer>();
-                    persona.VolunteerNavigation.PersonId = persona.Id;
-
+                        Active = true,
+                        PersonId = persona.Id,
+                        Status = "A",
+                        ActivityTypeId = 1,
+                    };
+                    //entity.Data.volunaterRequest.MapTo<Volunteer>();
+                    //persona.VolunteerNavigation = entity.Data.volunaterRequest.MapTo<Volunteer>();
+                    //persona.VolunteerNavigation.PersonId = persona.Id;
                 }
                 await _personRepository.InsertAsync(persona);
                 await _personRepository.SaveChangesAsync(entity);
@@ -126,10 +132,10 @@ namespace FundacionAMA.Application.Services.PersonApp
         {
             try
             {
-                    var query = _personRepository.All.Where(GetFilters(filter));
-                   var totalRecords = await query.CountAsync();
-                    return await query
-                        .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
+                var query = _personRepository.All.Where(GetFilters(filter));
+                var totalRecords = await query.CountAsync();
+                return await query
+                    .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
             }
             catch (Exception ex)
             {
@@ -170,7 +176,7 @@ namespace FundacionAMA.Application.Services.PersonApp
 
         //    return persona == null
         //        ? new OperationResult<PersonDto>(System.Net.HttpStatusCode.NotFound, $"La persona con identificación {identification} no existe")
-                 
+
         //        : new OperationResult<PersonDto>(System.Net.HttpStatusCode.OK, persona);
         //}
 

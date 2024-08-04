@@ -25,7 +25,7 @@ public partial class Volunteer: BaseEntity
 
     public DateTime EndDate { get; set; }
 
-    public int ActivityTypeId { get; set; }
+    public int? ActivityTypeId { get; set; }
 
     public virtual ActivityType ActivityType { get; set; }
 
