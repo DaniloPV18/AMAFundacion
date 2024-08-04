@@ -199,40 +199,13 @@ export class beneficiarioCreateOrEditComponent {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9 \\-_ñÑ]+$'),
       ]);
-    this.beneficiarioForm
-      .get('firstName')
-      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm
-      .get('secondName')
-      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm
-      .get('lastName')
-      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm
-      .get('secondLastName')
-      ?.setValidators([Validators.required, Validators.pattern('^[a-zA-Z]+$')]);
-    this.beneficiarioForm
-      .get('email')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'),
-      ]);
-    this.beneficiarioForm
-      .get('identificationTypeId')
-      ?.setValidators([Validators.required, Validators.pattern('[0-9]*')]);
-    this.beneficiarioForm
-      .get('identification')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern('[0-9]*'),
-        Validators.minLength(10),
-      ]);
-    this.beneficiarioForm
-      .get('phone')
-      ?.setValidators([
-        Validators.required,
-        Validators.pattern('[0-9]*'),
-        Validators.minLength(10),
-      ]);
+    this.beneficiarioForm.get('firstName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-ZñÑ]+$')]);
+    this.beneficiarioForm.get('secondName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-ZñÑ]+$')]);
+    this.beneficiarioForm.get('lastName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-ZñÑ]+$')]);
+    this.beneficiarioForm.get('secondLastName')?.setValidators([Validators.required,Validators.pattern('^[a-zA-ZñÑ]+$')]);
+    this.beneficiarioForm.get('email')?.setValidators([Validators.required,Validators.pattern('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$')]);
+    this.beneficiarioForm.get('identificationTypeId')?.setValidators([Validators.required, Validators.pattern('[0-9]*')]);
+    this.beneficiarioForm.get('identification')?.setValidators([Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(10)]);
+    this.beneficiarioForm.get('phone')?.setValidators([Validators.required, Validators.pattern('[0-9]*'),Validators.minLength(10)]);
   }
 }
