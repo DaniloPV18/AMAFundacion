@@ -1,13 +1,17 @@
 ﻿using FundacionAMA.Application.Services.BrigadeApp;
 using FundacionAMA.Application.Services.VolunteeerApp;
+using FundacionAMA.Domain.DTO.Brigade.Dto;
+using FundacionAMA.Domain.DTO.Brigade.FilterDto;
 using FundacionAMA.Domain.DTO.Volunteer.Dto;
 using FundacionAMA.Domain.DTO.Volunteer.Filter;
 using FundacionAMA.Domain.DTO.Volunteer.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Volunteer;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using FundacionAMA.Domain.Shared.Interfaces.Operations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Volunteer
 {
@@ -129,7 +133,9 @@ namespace FundacionAMA.API.Controllers.Volunteer
         {
             try
             {
-                var count = await _service.GetCount();
+                IOperationResultList<VolunteerDto> Result = await _service.GetAll(new VolunteerFilter());
+                //var count = await _service.GetCount();
+                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
                 return Ok(count);
             }
             catch (Exception ex)

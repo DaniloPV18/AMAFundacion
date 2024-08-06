@@ -31,11 +31,11 @@ export class IndexComponent {
         if (res && res.result !== undefined) {
           this.donacionesCount = res.result;
         } else {
-          this.donacionesCount = 0;
+          this.donacionesCount = -51;
         }
       },
       error: (error) => {
-        this.donacionesCount = 10;
+        this.donacionesCount = 344404;
         console.error('Error fetching brigade count', error);
       },
     });
@@ -44,11 +44,11 @@ export class IndexComponent {
         if (res && res.result !== undefined) {
           this.voluntariosCount = res.result;
         } else {
-          this.voluntariosCount = 0;
+          this.voluntariosCount = -51;
         }
       },
       error: (error) => {
-        this.voluntariosCount = 10;
+        this.voluntariosCount = 344404;
         console.error('Error fetching brigade count', error);
       },
     });
@@ -57,11 +57,11 @@ export class IndexComponent {
         if (res && res.result !== undefined) {
           this.brigadeCount = res.result;
         } else {
-          this.brigadeCount = 0;
+          this.brigadeCount = -51;
         }
       },
       error: (error) => {
-        this.brigadeCount = 10;
+        this.brigadeCount = 344404;
         console.error('Error fetching brigade count', error);
       },
     });
@@ -71,11 +71,11 @@ export class IndexComponent {
           this.beneficiariosCount = res.result;
         } else {
           console.error('Unexpected response format:', res);
-          this.beneficiariosCount = 0;
+          this.beneficiariosCount = -51;
         }
       },
       error: (error) => {
-        this.beneficiariosCount = 10;
+        this.beneficiariosCount = 344404;
         console.error('Error fetching brigade count', error);
       },
     });

@@ -3,11 +3,13 @@ using FundacionAMA.Domain.DTO.Brigade.Dto;
 using FundacionAMA.Domain.DTO.Brigade.FilterDto;
 using FundacionAMA.Domain.DTO.Brigade.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Brigade;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using FundacionAMA.Domain.Shared.Interfaces.Operations;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Brigada
 {
@@ -94,7 +96,9 @@ namespace FundacionAMA.API.Controllers.Brigada
         {
             try
             {
-                var count = await _brigadeAppService.GetCount();
+                IOperationResultList<BrigadeDto> Result = await _brigadeAppService.GetAll(new BrigadeFilter());
+                //var count = await _brigadeAppService.GetCount();
+                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
                 return Ok(count);
             }
             catch (Exception ex)

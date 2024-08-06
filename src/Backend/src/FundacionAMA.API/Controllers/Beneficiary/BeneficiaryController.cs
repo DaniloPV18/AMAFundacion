@@ -1,15 +1,20 @@
 ﻿using FundacionAMA.Application.Services.BeneficaryApp;
 using FundacionAMA.Application.Services.BrigadeApp;
+using FundacionAMA.Domain.DTO.Beneficiary.Dto;
 using FundacionAMA.Domain.DTO.Beneficiary.FilterDto;
 using FundacionAMA.Domain.DTO.Beneficiary.Request;
+using FundacionAMA.Domain.DTO.Volunteer.Dto;
+using FundacionAMA.Domain.DTO.Volunteer.Filter;
 using FundacionAMA.Domain.Interfaces.Controller.Beneficiary;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
-
+using FundacionAMA.Domain.Shared.Interfaces.Operations;
 using Microsoft.AspNetCore.Authorization;
 
 
 // using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Beneficiary
 {
@@ -77,7 +82,9 @@ namespace FundacionAMA.API.Controllers.Beneficiary
         {
             try
             {
-                var count = await _service.GetCount();
+                IOperationResultList<BeneficiaryDto> Result = await _service.GetAll(new BeneficiaryFilter());
+                //var count = await _service.GetCount();
+                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
                 return Ok(count);
             }
             catch (Exception ex)
