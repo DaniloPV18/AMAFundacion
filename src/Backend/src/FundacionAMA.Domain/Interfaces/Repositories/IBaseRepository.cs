@@ -6,6 +6,10 @@ namespace FundacionAMA.Domain.Interfaces.Repositories;
 
 public interface IBaseRepository<T> : IDisposable where T : class
 {
+    //AÑADIDO 
+    Task EliminarRegistroAsync(T entity);
+    Task<T?> GetByIdAsync(Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, params object[] keyValues);
+    //FIN AÑADIDO
     IQueryable<T> All { get; }
     T First(Expression<Func<T, bool>> expression, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null);
     T? GetById(params object[] keyValues);
