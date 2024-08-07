@@ -317,7 +317,34 @@ namespace FundacionAMA.Application.Services.PersonApp
 
         public Task<IOperationResult<int>> GetCount()
         {
-            return _personRepository.GetCount();
+
+            return GetCountVolunteer();
+        }
+
+
+ 
+
+        public async Task<IOperationResult<int>> GetCountVolunteer()
+        {
+            try
+            {
+                int count = await _personRepository.All
+                    .Where(e => e.Active && e.Volunteer)
+                    .CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                return await ex.ToResultAsync<int>();
+            }
+        }
+
+        private static Expression<Func<Person, bool>> GetFiltersCount(PersonFilter filter)
+        {
+            return e => e.Active &&
+                (!filter.Volunteer.HasValue || e.Volunteer == filter.Volunteer.Value);
         }
     }
+
 }

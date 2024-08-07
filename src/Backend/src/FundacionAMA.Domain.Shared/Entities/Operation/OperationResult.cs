@@ -22,7 +22,13 @@ namespace FundacionAMA.Domain.Shared.Entities.Operation
             Message = message ?? $"The server responded with status code: {(int)status} {status}";
             Error = exception;
         }
-
+        //public OperationResult(HttpStatusCode status, string? message = default, int? value = null)
+        //{
+        //    StatusCode = status;
+        //    Message = message ?? $"The server responded with status code: {(int)status} {status}";
+        //    ValueInt = value;
+        //}
+        //public int? ValueInt { get; set; }
         public string? Error { get; set; }
         public string? Message { get; set; } = "OK";
         public HttpStatusCode StatusCode { get; set; } = HttpStatusCode.OK;
