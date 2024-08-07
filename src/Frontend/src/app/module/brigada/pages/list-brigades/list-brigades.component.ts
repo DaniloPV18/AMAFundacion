@@ -164,12 +164,14 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
   private deleteBrigade(id: number) {
     this.brigadeService.deleteBrigade(id).subscribe({
       complete: () => {
+        /*
         this.messageService.add({
           severity: 'success',
           summary: '',
           detail: 'Registro eliminado',
           life: 3000,
         });
+        */
       },
       error: () => {},
     });
