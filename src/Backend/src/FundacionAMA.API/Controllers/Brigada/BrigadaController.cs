@@ -97,7 +97,7 @@ namespace FundacionAMA.API.Controllers.Brigada
             try
             {
                 IOperationResultList<BrigadeDto> Result = await _brigadeAppService.GetAll(new BrigadeFilter());
-                //var count = await _brigadeAppService.GetCount();
+                var count_ = await _brigadeAppService.GetCount();
                 var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
                 return Ok(count);
             }

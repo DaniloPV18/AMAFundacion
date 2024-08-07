@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BrigadeService } from '../../brigada/services/brigade.service';
 import { DonationService } from '../../donation/services/donation.service';
 import { VoluntarioService } from '../../voluntario/voluntario.service';
+import { PersonService } from '../../person/services/person.service';
 import { beneficiarioService } from '../../beneficiario/services/beneficiario.service';
 
 @Component({
@@ -17,8 +18,9 @@ export class IndexComponent {
   constructor(
     private donationService: DonationService,
     private voluntarioService: VoluntarioService,
+    private personService: PersonService,
     private brigadeService: BrigadeService,
-    private beebeficiarioService: beneficiarioService
+    private beneficiarioService: beneficiarioService
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +41,20 @@ export class IndexComponent {
         console.error('Error fetching brigade count', error);
       },
     });
-    this.voluntarioService.getVoluntarioCount().subscribe({
+    //this.voluntarioService.getVoluntarioCount().subscribe({
+    //  next: (res: any) => {
+    //    if (res && res.result !== undefined) {
+    //      //this.voluntariosCount = res.result;
+    //    } else {
+    //      //this.voluntariosCount = -51;
+    //    }
+    //  },
+    //  error: (error) => {
+    //    //this.voluntariosCount = 344404;
+    //    //console.error('Error fetching brigade count', error);
+    // },
+    //});
+    this.personService.getVoluntarioCount().subscribe({
       next: (res: any) => {
         if (res && res.result !== undefined) {
           this.voluntariosCount = res.result;
@@ -47,7 +62,7 @@ export class IndexComponent {
           this.voluntariosCount = -51;
         }
       },
-      error: (error) => {
+      error: (error:any) => {
         this.voluntariosCount = 344404;
         console.error('Error fetching brigade count', error);
       },
@@ -65,7 +80,7 @@ export class IndexComponent {
         console.error('Error fetching brigade count', error);
       },
     });
-    this.beebeficiarioService.getBeneficiarioCount().subscribe({
+    this.beneficiarioService.getBeneficiarioCount().subscribe({
       next: (res: any) => {
         if (res && res.result !== undefined) {
           this.beneficiariosCount = res.result;
