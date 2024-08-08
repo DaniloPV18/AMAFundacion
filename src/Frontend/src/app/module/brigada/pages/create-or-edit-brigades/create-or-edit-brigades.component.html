@@ -33,19 +33,26 @@
             <textarea rows="3" pInputTextarea [autoResize]="true" id="description" formControlName="description"
               class="form-control" [readonly]="view"></textarea>
           </div>
-        </div>
-          <div class="row">
-          <div class="mb-3 col-sm-12 col-md-6">
-            <div id="form-calendario" class="form-group me-md-5 mt-5">
-              <label for="start">Fecha Inicio</label>
-              <div class="calendar-container">
+            <div class="row">
+            <div class="mb-3 col-sm-12 col-md-6">
+              <div id="form-calendario" class="form-group me-md-5 mt-5">
+                <label for="start">Fecha Inicio</label>
                 <div class="calendar-container">
                   <p-calendar *ngIf="!view" placeholder="Seleccione la fecha Inicial" id="start"
                     formControlName="start" [showIcon]="true" class="modal-calendar p-input-size d-flex"></p-calendar>
                 </div>
-                <div *ngIf="view" class="calendar-container" style="height: 40px !important">
-                  <input type="text" pInputText id="start" [value]="valorDate('start')" [readonly]="view"
-                    [disabled]="view" class="p-input-date h-100" />
+              </div>
+            </div>
+            <div class="mb-3 col-sm-12 col-md-6">
+              <div id="form-calendario" class="form-group ms-md-5 mt-5">
+                <label for="end">Fecha Fin</label>
+                <div class="calendar-container" *ngIf="!view">
+                  <p-calendar placeholder="Seleccione la fecha Fin" id="end" formControlName="end" [showIcon]="true"
+                    class="modal-calendar p-input-date p-input-size d-flex"></p-calendar>
+                </div>
+                <div class="calendar-container" style="height: 40px !important" *ngIf="view">
+                  <input type="text" pInputText id="end" [value]="valorDate('end')" [readonly]="view" [disabled]="view"
+                    class="p-input-date h-100" />
                   <button pButton type="button" icon="pi pi-calendar" class="p-button-rounded h-100"></button>
                 </div>
               </div>

@@ -562,12 +562,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Brigades_Name",
-                table: "Brigades",
-                column: "Name",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Brigades_PersonId",
                 table: "Brigades",
                 column: "PersonId");

@@ -46,6 +46,7 @@ export class IndexBrigadesComponent implements OnInit {
           this.isUpdateListDetails = true;
         }
       });
+      this.isUpdateListDetails = false;
   }
 
   openCloseFilter() {
