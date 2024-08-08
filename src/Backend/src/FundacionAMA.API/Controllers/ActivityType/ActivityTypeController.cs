@@ -32,6 +32,7 @@ namespace FundacionAMA.API.Controllers.ActivityType
             IOperationResult<ActivityTypeDto> result = (IOperationResult<ActivityTypeDto>)await _activityTypeServiceApp.GetById(id);
             return StatusCode(result);
         }
+/// <inheritdoc/>
 
         //esto lo pongo yo
         [HttpGet("{identification}")]

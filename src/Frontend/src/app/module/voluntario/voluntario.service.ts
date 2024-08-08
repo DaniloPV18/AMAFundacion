@@ -64,5 +64,7 @@ export class VoluntarioService {
   deleteVoluntario(id: number): Observable<Result> {
     return this.http.delete<Result>(`${this.apiUrl}/${id}`);
   }
-  
+  getVoluntarioCount(): Observable<Result> {
+    return this.http.get<Result>(`${this.apiUrl}/count`);
+  }
 }

@@ -61,10 +61,9 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
   NavigateView(brigade: any) {
     this.dialogService.open(CreateOrEditBrigadesComponent, {
       header: 'Ver Brigada',
-      width: 'auto',
+      width: '85%',
       height: 'auto',
       data: { update: true, brigade: brigade, view: true },
-      contentStyle: { 'min-height': '500px', 'min-width': '500px' },
       baseZIndex: 10000,
     });
   }
@@ -94,7 +93,6 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
       }
       if (change === 'searchFilter') {
         if (changes[change].currentValue) {
-          // console.log(changes[change].currentValue)
           this.listaBrigadeas = changes[change].currentValue.listabeneficiarios;
           this.totalRows = changes[change].currentValue.totalRows;
           this.loading = changes[change].currentValue.loading;
@@ -122,10 +120,9 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
     this.dialogService
       .open(CreateOrEditBrigadesComponent, {
         header: 'Actualizar Brigada',
-        width: 'auto',
+        width: '85%',
         height: 'auto',
         data: { update: true, brigade: brigade },
-        contentStyle: { 'min-height': '500px', 'min-width': '500px' },
         baseZIndex: 10000,
       })
 
@@ -167,12 +164,14 @@ export class ListBrigadesComponent implements OnInit, OnChanges {
   private deleteBrigade(id: number) {
     this.brigadeService.deleteBrigade(id).subscribe({
       complete: () => {
+        /*
         this.messageService.add({
           severity: 'success',
           summary: '',
           detail: 'Registro eliminado',
           life: 3000,
         });
+        */
       },
       error: () => {},
     });

@@ -3,11 +3,13 @@ using FundacionAMA.Domain.DTO.Brigade.Dto;
 using FundacionAMA.Domain.DTO.Brigade.FilterDto;
 using FundacionAMA.Domain.DTO.Brigade.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Brigade;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using FundacionAMA.Domain.Shared.Interfaces.Operations;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Brigada
 {
@@ -86,6 +88,25 @@ namespace FundacionAMA.API.Controllers.Brigada
             IOperationResult<BrigadeDto> Result = await _brigadeAppService.GetById(id);
             return StatusCode(Result);
         }
+
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                IOperationResultList<BrigadeDto> Result = await _brigadeAppService.GetAll(new BrigadeFilter());
+                var count_ = await _brigadeAppService.GetCount();
+                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
 
         // esto modifico 
         /// <summary>

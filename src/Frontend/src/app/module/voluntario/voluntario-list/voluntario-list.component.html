@@ -24,10 +24,10 @@
                     <th style="width: 5%" class="d-none d-md-table-cell">ID</th>
                     <th>Nombre</th>
                     <th>Genero</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
                     <th>Email</th>
-                    <th>disponoibilidad</th>
+                    <th>disponibilidad</th>
                     <th>Acciones</th>
                   </tr>
                 </ng-template>
@@ -48,7 +48,6 @@
                         class="btn-group"
                         style="display: flex; align-items: center"
                       >
-                       
                         <button
                           (click)="verDetalles(voluntario)"
                           class="p-element p-button-rounded p-button-success p-button p-component p-button-icon-only"
@@ -63,7 +62,7 @@
                         </button>
 
                         <button
-                          (click)=" EditData(voluntario.person)"
+                          (click)="EditData(voluntario.person)"
                           class="p-btn-action p-button p-button-rounded p-button-warning p-button-icon-only"
                           style="
                             margin-right: 5px;
@@ -82,8 +81,8 @@
                           [style]="{
                             'border-radius': '5px',
                             'font-size': '10px',
-                             height: '2.3rem',
-                             width: '2.4rem'
+                            height: '2.3rem',
+                            width: '2.4rem'
                           }"
                         ></p-button>
                       </div>

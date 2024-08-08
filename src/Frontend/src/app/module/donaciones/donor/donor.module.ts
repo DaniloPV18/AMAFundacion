@@ -8,8 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { DonorFilterComponent } from './donor-filter/donor-filter.component';
 import { DialogModule } from 'primeng/dialog';
-import { MessageService } from 'primeng/api';
-import { ConfirmationService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { DonorRouteModule } from './donor.route.module';
@@ -17,7 +16,12 @@ import { DonorListComponent } from './donor-list/donor-list.component';
 import { DonorIndexComponent } from './donor-index/donor-index.component';
 import { DonorCreateComponent } from './donor-create/donor-create.component';
 @NgModule({
-  declarations: [DonorIndexComponent, DonorListComponent, DonorCreateComponent,DonorFilterComponent],
+  declarations: [
+    DonorIndexComponent,
+    DonorListComponent,
+    DonorCreateComponent,
+    DonorFilterComponent,
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -30,11 +34,10 @@ import { DonorCreateComponent } from './donor-create/donor-create.component';
     FormsModule,
     DialogModule,
     ToastModule,
-    ConfirmDialogModule
-    
+    ConfirmDialogModule,
   ],
   exports: [],
-  providers: [MessageService,ConfirmationService],
+  providers: [MessageService, ConfirmationService],
   bootstrap: [],
 })
 export class DonorModule {}

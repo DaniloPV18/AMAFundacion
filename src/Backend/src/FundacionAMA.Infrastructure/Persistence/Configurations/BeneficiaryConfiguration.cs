@@ -15,7 +15,7 @@ namespace FundacionAMA.Infrastructure.Persistence.Configurations
             entity.HasKey(e => e.PersonId);
              
             entity.Property(e => e.Description)
-            .HasMaxLength(10)
+            .HasMaxLength(200)
             .IsFixedLength();
             entity.Property(e => e.Status)
             .IsRequired()

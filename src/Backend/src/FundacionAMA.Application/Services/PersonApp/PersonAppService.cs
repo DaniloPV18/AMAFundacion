@@ -27,9 +27,9 @@ namespace FundacionAMA.Application.Services.PersonApp
             _volunteerRepository = volunteerRepository;
         }
 
-        
 
-    public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
+
+        public async Task<IOperationResult> Create(IOperationRequest<PersonRequest> entity)
         {
             try
             {
@@ -50,15 +50,21 @@ namespace FundacionAMA.Application.Services.PersonApp
                 }
                 if (persona.Volunteer)
                 {
-                    if (entity.Data.volunaterRequest == null)
+                    //if (entity.Data.volunaterRequest == null)
+                    //{
+                    //    return new OperationResult(System.Net.HttpStatusCode.BadRequest,
+                    //        $"Se debe proporcionar datos si es voluntario");
+                    //}
+                    persona.VolunteerNavigation = new Volunteer()
                     {
-                        return new OperationResult(System.Net.HttpStatusCode.BadRequest,
-                            $"Se debe proporcionar datos si es voluntario");
-                    }
-                    entity.Data.volunaterRequest.MapTo<Volunteer>();
-                    persona.VolunteerNavigation = entity.Data.volunaterRequest.MapTo<Volunteer>();
-                    persona.VolunteerNavigation.PersonId = persona.Id;
-
+                        Active = true,
+                        PersonId = persona.Id,
+                        Status = "A",
+                        ActivityTypeId = 1,
+                    };
+                    //entity.Data.volunaterRequest.MapTo<Volunteer>();
+                    //persona.VolunteerNavigation = entity.Data.volunaterRequest.MapTo<Volunteer>();
+                    //persona.VolunteerNavigation.PersonId = persona.Id;
                 }
                 await _personRepository.InsertAsync(persona);
                 await _personRepository.SaveChangesAsync(entity);
@@ -96,25 +102,45 @@ namespace FundacionAMA.Application.Services.PersonApp
             }
         }
 
+        //public async Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
+        //{
+        //    var query = _personRepository.All.Where(GetFilters(filter));
+        //    var totalRecords = await query.CountAsync();
+        //    var items = await query
+        //        .Skip(filter.Offset)
+        //        .Take(filter.Take)
+        //        .Select(p => new PersonDto
+        //        {
+        //            // Map the necessary fields from Person to PersonDto
+        //            IdentificationTypeId = p.IdentificationTypeId,
+        //            Id = p.Id,
+        //            FirstName = p.FirstName,
+        //            SecondName = p.SecondName,
+        //            LastName = p.LastName,
+        //            SecondLastName = p.SecondLastName,
+        //            Identification = p.Identification,
+        //            NameCompleted = p.NameCompleted,
+        //            Email = p.Email,
+        //            Phone = p.Phone,
+        //        })
+        //        .ToListAsync();
+
+        //    return new OperationResultList<PersonDto>(HttpStatusCode.OK, null, items, filter.Offset, filter.Take, totalRecords);
+        //}
+
         public async Task<IOperationResultList<PersonDto>> GetAll(PersonFilter filter)
         {
-            var query = _personRepository.All.Where(GetFilters(filter));
-            var totalRecords = await query.CountAsync();
-            var items = await query
-                .Skip(filter.Offset)
-                .Take(filter.Take)
-                .Select(p => new PersonDto
-                {
-                    // Map the necessary fields from Person to PersonDto
-                    Id = p.Id,
-                    FirstName = p.FirstName,
-                    LastName = p.LastName,
-                    Identification = p.Identification,
-                    // Add more fields as necessary
-                })
-                .ToListAsync();
-
-            return new OperationResultList<PersonDto>(HttpStatusCode.OK, null, items, filter.Offset, filter.Take, totalRecords);
+            try
+            {
+                var query = _personRepository.All.Where(GetFilters(filter));
+                var totalRecords = await query.CountAsync();
+                return await query
+                    .ToResultListAsync<Person, PersonDto>(Offset: filter.Offset, Take: filter.Take);
+            }
+            catch (Exception ex)
+            {
+                return await ex.ToResultListAsync<PersonDto>();
+            }
         }
 
         private static Expression<Func<Person, bool>> GetFilters(PersonFilter filter)
@@ -150,7 +176,7 @@ namespace FundacionAMA.Application.Services.PersonApp
 
         //    return persona == null
         //        ? new OperationResult<PersonDto>(System.Net.HttpStatusCode.NotFound, $"La persona con identificación {identification} no existe")
-                 
+
         //        : new OperationResult<PersonDto>(System.Net.HttpStatusCode.OK, persona);
         //}
 
@@ -278,8 +304,6 @@ namespace FundacionAMA.Application.Services.PersonApp
                 if (persona.Beneficiary != null)
                 {
                     persona.Beneficiary.PersonId = persona.Id;
-
-
                 }
                 await _personRepository.UpdateAsync(persona);
                 await _personRepository.SaveChangesAsync(entity);
@@ -290,5 +314,37 @@ namespace FundacionAMA.Application.Services.PersonApp
                 return await ex.ToResultAsync();
             }
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+
+            return GetCountVolunteer();
+        }
+
+
+ 
+
+        public async Task<IOperationResult<int>> GetCountVolunteer()
+        {
+            try
+            {
+                int count = await _personRepository.All
+                    .Where(e => e.Active && e.Volunteer)
+                    .CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de excepciones
+                return await ex.ToResultAsync<int>();
+            }
+        }
+
+        private static Expression<Func<Person, bool>> GetFiltersCount(PersonFilter filter)
+        {
+            return e => e.Active &&
+                (!filter.Volunteer.HasValue || e.Volunteer == filter.Volunteer.Value);
+        }
     }
+
 }

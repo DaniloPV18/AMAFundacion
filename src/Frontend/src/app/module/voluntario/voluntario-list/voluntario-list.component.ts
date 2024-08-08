@@ -1,4 +1,11 @@
-import { Component, OnInit,Input,OnChanges,SimpleChange, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VoluntarioService } from '../voluntario.service';
 import { VoluntarioCreateComponent } from '../../voluntario/voluntario-create/voluntario-create.component';
@@ -18,8 +25,8 @@ import { DialogService } from 'primeng/dynamicdialog';
   templateUrl: './voluntario-list.component.html',
   styleUrl: './voluntario-list.component.sass',
 })
-export class VoluntarioListComponent implements OnInit,OnChanges {
-  @Input() isUpdateListDetails:boolean = false;
+export class VoluntarioListComponent implements OnInit, OnChanges {
+  @Input() isUpdateListDetails: boolean = false;
 
   voluntarioList: any[] = [];
   volunteerList: Volunteer[] = [];
@@ -27,92 +34,87 @@ export class VoluntarioListComponent implements OnInit,OnChanges {
   voluntarioListFiltered: any[] = [];
   voluntarioSeleccionado: any;
 
-
-  loading:boolean=false
-  listaPersonas: PersonDto[]=[];
-  totalRows: number=0;
-  personFiler!:PersonFilter;
+  loading: boolean = false;
+  listaPersonas: PersonDto[] = [];
+  totalRows: number = 0;
+  personFiler!: PersonFilter;
 
   EditData(PersonDto: any) {
-
-  this.NavigateUpdate(PersonDto);
+    this.NavigateUpdate(PersonDto);
   }
   constructor(
     private voluntarioService: VoluntarioService,
     private dialog: MatDialog,
     private dialogService: DialogService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
-    ,private personService: PersonService
+    private confirmationService: ConfirmationService,
+    private personService: PersonService
   ) {}
 
   ngOnInit() {
     this.getPerson();
-    this.voluntarioService.getVoluntarioList().subscribe(
-      (response: VoluntarioListResponse) => {
+    this.voluntarioService.getVoluntarioList().subscribe({
+      next: (response: VoluntarioListResponse) => {
         this.voluntarioList = response.result;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al obtener datos:', error);
-      }
-    );
+      },
+    });
   }
 
   handleUpdateListDetails() {
-    this.getPerson();  // Llamada a la función que obtiene las personas
+    this.getPerson();
   }
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
-    for(let change in changes){
-      if(change==='isUpdateListDetails'){
+    for (let change in changes) {
+      if (change === 'isUpdateListDetails') {
         this.handleUpdateListDetails();
       }
     }
   }
   private getPerson() {
-    this.personFiler= {
+    this.personFiler = {
       offset: 0,
       take: 10,
       sort: '',
-    }
+    };
 
-    this.personService.getAllPersons(this.personFiler).subscribe((result) => {
-      this.listaPersonas = result.result;
-      this.totalRows=result.length;
-      this.loading=false;
-    }, (error) => {
-
-    });
+    this.personService.getAllPersons(this.personFiler).subscribe(
+      (result) => {
+        this.listaPersonas = result.result;
+        this.totalRows = result.length;
+        this.loading = false;
+      },
+      (error) => {}
+    );
   }
 
   NavigateUpdate(personDto: PersonDto) {
- 
-    this.dialogService.open(PersonCreateOrEditComponent, {
-      header: 'Crear Voluntario',
-      width: '75%', 
-      height: '85%',
-      data: {update: true, person:personDto },
-      contentStyle: { 'max-height': '500px', overflow: 'auto' },
-      baseZIndex: 10000,
-    })
-    .onClose.subscribe((result) => {
-
-      if (result) {
-       this.getPerson();
-      }
-    });
+    this.dialogService
+      .open(PersonCreateOrEditComponent, {
+        header: 'Crear Voluntario',
+        width: '75%',
+        height: '85%',
+        data: { update: true, person: personDto },
+        contentStyle: { 'max-height': '500px', overflow: 'auto' },
+        baseZIndex: 10000,
+      })
+      .onClose.subscribe((result) => {
+        if (result) {
+          this.getPerson();
+        }
+      });
   }
-  loadDetailsLazy(event:any) {
-
-
+  loadDetailsLazy(event: any) {
     let sortCol = event.sortField;
     let sortColOrder = event.sortOrder;
     let offset = event.first;
     let take = event.rows;
-    let sortStr = "";
-    if (!(sortCol === undefined || sortCol ===null)){
+    let sortStr = '';
+    if (!(sortCol === undefined || sortCol === null)) {
       let sortArray: Sort[] = [];
-      let sortObj: Sort ={
+      let sortObj: Sort = {
         selector: sortCol,
         desc: sortColOrder !== 1,
       };
@@ -123,27 +125,28 @@ export class VoluntarioListComponent implements OnInit,OnChanges {
     this.personFiler.sort = sortStr;
     this.personFiler.take = take;
     this.personFiler.offset = offset;
-    this.personService.getAllPersons(this.personFiler).subscribe((result) => {
-      this.listaPersonas = result.result;
-      this.totalRows=result.length;
-      this.loading=false;
-    }, (error) => {
-
-    });
+    this.personService.getAllPersons(this.personFiler).subscribe(
+      (result) => {
+        this.listaPersonas = result.result;
+        this.totalRows = result.length;
+        this.loading = false;
+      },
+      (error) => {}
+    );
   }
 
   private deletePerson(id: number) {
-    this.personService.deletePerson(id).subscribe((result) => {
-      this.getPerson();
-    }, (error) => {
-
-    });
+    this.personService.deletePerson(id).subscribe(
+      (result) => {
+        this.getPerson();
+      },
+      (error) => {}
+    );
   }
 
   verDetalles(voluntario: any): void {
     voluntario.expandido = !voluntario.expandido;
   }
-
 
   private eliminarVoluntario(id: number) {
     this.voluntarioService.deleteVoluntario(id).subscribe(
@@ -164,28 +167,27 @@ export class VoluntarioListComponent implements OnInit,OnChanges {
       }
     );
   }
-  confirmacionEliminar(event: Event,voluntario: any) {
+  confirmacionEliminar(event: Event, voluntario: any) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Desea eliminar este registro?',
-      header: 'Confirmación de Eliminación', 
+      header: 'Confirmación de Eliminación',
       icon: 'pi pi-info-circle',
       acceptButtonStyleClass: 'p-button-danger p-button-text',
       rejectButtonStyleClass: 'p-button-text p-button-text',
       acceptIcon: 'none',
       rejectIcon: 'none',
       accept: () => {
-        console.log("eliminado")
-       // this.eliminarVoluntario(volunter.id);
+        console.log('eliminado');
+        // this.eliminarVoluntario(volunter.id);
       },
       reject: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Rechazado',
-          detail: 'Eliminacion Cancelada',
+          detail: 'Eliminación Cancelada',
         });
       },
     });
   }
-
 }

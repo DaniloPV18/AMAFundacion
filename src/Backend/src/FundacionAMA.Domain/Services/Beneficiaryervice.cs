@@ -1,8 +1,8 @@
 ﻿using FundacionAMA.Domain.DTO.Beneficiary.Dto;
 using FundacionAMA.Domain.DTO.Beneficiary.FilterDto;
 using FundacionAMA.Domain.DTO.Beneficiary.Request;
-
 using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -76,15 +76,20 @@ namespace FundacionAMA.Domain.Services
         private static Expression<Func<Beneficiary, bool>> GetFilters(BeneficiaryFilter filter)
         {
             return e => e.Active &&
-            (
+            (   // Buscar parcial en el campo identificacion
+                (filter.PersonId == null || e.PersonId == filter.PersonId) &&
+                (string.IsNullOrEmpty(filter.Identification) || EF.Functions.Like(e.Person.Identification, $"%{filter.Identification}%")) &&
 
-            (filter.PersonId == null || e.PersonId == filter.PersonId) &&
-            (string.IsNullOrEmpty(filter.Identification) || e.Person.Identification == filter.Identification) &&
+                // Buscar parcial en cada parte del nombre
+                (string.IsNullOrEmpty(filter.Name) ||
+                    EF.Functions.Like(e.Person.FirstName, $"%{filter.Name}%") ||
+                    EF.Functions.Like(e.Person.SecondName, $"%{filter.Name}%") ||
+                    EF.Functions.Like(e.Person.LastName, $"%{filter.Name}%") ||
+                    EF.Functions.Like(e.Person.SecondLastName, $"%{filter.Name}%")) &&
 
-            (string.IsNullOrEmpty(filter.Name) || e.Person.FirstName == filter.Name || e.Person.SecondName == filter.Name ||
-            e.Person.LastName == filter.Name || e.Person.SecondLastName == filter.Name) &&
-            (string.IsNullOrEmpty(filter.Email) || e.Person.Email == filter.Email)
-                            );
+                // Buscar parcial en el campo email
+                (string.IsNullOrEmpty(filter.Email) || EF.Functions.Like(e.Person.Email, $"%{filter.Email}%"))
+            );
         }
 
         public async Task<IOperationResultList<BeneficiaryDto>> GetAll(BeneficiaryFilter filter)
@@ -176,6 +181,20 @@ namespace FundacionAMA.Domain.Services
             catch (Exception ex)
             {
                 return await ex.ToResultAsync();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _personRepository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
     }

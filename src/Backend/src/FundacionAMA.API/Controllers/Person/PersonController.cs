@@ -1,12 +1,17 @@
-﻿using FundacionAMA.Application.Services.PersonApp;
+﻿using FundacionAMA.Application.Services.BrigadeApp;
+using FundacionAMA.Application.Services.PersonApp;
+using FundacionAMA.Domain.DTO.Brigade.Dto;
+using FundacionAMA.Domain.DTO.Brigade.FilterDto;
 using FundacionAMA.Domain.DTO.Person;
 using FundacionAMA.Domain.DTO.Person.FilterDto;
 using FundacionAMA.Domain.DTO.Person.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Person;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using FundacionAMA.Domain.Shared.Interfaces.Operations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Person
 {
@@ -116,6 +121,45 @@ namespace FundacionAMA.API.Controllers.Person
         {
             IOperationResult result = await _personAppService.Delete(id.ToRequest(this));
             return StatusCode(result);
+        }
+
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                var count = await _personAppService.GetCount();
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
+        [HttpGet("GetCountVolumtario")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCountVolumtario()
+        {
+            try
+            {
+                PersonFilter pf =  new PersonFilter();
+                pf.Volunteer = true;
+                pf.Take = 500;
+                IOperationResultList<PersonDto> Result1 = await _personAppService.GetAll(pf);
+                IOperationResult<int> Result2 = await _personAppService.GetCount();
+                var count1 = new OperationResult<int>(HttpStatusCode.OK, result: Result1.Result.Count());
+                int count2 = Result2.Result;
+                return Ok(count2);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
     }
 }

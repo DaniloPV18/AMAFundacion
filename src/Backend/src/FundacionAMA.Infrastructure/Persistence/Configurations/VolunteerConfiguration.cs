@@ -16,12 +16,12 @@ namespace FundacionAMA.Infrastructure.Persistence.Configurations
 
             entity.Property(e => e.PersonId).ValueGeneratedOnAdd();
             entity.Property(e => e.Address)
-            .IsRequired()
+            //.IsRequired()
             .HasMaxLength(60)
             .IsUnicode(false);
             entity.Property(e => e.EndDate).HasColumnType("date");
             entity.Property(e => e.Gender)
-            .IsRequired()
+            //.IsRequired()
             .HasMaxLength(45)
             .IsUnicode(false);
             entity.Property(e => e.StartDate).HasColumnType("date");

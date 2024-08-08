@@ -296,7 +296,7 @@ namespace FundacionAMA.Infrastructure.Migrations
                 columns: table => new
                 {
                     PersonId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nchar(10)", fixedLength: true, maxLength: 10, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(200)", fixedLength: true, maxLength: 200, nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false, defaultValueSql: "(N'')"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<int>(type: "int", nullable: false),
@@ -560,12 +560,6 @@ namespace FundacionAMA.Infrastructure.Migrations
                 name: "IX_Brigades_CompanyId",
                 table: "Brigades",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Brigades_Name",
-                table: "Brigades",
-                column: "Name",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Brigades_PersonId",

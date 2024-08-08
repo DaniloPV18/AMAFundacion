@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FundacionAMA.Domain.DTO.Company.Dto;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -111,6 +112,20 @@ namespace FundacionAMA.Domain.Services
             {
 
                 return await ex.ToResultAsync<CompanyDto>();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
 

@@ -39,6 +39,12 @@ namespace FundacionAMA.Application.Services.CompanyApp
 
         // aqui modifico 
         public async Task<IOperationResult<CompanyDto>> GetByIdentification(string identification) => await _companyService.GetByIdentification(identification);
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _companyService.GetCount();
+        }
+
         //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<CompanyRequest> entity) => await _companyService.Update(id, entity);

@@ -21,7 +21,23 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class, IEntity
     {
         _context = context;
     }
+    //AÑADIDO 
+    public async Task EliminarRegistroAsync(T entity)
+    {
+        _context.Set<T>().Remove(entity);
+        await SaveChangesAsync();
+    }
 
+    public async Task<T?> GetByIdAsync(Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, params object[] keyValues)
+    {
+        var query = _context.Set<T>().AsQueryable();
+        if (include != null)
+        {
+            query = include(query);
+        }
+        return await query.SingleOrDefaultAsync(e => EF.Property<int>(e, "Id") == (int)keyValues[0]);
+    }
+    //FIN AÑADIDO
     public IQueryable<T> All => _context.Set<T>();
     public Task DeleteAsync(T entity)
     {

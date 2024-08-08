@@ -1,12 +1,17 @@
-﻿using FundacionAMA.Application.Services.VolunteeerApp;
+﻿using FundacionAMA.Application.Services.BrigadeApp;
+using FundacionAMA.Application.Services.VolunteeerApp;
+using FundacionAMA.Domain.DTO.Brigade.Dto;
+using FundacionAMA.Domain.DTO.Brigade.FilterDto;
 using FundacionAMA.Domain.DTO.Volunteer.Dto;
 using FundacionAMA.Domain.DTO.Volunteer.Filter;
 using FundacionAMA.Domain.DTO.Volunteer.Request;
 using FundacionAMA.Domain.Interfaces.Controller.Volunteer;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.Shared.Extensions.Bussines;
 using FundacionAMA.Domain.Shared.Interfaces.Operations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace FundacionAMA.API.Controllers.Volunteer
 {
@@ -119,6 +124,24 @@ namespace FundacionAMA.API.Controllers.Volunteer
         {
             IOperationResult result = await _service.Delete(id.ToRequest(this));
             return StatusCode(result);
+        }
+
+        [HttpGet("count")]
+        [ProducesResponseType(typeof(int), 200)]
+        [ProducesResponseType(typeof(IOperationResult), 500)]
+        public async Task<IActionResult> GetCount()
+        {
+            try
+            {
+                IOperationResultList<VolunteerDto> Result = await _service.GetAll(new VolunteerFilter());
+                //var count = await _service.GetCount();
+                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
+                return Ok(count);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error interno del servidor");
+            }
         }
     }
 

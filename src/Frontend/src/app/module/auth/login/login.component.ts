@@ -10,8 +10,8 @@ import { AuthRequest } from '../../../models/authentication/auth-request';
 })
 export class LoginComponent {
   authRequest: AuthRequest = {
-    User: '9999999999999',
-    Password: 'abc123',
+    User: '',
+    Password: '',
   };
 
 

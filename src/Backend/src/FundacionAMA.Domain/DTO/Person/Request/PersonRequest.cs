@@ -51,7 +51,7 @@ namespace FundacionAMA.Domain.DTO.Person.Request
                (!String.IsNullOrEmpty(FirstName) ? FirstName : string.Empty),
                (!String.IsNullOrEmpty(SecondName) ? SecondName : string.Empty),
                (!String.IsNullOrEmpty(LastName) ? LastName : string.Empty),
-               (!String.IsNullOrEmpty(SecondName) ? SecondName : string.Empty).Trim());
+               (!String.IsNullOrEmpty(SecondLastName) ? SecondLastName : string.Empty).Trim());
         }
     }
     /// <summary>

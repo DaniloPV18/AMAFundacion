@@ -5,17 +5,17 @@ import { DonationCreateOrEditComponent } from './pages/donation-create-or-edit/d
 
 const routes: Routes = [
   {
-    path: 'index', component: DonationIndexComponent
+    path: 'index',
+    component: DonationIndexComponent,
   },
   {
-    path: 'create', component:  DonationCreateOrEditComponent
+    path: 'create',
+    component: DonationCreateOrEditComponent,
   },
- 
-
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class DonationRoutingModule { }
+export class DonationRoutingModule {}

@@ -35,11 +35,18 @@ namespace FundacionAMA.Application.Services.ActivityTypeApp
         {
             return _activityTypeService.GetById(id);
         }
+        /// <inheritdoc/>
         // esto modifque yo
         public Task<IOperationResult<ActivityTypeDto>> GetByIdentification(string identification)
         {
             return _activityTypeService.GetByIdentification(identification);
         }
+
+        public Task<IOperationResult<int>> GetCount()
+        {
+            return _activityTypeService.GetCount();
+        }
+
         //
 
         public Task<IOperationResult> Update(int id, IOperationRequest<ActivityTypeRequest> entity)

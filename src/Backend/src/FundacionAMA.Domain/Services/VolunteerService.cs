@@ -1,8 +1,12 @@
 ﻿using FundacionAMA.Domain.DTO.Volunteer.Dto;
 using FundacionAMA.Domain.DTO.Volunteer.Filter;
 using FundacionAMA.Domain.DTO.Volunteer.Request;
+using FundacionAMA.Domain.Shared.Entities.Operation;
 using FundacionAMA.Domain.DTO.Donor.Request;
 using Microsoft.EntityFrameworkCore;
+using FundacionAMA.Domain.Interfaces.Repositories;
+using System.Linq.Expressions;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -96,6 +100,24 @@ namespace FundacionAMA.Domain.Services
             catch (Exception ex)
             {
                 return await ex.ToResultAsync<VolunteerDto>();
+            }
+        }
+
+        /*public Task<IOperationResult<int>> GetCount()
+        {
+
+        }*/
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
         //

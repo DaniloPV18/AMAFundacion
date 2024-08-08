@@ -4,6 +4,7 @@ using FundacionAMA.Domain.DTO.Donor.Request;
 using FundacionAMA.Domain.Interfaces.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -48,12 +49,12 @@ namespace FundacionAMA.Domain.Services
 
                 if (donor == null)
                 {
-                    return new OperationResult(System.Net.HttpStatusCode.NotFound, "No se encontro el beneficiario");
+                    return new OperationResult(System.Net.HttpStatusCode.NotFound, "No se encontro el donante");
                 }
                 await _repository.DeleteAsync(donor);
                 await _personRepository.DeleteDonorPerson(donor.Person);
                 await _repository.SaveChangesAsync(id);
-                return new OperationResult(System.Net.HttpStatusCode.NoContent, "El beneficiario fue eliminado con exito");
+                return new OperationResult(System.Net.HttpStatusCode.NoContent, "El donante fue eliminado con exito");
 
             }
             catch (Exception ex)
@@ -107,6 +108,20 @@ namespace FundacionAMA.Domain.Services
             catch (Exception ex)
             {
                 return await ex.ToResultAsync<DonorDto>();
+            }
+        }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
             }
         }
 

@@ -1,24 +1,36 @@
 <p-panel class="header-general" header="Personas ">
-    <ng-template pTemplate="icons">
-        <button pButton class="p-button-outlined btn-fund-ama p-btn-style"
-                label="Filtros Consulta" type="button" icon="pi pi-filter-fill" iconPos="left"
-                (click)="openCloseFilter();"></button>
+  <ng-template pTemplate="icons">
+    <button
+      pButton
+      class="p-button-outlined btn-fund-ama p-btn-style"
+      label="Filtros Consulta"
+      type="button"
+      icon="pi pi-filter-fill"
+      iconPos="left"
+      (click)="openCloseFilter()"
+    ></button>
 
-        <button pButton class="p-button-outlined btn-fund-ama ml-1 p-btn-style"
-                label="Crear" type="button" icon="pi pi-plus" iconPos="left"
-                (click)="NavigateToCreate();"></button>
-    </ng-template>
-    <div class="contenedor-filtro row pb-4">
-        <app-person-filer
-        [openContentReceiver] ="openFilterPanel"
-        (queryEmitter) = "getPersonRequestFilter($event)">
-        ></app-person-filer>
-
-    </div>
-    <div class="contenedor-filtro row pb-4">
+    <button
+      pButton
+      class="p-button-outlined btn-fund-ama ml-1 p-btn-style"
+      label="Crear"
+      type="button"
+      icon="pi pi-plus"
+      iconPos="left"
+      (click)="NavigateToCreate()"
+    ></button>
+  </ng-template>
+  <div class="contenedor-filtro row pb-4">
+    <app-person-filer
+      [openContentReceiver]="openFilterPanel"
+      (queryEmitter)="getPersonRequestFilter($event)"
+    >
+    </app-person-filer>
+  </div>
+  <div class="contenedor-filtro row pb-4">
     <app-person-details
-    [isUpdateListDetails]="isUpdateListDetails"
+      [isUpdateListDetails]="isUpdateListDetails"
+      [searchFilter]="cambios"
     ></app-person-details>
-
-    </div>
+  </div>
 </p-panel>

@@ -1,8 +1,12 @@
 <p-dialog header="Ingresar Nuevo Donante" [(visible)]="visible" [modal]="true">
   <ng-template pTemplate="content">
     <div class="container bg-white p-4 rounded">
-      <form [formGroup]="donorForm" (ngSubmit)="guardarDonante()" class="needs-validation" novalidate>
-        
+      <form
+        [formGroup]="donorForm"
+        (ngSubmit)="guardarDonante()"
+        class="needs-validation"
+        novalidate
+      >
         <div class="mb-3">
           <label for="identificacion" class="form-label">Identificación</label>
           <input
@@ -16,7 +20,7 @@
             Por favor, ingrese una identificación.
           </div>
         </div>
-      
+
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
@@ -30,7 +34,7 @@
               />
               <div class="invalid-feedback">Por favor, ingrese un nombre.</div>
             </div>
-      
+
             <div class="mb-3">
               <label for="secondname" class="form-label">Segundo Nombre</label>
               <input
@@ -40,10 +44,12 @@
                 formControlName="secondname"
                 required
               />
-              <div class="invalid-feedback">Por favor, ingrese el segundo nombre.</div>
+              <div class="invalid-feedback">
+                Por favor, ingrese el segundo nombre.
+              </div>
             </div>
           </div>
-      
+
           <div class="col-md-6">
             <div class="mb-3">
               <label for="lastname" class="form-label">Primer Apellido</label>
@@ -58,9 +64,11 @@
                 Por favor, ingrese el primer apellido.
               </div>
             </div>
-      
+
             <div class="mb-3">
-              <label for="secondlastname" class="form-label">Segundo Apellido</label>
+              <label for="secondlastname" class="form-label"
+                >Segundo Apellido</label
+              >
               <input
                 type="text"
                 class="form-control"
@@ -74,11 +82,13 @@
             </div>
           </div>
         </div>
-      
+
         <div class="row">
           <div class="col-md-6">
             <div class="mb-3">
-              <label for="namecomplete" class="form-label">Nombre Completo</label>
+              <label for="namecomplete" class="form-label"
+                >Nombre Completo</label
+              >
               <input
                 type="tel"
                 class="form-control"
@@ -90,8 +100,6 @@
                 Por favor, ingrese el Nombre Completo.
               </div>
             </div>
-      
-          
           </div>
           <div class="col-md-6">
             <div class="mb-3">
@@ -107,7 +115,7 @@
                 Por favor, ingrese un número de celular válido (10 dígitos).
               </div>
             </div>
-      
+
             <div class="mb-3">
               <label for="email" class="form-label">Correo Electrónico</label>
               <input
@@ -122,16 +130,14 @@
             </div>
           </div>
         </div>
-      
-       
-
 
         <div class="d-flex align-items-center gap-2">
           <button type="submit" class="btn btn-primary">Guardar</button>
-          <button type="button" (click)="closeDialog()" class="btn btn-danger">Cancelar</button>
+          <button type="button" (click)="closeDialog()" class="btn btn-danger">
+            Cancelar
+          </button>
         </div>
       </form>
     </div>
   </ng-template>
 </p-dialog>
-

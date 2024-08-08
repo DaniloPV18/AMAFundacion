@@ -1,6 +1,7 @@
 ﻿using FundacionAMA.Domain.DTO.Donation.Dto;
 using FundacionAMA.Domain.DTO.Donation.Filter;
 using FundacionAMA.Domain.DTO.Donation.Request;
+using System.Net;
 
 namespace FundacionAMA.Domain.Services
 {
@@ -110,6 +111,21 @@ namespace FundacionAMA.Domain.Services
                 return await ex.ToResultAsync<DonationDto>();
             }
         }
+
+        public async Task<IOperationResult<int>> GetCount()
+        {
+            try
+            {
+                var count = await _repository.All.CountAsync();
+                return new OperationResult<int>(HttpStatusCode.OK, result: count);
+            }
+            catch (Exception ex)
+            {
+                return new OperationResult<int>(HttpStatusCode.InternalServerError,
+                                                message: "Error al contar brigadas");
+            }
+        }
+
         //
 
         public async Task<IOperationResult> Update(int id, IOperationRequest<DonationRequest> entity)
