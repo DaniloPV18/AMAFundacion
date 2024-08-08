@@ -56,8 +56,8 @@ export class IndexComponent {
     //});
     this.personService.getVoluntarioCount().subscribe({
       next: (res: any) => {
-        if (res && res.result !== undefined) {
-          this.voluntariosCount = res.result;
+        if (res && res !== undefined) {
+          this.voluntariosCount = res;
         } else {
           this.voluntariosCount = -51;
         }
