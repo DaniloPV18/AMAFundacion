@@ -22,6 +22,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@angular/service-worker": "^17.0.0",
     "@ngrx/store": "^17.0.1",
     "@profabric/angular-components": "^0.1.7",
     "admin-lte": "^3.2.0",
