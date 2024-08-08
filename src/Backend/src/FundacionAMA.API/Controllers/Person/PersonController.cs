@@ -147,9 +147,14 @@ namespace FundacionAMA.API.Controllers.Person
         {
             try
             {
-                IOperationResultList<PersonDto> Result = await _personAppService.GetAll(new PersonFilter());
-                var count = new OperationResult<int>(HttpStatusCode.OK, result: Result.Result.Count());
-                return Ok(count);
+                PersonFilter pf =  new PersonFilter();
+                pf.Volunteer = true;
+                pf.Take = 500;
+                IOperationResultList<PersonDto> Result1 = await _personAppService.GetAll(pf);
+                IOperationResult<int> Result2 = await _personAppService.GetCount();
+                var count1 = new OperationResult<int>(HttpStatusCode.OK, result: Result1.Result.Count());
+                int count2 = Result2.Result;
+                return Ok(count2);
             }
             catch (Exception ex)
             {
